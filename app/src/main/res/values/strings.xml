@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">knot-setup-app</string>
+
+    <!-- Strings used in activity_list_gateway -->
+    <string name="list_gateway_title">KNoT Setup</string>
+    <string name="gateway_subtitle">&#160; Gateway</string>
+
+    <!-- Strings used in activity_scan_for_devices -->
+    <string name="scan_label">Chose the KNoT gateway you want to connect with.</string>
+    <string name="scanning">Looking for devices... </string>
+
+</resources>
