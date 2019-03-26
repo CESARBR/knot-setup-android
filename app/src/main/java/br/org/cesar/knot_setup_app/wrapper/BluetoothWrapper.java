@@ -43,18 +43,20 @@ public class BluetoothWrapper {
     private String TAG = "br.org.cesar.knot_setup_app.wrapper.BluetoothWrapper";
 
     //Create class that instantiates a class with these characteristics
-    private UUID serviceUUID;
-    private UUID SERVICE_UUID;
-    private UUID SERVIC_UUID;
-    private UUID STATE_CHARACTERISTIC;
+
+    public static UUID SERVICE_UUID = UUID.fromString("414b9c8b-23f5-891a-46ed-410743e42425");
+    public static UUID STATE_CHARACTERISTIC  = UUID.fromString("414b9c8b-23f5-891a-46ed-410743e42429");
+
+
+    public BluetoothWrapper(Context context) {
+        this.context = context;
+    }
 
 
     public boolean checkBluetoothHardware(Activity activity) {
 
         //Init bluetooth and check if it's enabled
-        //TODO: check if it's ok for me to do this.
-        BluetoothWrapper bluetoothWrapper = new BluetoothWrapper();
-        boolean bluetoothEnabled = bluetoothWrapper.initBluetooth();
+        boolean bluetoothEnabled = this.initBluetooth();
 
         //Check if user permission to user bluetooth
         if (!bluetoothEnabled) {
@@ -117,10 +119,11 @@ public class BluetoothWrapper {
             }
 
         };
-
+        Log.d("DEV-LOG","bluetoothAdapter");
         if (bluetoothAdapter != null) {
+            Log.d("DEV-LOG","!= null");
             ScanFilter filter = new ScanFilter.Builder()
-                    .setServiceUuid(new ParcelUuid(serviceUUID)).build();
+                    .setServiceUuid(new ParcelUuid(SERVICE_UUID)).build();
             ScanSettings settings = new ScanSettings.Builder()
                     .setScanMode(MATCH_NUM_FEW_ADVERTISEMENT).build();
             bluetoothAdapter.getBluetoothLeScanner().startScan(

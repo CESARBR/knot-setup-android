@@ -14,7 +14,7 @@ public class knotSetupApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        bluetoothWrapper = new BluetoothWrapper();
+        bluetoothWrapper = new BluetoothWrapper(this);
         bluetoothDevice = new BluetoothDevice(null,0);
     }
 

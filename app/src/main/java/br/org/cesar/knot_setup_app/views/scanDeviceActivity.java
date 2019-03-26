@@ -36,7 +36,7 @@ public class scanDeviceActivity  extends AppCompatActivity {
 
 
     private void checkBluetooth() {
-        BluetoothWrapper bluetoothWrapper = new BluetoothWrapper();
+        bluetoothWrapper = new BluetoothWrapper(this);
         //Check for bluetooth hardware and start scanning for device
         if (bluetoothWrapper.checkBluetoothHardware(scanDeviceActivity.this)) {
             startScan();
@@ -61,6 +61,7 @@ public class scanDeviceActivity  extends AppCompatActivity {
                             @Override
                             public void onScanComplete(android.bluetooth.le.ScanResult result) {
                                 //Add to adapter list as a connecting option
+                                Log.d("DEV-LOG",result.getDevice().getName());
                                 deviceList.add(new BluetoothDevice(result.getDevice(),result.getRssi()));
                                 Collections.sort(deviceList);
                                 runOnUiThread(new Runnable() {
