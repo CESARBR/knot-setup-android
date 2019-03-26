@@ -61,6 +61,18 @@ public class scanDeviceActivity  extends AppCompatActivity {
                             @Override
                             public void onScanComplete(android.bluetooth.le.ScanResult result) {
                                 //Add to adapter list as a connecting option
+
+                                //Check if current device was already inserted on list
+                                for (BluetoothDevice device : deviceList) {
+                                    if (device.getDevice().getAddress().equals(result.getDevice()
+                                            .getAddress())) {
+                                        deviceList.remove(device);
+                                        break;
+                                    }
+                                }
+
+
+
                                 Log.d("DEV-LOG",result.getDevice().getName());
                                 deviceList.add(new BluetoothDevice(result.getDevice(),result.getRssi()));
                                 Collections.sort(deviceList);
