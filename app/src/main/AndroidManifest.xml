@@ -15,14 +15,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/NoActionBar">
-        <activity android:name=".listGatewayActivity">
+        <activity android:name=".views.listGatewayActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".scanForDevicesActivity"></activity>
+        <activity android:name=".views.scanDeviceActivity"></activity>
+        <activity android:name=".views.configureGatewayActivity"></activity>
     </application>
 
 </manifest>

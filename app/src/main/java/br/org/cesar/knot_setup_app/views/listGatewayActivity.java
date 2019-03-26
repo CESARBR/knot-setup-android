@@ -1,10 +1,12 @@
-package br.org.cesar.knot_setup_app;
+package br.org.cesar.knot_setup_app.views;
 
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+
+import br.org.cesar.knot_setup_app.R;
 
 public class listGatewayActivity extends AppCompatActivity {
 
@@ -20,7 +22,7 @@ public class listGatewayActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //TODO: Pass something that sinalizes the UUID i want to filter byx
-                Intent i = new Intent(listGatewayActivity.this, scanForDevicesActivity.class);
+                Intent i = new Intent(listGatewayActivity.this,scanDeviceActivity.class );
                 startActivity(i);
             }
         });
