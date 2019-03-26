@@ -119,9 +119,8 @@ public class BluetoothWrapper {
             }
 
         };
-        Log.d("DEV-LOG","bluetoothAdapter");
+
         if (bluetoothAdapter != null) {
-            Log.d("DEV-LOG","!= null");
             ScanFilter filter = new ScanFilter.Builder()
                     .setServiceUuid(new ParcelUuid(SERVICE_UUID)).build();
             ScanSettings settings = new ScanSettings.Builder()
