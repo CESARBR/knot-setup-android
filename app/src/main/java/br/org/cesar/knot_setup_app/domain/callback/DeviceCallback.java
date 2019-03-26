@@ -10,6 +10,7 @@ public interface DeviceCallback {
     /**
      * When disconnected from device
      */
+
     void onDisconnect();
 
     void onServiceDiscoveryComplete();
@@ -29,6 +30,4 @@ public interface DeviceCallback {
     void onCharacteristicReadFail();
 
     void onCharacteristicChanged();
-
-    void onState();
 }
