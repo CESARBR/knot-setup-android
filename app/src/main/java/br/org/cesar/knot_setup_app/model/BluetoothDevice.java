@@ -15,7 +15,6 @@ public class BluetoothDevice implements Comparable<BluetoothDevice> {
         this.rssi = rssi;
     }
 
-
     public android.bluetooth.BluetoothDevice getDevice() {
         return device;
     }
