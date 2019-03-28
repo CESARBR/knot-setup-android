@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
 
+import java.util.UUID;
+
 import br.org.cesar.knot_setup_app.R;
 import br.org.cesar.knot_setup_app.domain.callback.DeviceCallback;
 import br.org.cesar.knot_setup_app.knotSetupApplication;
@@ -15,11 +17,23 @@ public class configureGatewayActivity extends AppCompatActivity {
 
     private BluetoothWrapper bluetoothWrapper;
     private BluetoothDevice device;
-    String Channel = "12";
-    String NetName = "asdasdsa";
-    String PanID = "asdasdsa";
-    String Xpaind = "asdasdsa";
-    String IPV6 = "asdasdsa";
+    private String Channel = "12";
+    private String NetName = "asdasdsa";
+    private String PanID = "asdasdsa";
+    private String Xpaind = "asdasdsa";
+    private String IPV6 = "asdasdsa";
+
+    private final UUID otSettingsService = UUID.fromString("a8a9e49c-aa9a-d441-9bec-817bb4900d30");
+    private final UUID ChannelCharacteristic = UUID.fromString("a8a9e49c-aa9a-d441-9bec-817bb4900d31");
+    private final UUID NetNameCharacteristic = UUID.fromString("a8a9e49c-aa9a-d441-9bec-817bb4900d32");
+    private final UUID PanIDCharacteristic = UUID.fromString("a8a9e49c-aa9a-d441-9bec-817bb4900d33");
+    private final UUID XpanidCharacteristic = UUID.fromString("a8a9e49c-aa9a-d441-9bec-817bb4900d34");
+    private final UUID MasterKeyCharacteristic = UUID.fromString("a8a9e49c-aa9a-d441-9bec-817bb4900d35");
+
+    private final UUID IPV6Service = UUID.fromString("49601183-5db4-498b-b35a-e6ddbe1c1470");
+    private final UUID IPV6Characteristic = UUID.fromString("49601183-5db4-498b-b35a-e6ddbe1c1471");
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,17 +41,23 @@ public class configureGatewayActivity extends AppCompatActivity {
         setContentView(R.layout.activity_configure_gateway);
         this.bluetoothWrapper = knotSetupApplication.getBluetoothWrapper();
         this.device = knotSetupApplication.getBluetoothDevice();
+        Log.d("DEV-LOG", this.device.getDevice().getName());
         callbackFlux();
-
     }
 
-    private void writeWrapper(String toWrite){
+    private void writeWrapper(UUID service, UUID characteristic, String valtoWrite){
+        Boolean bool;
+        Log.d("DEV-LOG","writeBegan" );
+        bool = this.bluetoothWrapper.write(service,characteristic,valtoWrite);
+        Log.d("DEV-LOG","Write status: " + bool);
     }
 
 
 
     private void callbackFlux(){
 
+
+        Log.d("DEV-LOG","CallbackFlux");
         bluetoothWrapper.waitForBonding(device, new DeviceCallback() {
             @Override
             public void onConnect() {
@@ -48,6 +68,8 @@ public class configureGatewayActivity extends AppCompatActivity {
                                 "successful!", Toast.LENGTH_LONG).show();
                     }
                 });
+                writeWrapper(otSettingsService,NetNameCharacteristic,NetName);
+
             }
             @Override
             public void onCharacteristicChanged(){

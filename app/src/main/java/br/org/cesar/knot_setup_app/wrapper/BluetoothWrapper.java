@@ -149,13 +149,15 @@ public class BluetoothWrapper {
     public void connectToDevice(final br.org.cesar.knot_setup_app.model.BluetoothDevice device, final DeviceCallback callback) {
 
         //TODO: Implement bluetooth device Class
-        Log.d(TAG, "Stop scanning for devices. Trying to connect to Smart device...");
+        Log.d("DEV-LOG","connectToDevice");
+
         my_gatt = device.getDevice().connectGatt(context, true, new BluetoothGattCallback() {
             @Override
             public void onConnectionStateChange(BluetoothGatt gatt, int status, int newState) {
                 super.onConnectionStateChange(gatt, status, newState);
-
+                Log.d("DEV-LOG","onConnectionStateChange");
                 if (status == BluetoothGatt.GATT_SUCCESS && newState == BluetoothProfile.STATE_CONNECTED) {
+                    Log.d("DEV-LOG","callback.onConnect");
                     callback.onConnect();
                 }
 
@@ -199,6 +201,7 @@ public class BluetoothWrapper {
                 super.onReadRemoteRssi(gatt, rssi, status);
 
                 if(status == BluetoothGatt.GATT_SUCCESS){
+                    Log.d("DEV-LOG","rssi: " + rssi);
                     callback.onReadRssiComplete();
                 }
                 else{
@@ -233,6 +236,14 @@ public class BluetoothWrapper {
         my_gatt.readRemoteRssi();
     }
 
+
+    public boolean write(UUID service ,UUID characteristic, String valToWrite){
+        BluetoothGattCharacteristic writeCharacteristic = my_gatt.getService(service).getCharacteristic(characteristic);
+        Log.d("DEV-LOG", "writeInprocess");
+        writeCharacteristic.setValue(valToWrite.getBytes());
+        Log.d("DEV-LOG", "writeDon");
+        return my_gatt.writeCharacteristic(writeCharacteristic);
+    }
 
     public void readCharacteristic(){
         my_gatt.discoverServices();
