@@ -1,6 +1,7 @@
 package br.org.cesar.knot_setup_app.views;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.wifi.ScanResult;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -17,11 +18,14 @@ import java.util.List;
 import br.org.cesar.knot_setup_app.R;
 import br.org.cesar.knot_setup_app.domain.callback.DeviceCallback;
 import br.org.cesar.knot_setup_app.domain.callback.ScannerCallback;
+import br.org.cesar.knot_setup_app.persistence.mysqlDatabase.DBHelper;
 import br.org.cesar.knot_setup_app.views.adapter.DeviceAdapter;
 import br.org.cesar.knot_setup_app.wrapper.BluetoothWrapper;
 import br.org.cesar.knot_setup_app.model.BluetoothDevice;
 
 public class scanDeviceActivity  extends AppCompatActivity {
+
+    private DBHelper mydb ;
 
     private BluetoothWrapper bluetoothWrapper;
     private List<BluetoothDevice> deviceList;
@@ -32,6 +36,7 @@ public class scanDeviceActivity  extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scan_for_devices);
         checkBluetooth();
+
     }
 
 
@@ -50,7 +55,7 @@ public class scanDeviceActivity  extends AppCompatActivity {
      */
     private void startScan() {
 
-        Toast.makeText(scanDeviceActivity.this, "Start configuring your Smart device...", Toast
+        Toast.makeText(scanDeviceActivity.this, "Start configuring your device...", Toast
                 .LENGTH_LONG).show();
         setupAdapter();
 
@@ -71,9 +76,6 @@ public class scanDeviceActivity  extends AppCompatActivity {
                                     }
                                 }
 
-
-
-                                Log.d("DEV-LOG",result.getDevice().getName());
                                 deviceList.add(new BluetoothDevice(result.getDevice(),result.getRssi()));
                                 Collections.sort(deviceList);
                                 runOnUiThread(new Runnable() {
@@ -89,7 +91,7 @@ public class scanDeviceActivity  extends AppCompatActivity {
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        Toast.makeText(scanDeviceActivity.this, "Scan for Smart device " +
+                                        Toast.makeText(scanDeviceActivity.this, "Scan for device" +
                                                 " has failed.", Toast.LENGTH_LONG).show();
                                     }
                                 });
@@ -109,8 +111,10 @@ public class scanDeviceActivity  extends AppCompatActivity {
         //Define list view and adapter
         deviceList = new ArrayList<>();
         adapter = new DeviceAdapter(this, R.layout.item_device, deviceList);
+
         ListView listView = findViewById(R.id.device_list);
         listView.setAdapter(adapter);
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -123,14 +127,12 @@ public class scanDeviceActivity  extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(scanDeviceActivity.this, "Scan for Smart device " +
+                                Toast.makeText(scanDeviceActivity.this, "Scan for device " +
                                         "successful!", Toast.LENGTH_LONG).show();
 
                                 //Send intent to configure device
-                                Intent intent = new Intent(scanDeviceActivity.this,
-                                        configureGatewayActivity.class);
-                                intent.putExtra("WUBALUDADUBDUB", device.getDevice()
-                                        .getName());
+                                Intent intent = new Intent(scanDeviceActivity.this, configureGatewayActivity.class);
+                                intent.putExtra("deviceName", device.getDevice().getName());
 
                                 startActivity(intent);
                                 finish();
@@ -138,29 +140,62 @@ public class scanDeviceActivity  extends AppCompatActivity {
                         });
                     }
                     @Override
-                    public void onCharacteristicChanged(){}
+                    public void onCharacteristicChanged(){
+                        Log.d("DEV-LOG","Characteristic changed?");
+                    }
                     @Override
-                    public void onDisconnect(){}
+                    public void onDisconnect(){
+                        Log.d("DEV-LOG","Disconnected");
+                    }
                     @Override
-                    public void onServiceDiscoveryComplete(){}
+                    public void onServiceDiscoveryComplete(){
+                        Log.d("DEV-LOG","Services discovered");
+                    }
+
                     @Override
-                    public void onServiceDiscoveryFail(){}
+                    public void onServiceDiscoveryFail(){
+                        Log.d("DEV-LOG","Service discovery failed");
+                    }
+
                     @Override
-                    public void onCharacteristicWriteComplete(){}
+                    public void onCharacteristicWriteComplete(){
+                        Log.d("DEV-LOG","Characteristic write");
+
+                    }
+
                     @Override
-                    public void onCharacteristicWriteFail(){}
+                    public void onCharacteristicWriteFail(){
+                        Log.d("DEV-LOG","Characteristic write failed");
+                    }
                     @Override
-                    public void onReadRssiComplete(){}
+                    public void onReadRssiComplete(){
+                        Log.d("DEV-LOG","Rssi read");
+                    }
                     @Override
-                    public void onReadRssiFail(){}
+                    public void onReadRssiFail(){
+                        Log.d("DEV-LOG","Rssi read failed");
+                    }
+
                     @Override
-                    public void onCharacteristicReadComplete(){}
+                    public void onCharacteristicReadComplete(){
+                        Log.d("DEV-LOG","Characteristic read");
+                    }
                     @Override
-                    public void onCharacteristicReadFail(){}
+                    public void onCharacteristicReadFail(){
+                        Log.d("DEV-LOG","Characteristic read failed");
+                    }
 
                 });
             }
         });
+    }
+
+    protected void onDestroy(){
+        super.onDestroy();
+        //TODO: check if scan was on before...
+        if(bluetoothWrapper.isConnected()){
+            bluetoothWrapper.closeConn();
+        }
     }
 
 }
