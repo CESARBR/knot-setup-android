@@ -9,4 +9,7 @@
     <string name="scan_label">Chose the KNoT gateway you want to connect with.</string>
     <string name="scanning">Looking for devices... </string>
 
+    <string name="bluetooth_device">Bluetooth setting THINGs up</string>
+    <string name="loading">Loading... </string>
+
 </resources>
