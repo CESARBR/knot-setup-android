@@ -37,7 +37,7 @@ public class BluetoothWrapper {
     private BluetoothAdapter bluetoothAdapter;
     private Context context;
     private ScanCallback scanCallback;
-    private BluetoothGatt my_gatt;
+    private BluetoothGatt my_gatt = null;
 
 
     private String TAG = "br.org.cesar.knot_setup_app.wrapper.BluetoothWrapper";
@@ -135,6 +135,13 @@ public class BluetoothWrapper {
         bluetoothAdapter.getBluetoothLeScanner().stopScan(scanCallback);
     }
 
+    public boolean isConnected(){
+        if(my_gatt == null){
+            return false;
+        }
+        return true;
+    }
+
     /**
      * Connect directly with the smart device
      * @param device bluetooth device found
@@ -219,6 +226,23 @@ public class BluetoothWrapper {
         });
 
     }
+
+
+
+    public void getRssi(){
+        my_gatt.readRemoteRssi();
+    }
+
+
+    public void readCharacteristic(){
+        my_gatt.discoverServices();
+    }
+
+    public void closeConn(){
+        my_gatt.disconnect();
+        my_gatt.close();
+    }
+
 
 
     /**
