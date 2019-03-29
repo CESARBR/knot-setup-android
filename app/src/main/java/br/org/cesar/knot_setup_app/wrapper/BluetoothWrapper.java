@@ -23,6 +23,7 @@ import android.os.ParcelUuid;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.UUID;
 
@@ -147,9 +148,6 @@ public class BluetoothWrapper {
      */
     public void connectToDevice(final br.org.cesar.knot_setup_app.model.BluetoothDevice device, final DeviceCallback callback) {
 
-        //TODO: Implement bluetooth device Class
-        Log.d("DEV-LOG","connectToDevice");
-
         my_gatt = device.getDevice().connectGatt(context, true, new BluetoothGattCallback() {
             @Override
             public void onConnectionStateChange(BluetoothGatt gatt, int status, int newState) {
@@ -171,9 +169,6 @@ public class BluetoothWrapper {
 
                 if(status == gatt.GATT_SUCCESS) {
                     super.onServicesDiscovered(gatt, status);
-                    //TODO: change this
-                    BluetoothGattCharacteristic stateCharacteristic = gatt.getService(SERVICE_UUID).getCharacteristic(STATE_CHARACTERISTIC);
-                    gatt.readCharacteristic(stateCharacteristic);
                     callback.onServiceDiscoveryComplete();
                 }
                 else{
@@ -201,8 +196,7 @@ public class BluetoothWrapper {
                 super.onReadRemoteRssi(gatt, rssi, status);
 
                 if(status == BluetoothGatt.GATT_SUCCESS){
-                    Log.d("DEV-LOG","rssi: " + rssi);
-                    callback.onReadRssiComplete();
+                    callback.onReadRssiComplete(rssi);
                 }
                 else{
                     callback.onReadRssiFail();
@@ -215,7 +209,7 @@ public class BluetoothWrapper {
                 super.onCharacteristicRead(gatt,characteristic,status);
 
                 if (status == BluetoothGatt.GATT_SUCCESS) {
-                    callback.onCharacteristicReadComplete();
+                    callback.onCharacteristicReadComplete(characteristic.getValue());
                 }
 
                 else{callback.onCharacteristicReadFail();}
@@ -241,15 +235,18 @@ public class BluetoothWrapper {
         BluetoothGattCharacteristic writeCharacteristic = my_gatt.getService(service).getCharacteristic(characteristic);
         writeCharacteristic.setValue(valToWrite.getBytes());
         my_gatt.writeCharacteristic(writeCharacteristic);
-        Log.d("DEV-LOG", "writeEnd?");
     }
 
-    public void readCharacteristic(){
-        my_gatt.discoverServices();
+    public void readCharacteristic(UUID service ,UUID characteristic){
+        BluetoothGattCharacteristic stateCharacteristic = my_gatt.getService(service).getCharacteristic(characteristic);
+        my_gatt.readCharacteristic(stateCharacteristic);
     }
 
     public void closeConn(){
         my_gatt.disconnect();
+    }
+
+    public void closeGatt(){
         my_gatt.close();
     }
 

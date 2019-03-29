@@ -21,11 +21,11 @@ public interface DeviceCallback {
 
     void onCharacteristicWriteFail();
 
-    void onReadRssiComplete();
+    void onReadRssiComplete(int rssi);
 
     void onReadRssiFail();
 
-    void onCharacteristicReadComplete();
+    void onCharacteristicReadComplete(byte[] value);
 
     void onCharacteristicReadFail();
 
