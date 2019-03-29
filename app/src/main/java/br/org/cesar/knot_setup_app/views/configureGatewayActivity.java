@@ -45,6 +45,7 @@ public class configureGatewayActivity extends AppCompatActivity {
     }
 
     private void callbackFlux(){
+
         Log.d("DEV-LOG","CallbackFlux");
         bluetoothWrapper.waitForBonding(device, new DeviceCallback() {
             @Override
@@ -59,21 +60,29 @@ public class configureGatewayActivity extends AppCompatActivity {
                 Log.d("DEV-LOG","OnConnect");
                 bluetoothWrapper.discoverServices();
             }
+
             @Override
             public void onCharacteristicChanged(){
                 Log.d("DEV-LOG","Characteristic changed?");
             }
+
             @Override
             public void onDisconnect(){
                 Log.d("DEV-LOG","Disconnected");
                 bluetoothWrapper.closeGatt();
                 finish();
             }
+
             @Override
             public void onServiceDiscoveryComplete(){
                 Log.d("DEV-LOG","Services discovered");
                 //TODO: Depending on the operation method, after discovery, a write or a read will be called
-                gatewayConfigRead();
+                if(true){
+                    thingConfigWrite("");
+                }
+                else{
+                    gatewayConfigRead();
+                }
             }
 
             @Override
@@ -88,8 +97,8 @@ public class configureGatewayActivity extends AppCompatActivity {
                     bluetoothWrapper.closeConn();
                 }
                 else {
-                    read_count++;
-                    gatewayConfigRead();
+                    write_count++;
+                    thingConfigWrite("");
                 }
             }
 
@@ -97,14 +106,17 @@ public class configureGatewayActivity extends AppCompatActivity {
             public void onCharacteristicWriteFail(){
                 Log.d("DEV-LOG","Characteristic write failed");
             }
+
             @Override
             public void onReadRssiComplete(int rssi){
                 Log.d("DEV-LOG","Rssi read: " + rssi);
             }
+
             @Override
             public void onReadRssiFail(){
                 Log.d("DEV-LOG","Rssi read failed");
             }
+
             @Override
             public void onCharacteristicReadComplete(byte[] value){
                 String valueRead;
@@ -121,6 +133,7 @@ public class configureGatewayActivity extends AppCompatActivity {
                     gatewayConfigRead();
                 }
             }
+
             @Override
             public void onCharacteristicReadFail(){
                 Log.d("DEV-LOG","Characteristic read failed");
@@ -130,7 +143,13 @@ public class configureGatewayActivity extends AppCompatActivity {
     }
 
 
+
     private void writeWrapper(UUID service, UUID characteristic, String valtoWrite){
+        this.bluetoothWrapper.write(service,characteristic,valtoWrite);
+    }
+
+
+    private void writeWrapper(UUID service, UUID characteristic, byte[] valtoWrite){
         this.bluetoothWrapper.write(service,characteristic,valtoWrite);
     }
 
@@ -139,26 +158,29 @@ public class configureGatewayActivity extends AppCompatActivity {
     }
 
     private void thingConfigWrite(String valToWrite){
+        byte[] value = new byte[1];
+        value[0] = (byte) (0x12);
+
         switch (write_count){
             case 0:
-                Log.d("DEV-LOG", "ReadWrapper: Channel" );
-                writeWrapper(otSettingsService,ChannelCharacteristic,valToWrite);
+                Log.d("DEV-LOG", "Write Wrapper: Channel" );
+                writeWrapper(otSettingsService,ChannelCharacteristic,value);
                 break;
             case 1:
-                Log.d("DEV-LOG", "ReadWrapper: NetName");
-                writeWrapper(otSettingsService,NetNameCharacteristic,valToWrite);
+                Log.d("DEV-LOG", "WriteWrapper: NetName");
+                writeWrapper(otSettingsService,NetNameCharacteristic,"lololo lololo");
                 break;
             case 2:
-                Log.d("DEV-LOG", "ReadWrapper: PanID");
-                writeWrapper(otSettingsService,PanIDCharacteristic,valToWrite);
+                Log.d("DEV-LOG", "WriteWrapper: PanID");
+                writeWrapper(otSettingsService,PanIDCharacteristic,value);
                 break;
             case 3:
-                Log.d("DEV-LOG", "ReadWrapper: XpanID");
-                writeWrapper(otSettingsService,XpanidCharacteristic,valToWrite);
+                Log.d("DEV-LOG", "WriteWrapper: XpanID");
+                writeWrapper(otSettingsService,XpanidCharacteristic,"ooosh");
                 break;
             case 4:
-                Log.d("DEV-LOG", "ReadWrapper: IPV6");
-                writeWrapper(IPV6Service,IPV6Characteristic,valToWrite);
+                Log.d("DEV-LOG", "WriteWrapper: IPV6");
+                writeWrapper(IPV6Service,IPV6Characteristic,"the end");
                 writeDone = true;
         }
     }

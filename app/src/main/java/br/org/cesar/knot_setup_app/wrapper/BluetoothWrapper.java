@@ -237,6 +237,12 @@ public class BluetoothWrapper {
         my_gatt.writeCharacteristic(writeCharacteristic);
     }
 
+    public void write(UUID service ,UUID characteristic, byte[] valToWrite){
+        BluetoothGattCharacteristic writeCharacteristic = my_gatt.getService(service).getCharacteristic(characteristic);
+        writeCharacteristic.setValue(valToWrite);
+        my_gatt.writeCharacteristic(writeCharacteristic);
+    }
+
     public void readCharacteristic(UUID service ,UUID characteristic){
         BluetoothGattCharacteristic stateCharacteristic = my_gatt.getService(service).getCharacteristic(characteristic);
         my_gatt.readCharacteristic(stateCharacteristic);
