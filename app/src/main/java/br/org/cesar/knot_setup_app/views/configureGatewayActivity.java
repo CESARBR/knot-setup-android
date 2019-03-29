@@ -11,6 +11,7 @@ import br.org.cesar.knot_setup_app.R;
 import br.org.cesar.knot_setup_app.domain.callback.DeviceCallback;
 import br.org.cesar.knot_setup_app.knotSetupApplication;
 import br.org.cesar.knot_setup_app.model.BluetoothDevice;
+import br.org.cesar.knot_setup_app.persistence.mysqlDatabase.DBHelper;
 import br.org.cesar.knot_setup_app.wrapper.BluetoothWrapper;
 
 public class configureGatewayActivity extends AppCompatActivity {
@@ -21,6 +22,8 @@ public class configureGatewayActivity extends AppCompatActivity {
     private Integer write_count = 0;
     private boolean readDone = false;
     private boolean writeDone = false;
+    private DBHelper mydb;
+    private Gateway gateway;
 
     private final UUID otSettingsService = UUID.fromString("a8a9e49c-aa9a-d441-9bec-817bb4900d30");
     private final UUID ChannelCharacteristic = UUID.fromString("a8a9e49c-aa9a-d441-9bec-817bb4900d31");
@@ -36,10 +39,16 @@ public class configureGatewayActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_configure_gateway);
+
         this.bluetoothWrapper = knotSetupApplication.getBluetoothWrapper();
         this.device = knotSetupApplication.getBluetoothDevice();
+
         Log.d("DEV-LOG", this.device.getDevice().getName());
+
+        gateway = new Gateway();
+        gateway.name = device.getDevice().getName();
 
         callbackFlux();
     }
@@ -77,7 +86,7 @@ public class configureGatewayActivity extends AppCompatActivity {
             public void onServiceDiscoveryComplete(){
                 Log.d("DEV-LOG","Services discovered");
                 //TODO: Depending on the operation method, after discovery, a write or a read will be called
-                if(true){
+                if(false){
                     thingConfigWrite("");
                 }
                 else{
@@ -120,11 +129,18 @@ public class configureGatewayActivity extends AppCompatActivity {
             @Override
             public void onCharacteristicReadComplete(byte[] value){
                 String valueRead;
+
                 if(value[0] < 97){valueRead = bytesToHex(value);}
+
                 else {valueRead = new String(value);}
+
                 Log.d("DEV-LOG","Characteristic read: " + valueRead);
 
+                // Add read characteristic to gateway object
+                gatewayConfigPersist(new String(value));
+
                 if(readDone){
+                    gatewayDBWrapper();
                     bluetoothWrapper.closeConn();
                 }
 
@@ -141,8 +157,6 @@ public class configureGatewayActivity extends AppCompatActivity {
 
         });
     }
-
-
 
     private void writeWrapper(UUID service, UUID characteristic, String valtoWrite){
         this.bluetoothWrapper.write(service,characteristic,valtoWrite);
@@ -210,6 +224,25 @@ public class configureGatewayActivity extends AppCompatActivity {
         }
     }
 
+    private void gatewayConfigPersist(String value){
+        switch (read_count){
+            case 0:
+                gateway.channel = value;
+                break;
+            case 1:
+                gateway.netName = value;
+                break;
+            case 2:
+                gateway.panID = value;
+                break;
+            case 3:
+                gateway.xpanID = value;
+                break;
+            case 4:
+                gateway.ipv6 = value;
+        }
+    }
+
     private static String bytesToHex(byte[] hashInBytes) {
         StringBuilder sb = new StringBuilder();
         for (byte b : hashInBytes) {
@@ -217,4 +250,24 @@ public class configureGatewayActivity extends AppCompatActivity {
         }
         return sb.toString();
     }
+
+
+    private void gatewayDBWrapper(){
+        mydb = new DBHelper(this);
+        Log.d("DEV-LOG","Writing to database");
+        mydb.insertDevice(gateway.ID,gateway.name,gateway.channel,gateway.netName,gateway.panID,gateway.xpanID,gateway.masterkey,gateway.ipv6);
+        Log.d("DEV-LOG","Writing to database over");
+    }
+
+}
+
+class Gateway {
+    public Integer ID = 12123;
+    public String name = "";
+    public String channel = "";
+    public String netName = "";
+    public String panID = "";
+    public String xpanID = "";
+    public String masterkey = "asdas";
+    public String ipv6 = "";
 }
