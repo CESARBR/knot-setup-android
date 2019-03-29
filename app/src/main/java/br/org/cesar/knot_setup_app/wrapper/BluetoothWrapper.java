@@ -44,9 +44,8 @@ public class BluetoothWrapper {
 
     //Create class that instantiates a class with these characteristics
 
-    public static UUID SERVICE_UUID = UUID.fromString("414b9c8b-23f5-891a-46ed-410743e42425");
-    public static UUID STATE_CHARACTERISTIC  = UUID.fromString("414b9c8b-23f5-891a-46ed-410743e42429");
-
+    public static UUID SERVICE_UUID = UUID.fromString("a8a9e49c-aa9a-d441-9bec-817bb4900d30");
+    public static UUID STATE_CHARACTERISTIC  = UUID.fromString("a8a9e49c-aa9a-d441-9bec-817bb4900d32");
 
     public BluetoothWrapper(Context context) {
         this.context = context;
@@ -55,7 +54,7 @@ public class BluetoothWrapper {
 
     public boolean checkBluetoothHardware(Activity activity) {
 
-        //Init bluetooth and check if it's enabled
+        //Init bluetooth and check if it's enabled''
         boolean bluetoothEnabled = this.initBluetooth();
 
         //Check if user permission to user bluetooth
@@ -172,6 +171,7 @@ public class BluetoothWrapper {
 
                 if(status == gatt.GATT_SUCCESS) {
                     super.onServicesDiscovered(gatt, status);
+                    //TODO: change this
                     BluetoothGattCharacteristic stateCharacteristic = gatt.getService(SERVICE_UUID).getCharacteristic(STATE_CHARACTERISTIC);
                     gatt.readCharacteristic(stateCharacteristic);
                     callback.onServiceDiscoveryComplete();
@@ -237,12 +237,11 @@ public class BluetoothWrapper {
     }
 
 
-    public boolean write(UUID service ,UUID characteristic, String valToWrite){
+    public void write(UUID service ,UUID characteristic, String valToWrite){
         BluetoothGattCharacteristic writeCharacteristic = my_gatt.getService(service).getCharacteristic(characteristic);
-        Log.d("DEV-LOG", "writeInprocess");
         writeCharacteristic.setValue(valToWrite.getBytes());
-        Log.d("DEV-LOG", "writeDon");
-        return my_gatt.writeCharacteristic(writeCharacteristic);
+        my_gatt.writeCharacteristic(writeCharacteristic);
+        Log.d("DEV-LOG", "writeEnd?");
     }
 
     public void readCharacteristic(){
@@ -254,7 +253,9 @@ public class BluetoothWrapper {
         my_gatt.close();
     }
 
-
+    public void discoverServices(){
+        my_gatt.discoverServices();
+    }
 
     /**
      * Wait for device to be bonded before connecting and writing characteristic

@@ -1,6 +1,7 @@
 package br.org.cesar.knot_setup_app.views;
 
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
@@ -34,6 +35,10 @@ public class configureGatewayActivity extends AppCompatActivity {
     private final UUID IPV6Characteristic = UUID.fromString("49601183-5db4-498b-b35a-e6ddbe1c1471");
 
 
+    public static UUID SERVICE_UUID = UUID.fromString("414b9c8b-23f5-891a-46ed-410743e42425");
+    public static UUID CHARACTERISTIC_SIGNED_CHALLENGE_UUID = UUID.fromString("414b9c8b-23f5-891a-46ed-410743e42427");
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,10 +51,8 @@ public class configureGatewayActivity extends AppCompatActivity {
     }
 
     private void writeWrapper(UUID service, UUID characteristic, String valtoWrite){
-        Boolean bool;
-        Log.d("DEV-LOG","writeBegan" );
-        bool = this.bluetoothWrapper.write(service,characteristic,valtoWrite);
-        Log.d("DEV-LOG","Write status: " + bool);
+        Log.d("DEV-LOG", "writewrapper");
+        this.bluetoothWrapper.write(service,characteristic,valtoWrite);
     }
 
 
@@ -68,8 +71,9 @@ public class configureGatewayActivity extends AppCompatActivity {
                                 "successful!", Toast.LENGTH_LONG).show();
                     }
                 });
-                writeWrapper(otSettingsService,NetNameCharacteristic,NetName);
-
+//                writeWrapper(otSettingsService,NetNameCharacteristic,NetName);
+                Log.d("DEV-LOG","OnConnect");
+                bluetoothWrapper.discoverServices();
             }
             @Override
             public void onCharacteristicChanged(){
@@ -111,6 +115,7 @@ public class configureGatewayActivity extends AppCompatActivity {
             @Override
             public void onCharacteristicReadComplete(){
                 Log.d("DEV-LOG","Characteristic read");
+                writeWrapper(otSettingsService,NetNameCharacteristic,"asdsdsa");
             }
             @Override
             public void onCharacteristicReadFail(){
