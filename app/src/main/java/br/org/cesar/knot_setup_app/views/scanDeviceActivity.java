@@ -1,12 +1,8 @@
 package br.org.cesar.knot_setup_app.views;
 
-import android.app.Application;
 import android.content.Intent;
-import android.database.Cursor;
-import android.net.wifi.ScanResult;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -17,9 +13,7 @@ import java.util.Collections;
 import java.util.List;
 
 import br.org.cesar.knot_setup_app.R;
-import br.org.cesar.knot_setup_app.domain.callback.DeviceCallback;
 import br.org.cesar.knot_setup_app.domain.callback.ScannerCallback;
-import br.org.cesar.knot_setup_app.persistence.mysqlDatabase.DBHelper;
 import br.org.cesar.knot_setup_app.views.adapter.DeviceAdapter;
 import br.org.cesar.knot_setup_app.wrapper.BluetoothWrapper;
 import br.org.cesar.knot_setup_app.model.BluetoothDevice;
@@ -27,7 +21,6 @@ import br.org.cesar.knot_setup_app.knotSetupApplication;
 
 public class scanDeviceActivity  extends AppCompatActivity {
 
-    private DBHelper mydb ;
 
     private BluetoothWrapper bluetoothWrapper;
     private List<BluetoothDevice> deviceList;
@@ -56,7 +49,7 @@ public class scanDeviceActivity  extends AppCompatActivity {
      */
     private void startScan() {
 
-        Toast.makeText(scanDeviceActivity.this, "Start configuring your device...", Toast
+        Toast.makeText(getApplicationContext(), "Start configuring your device...", Toast
                 .LENGTH_LONG).show();
         setupAdapter();
 
@@ -129,6 +122,7 @@ public class scanDeviceActivity  extends AppCompatActivity {
             }
         });
     }
+
 
     protected void onDestroy(){
         super.onDestroy();

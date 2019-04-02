@@ -62,7 +62,7 @@ public class configureGatewayActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(configureGatewayActivity.this, "Scan for device " +
+                        Toast.makeText(getApplicationContext(), "Scan for device " +
                                 "successful!", Toast.LENGTH_LONG).show();
                     }
                 });
@@ -250,7 +250,6 @@ public class configureGatewayActivity extends AppCompatActivity {
         }
         return sb.toString();
     }
-
 
     private void gatewayDBWrapper(){
         mydb = new DBHelper(this);
