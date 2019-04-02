@@ -40,7 +40,6 @@ public class listGatewayActivity extends AppCompatActivity {
             }
         });
 
-        //TODO: setup list of already connected devices
         setupList();
     }
 
