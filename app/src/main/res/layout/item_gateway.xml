@@ -10,18 +10,17 @@
     <ImageView
         android:id="@+id/imageView3"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/lock_name"
+        android:layout_height="93dp"
+        app:layout_constraintBottom_toBottomOf="@+id/gateway_name"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/white_bg" />
 
     <ImageView
-        android:id="@+id/lock_image"
+        android:id="@+id/gateway_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -34,16 +33,16 @@
         app:srcCompat="@drawable/ic_speaker" />
 
     <TextView
-        android:id="@+id/lock_name"
+        android:id="@+id/gateway_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingBottom="24dp"
-        android:layout_marginTop="8dp"
         android:fontFamily="sans-serif-smallcaps"
+        android:paddingBottom="24dp"
         android:text="TextView"
         android:textColor="@android:color/white"
-        app:layout_constraintEnd_toEndOf="@+id/lock_image"
-        app:layout_constraintStart_toStartOf="@+id/lock_image"
-        app:layout_constraintTop_toBottomOf="@+id/lock_image" />
+        app:layout_constraintEnd_toEndOf="@+id/gateway_image"
+        app:layout_constraintHorizontal_bias="0.531"
+        app:layout_constraintStart_toStartOf="@+id/gateway_image"
+        app:layout_constraintTop_toBottomOf="@+id/gateway_image" />
 
 </android.support.constraint.ConstraintLayout>

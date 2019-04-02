@@ -3,6 +3,7 @@ package br.org.cesar.knot_setup_app.views.adapter;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,13 +36,14 @@ public class gatewayAdapter extends ArrayAdapter<String> {
             holder = new ViewHolder();
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_gateway,
                     parent, false);
-            holder.deviceName = convertView.findViewById(R.id.device_name);
+            holder.deviceName = convertView.findViewById(R.id.gateway_name);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
 
         String device = deviceList.get(position);
+        holder.deviceName.setText(device);
 
         return convertView;
     }
