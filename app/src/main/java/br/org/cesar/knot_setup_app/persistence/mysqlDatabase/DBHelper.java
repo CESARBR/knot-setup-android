@@ -6,12 +6,8 @@ import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 import java.util.ArrayList;
-
-import static android.content.Context.MODE_PRIVATE;
-import static android.database.sqlite.SQLiteDatabase.openOrCreateDatabase;
 
 public class DBHelper extends SQLiteOpenHelper {
 
@@ -19,7 +15,6 @@ public class DBHelper extends SQLiteOpenHelper {
         super(context, "KNoT_Devices" , null, 1);
     }
 
-    //TODO: Find out the types of each column
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create table KNoT_Devices " + "(id integer primary key, name text,Channel text,NetName text, PanID text,XpanID text, Masterkey text, IPV6 text)");
@@ -32,7 +27,6 @@ public class DBHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    //TODO: Find out the types of each column
     public boolean insertDevice (Integer id,String name, String channel, String netName, String panID,String xpanID, String masterkey, String ipv6) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
