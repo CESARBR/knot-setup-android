@@ -64,7 +64,7 @@ public class listGatewayActivity extends AppCompatActivity {
                         String gateway = deviceList.get(position);
 
                         Intent i = new Intent(listGatewayActivity.this,thingsListActivity.class);
-                        i.putExtra("gateway",gateway);
+                        i.putExtra("gatewayID", Integer.parseInt(dbHelper.getData("name",gateway)));
                         startActivity(i);
                     }
                 });

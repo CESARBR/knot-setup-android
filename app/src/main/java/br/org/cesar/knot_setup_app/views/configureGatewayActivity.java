@@ -1,5 +1,6 @@
 package br.org.cesar.knot_setup_app.views;
 
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -22,8 +23,14 @@ public class configureGatewayActivity extends AppCompatActivity {
     private Integer write_count = 0;
     private boolean readDone = false;
     private boolean writeDone = false;
+
     private DBHelper mydb;
+
     private Gateway gateway;
+    private Thing thing;
+
+    private boolean operation;
+    private Integer gatewayID;
 
     private final UUID otSettingsService = UUID.fromString("a8a9e49c-aa9a-d441-9bec-817bb4900d30");
     private final UUID ChannelCharacteristic = UUID.fromString("a8a9e49c-aa9a-d441-9bec-817bb4900d31");
@@ -45,10 +52,8 @@ public class configureGatewayActivity extends AppCompatActivity {
         this.bluetoothWrapper = knotSetupApplication.getBluetoothWrapper();
         this.device = knotSetupApplication.getBluetoothDevice();
 
-        Log.d("DEV-LOG", this.device.getDevice().getName());
-
-        gateway = new Gateway();
-        gateway.name = device.getDevice().getName();
+        gatewayID = getIntent().getIntExtra("gatewayID",0);
+        operation = (boolean) getIntent().getBooleanExtra("operation",false);
 
         callbackFlux();
     }
@@ -85,11 +90,12 @@ public class configureGatewayActivity extends AppCompatActivity {
             @Override
             public void onServiceDiscoveryComplete(){
                 Log.d("DEV-LOG","Services discovered");
-                //TODO: Depending on the operation method, after discovery, a write or a read will be called
-                if(false){
-                    thingConfigWrite("");
+                if(operation){
+                    createThing();
+                    thingConfigWrite();
                 }
                 else{
+                    gateway = new Gateway();
                     gatewayConfigRead();
                 }
             }
@@ -107,7 +113,7 @@ public class configureGatewayActivity extends AppCompatActivity {
                 }
                 else {
                     write_count++;
-                    thingConfigWrite("");
+                    thingConfigWrite();
                 }
             }
 
@@ -171,7 +177,7 @@ public class configureGatewayActivity extends AppCompatActivity {
         this.bluetoothWrapper.readCharacteristic(service,characteristic);
     }
 
-    private void thingConfigWrite(String valToWrite){
+    private void thingConfigWrite(){
         byte[] value = new byte[1];
         value[0] = (byte) (0x12);
 
@@ -182,7 +188,7 @@ public class configureGatewayActivity extends AppCompatActivity {
                 break;
             case 1:
                 Log.d("DEV-LOG", "WriteWrapper: NetName");
-                writeWrapper(otSettingsService,NetNameCharacteristic,"lololo lololo");
+                writeWrapper(otSettingsService,NetNameCharacteristic,thing.netName);
                 break;
             case 2:
                 Log.d("DEV-LOG", "WriteWrapper: PanID");
@@ -190,11 +196,11 @@ public class configureGatewayActivity extends AppCompatActivity {
                 break;
             case 3:
                 Log.d("DEV-LOG", "WriteWrapper: XpanID");
-                writeWrapper(otSettingsService,XpanidCharacteristic,"ooosh");
+                writeWrapper(otSettingsService,XpanidCharacteristic,thing.xpanID);
                 break;
             case 4:
                 Log.d("DEV-LOG", "WriteWrapper: IPV6");
-                writeWrapper(IPV6Service,IPV6Characteristic,"the end");
+                writeWrapper(IPV6Service,IPV6Characteristic,thing.ipv6);
                 writeDone = true;
         }
     }
@@ -258,6 +264,22 @@ public class configureGatewayActivity extends AppCompatActivity {
         Log.d("DEV-LOG","Writing to database over");
     }
 
+    private void createThing(){
+        Log.d("DEV-LOG","onCreateThing " + gatewayID);
+        mydb = new DBHelper(this);
+        Cursor configs = mydb.getData("id",gatewayID);
+        thing = new Thing();
+        thing.ID = 123123213;
+        thing.name = device.getDevice().getName();
+        thing.channel = configs.getString(configs.getColumnIndex("Channel"));
+        thing.netName = configs.getString(configs.getColumnIndex("NetName"));
+        thing.panID = configs.getString(configs.getColumnIndex("PanID"));
+        thing.xpanID = configs.getString(configs.getColumnIndex("XpanID"));
+        thing.masterkey = configs.getString(configs.getColumnIndex("Masterkey"));
+        thing.ipv6 = configs.getString(configs.getColumnIndex("IPV6"));
+        thing.printThingSettings();
+    }
+
 }
 
 class Gateway {
@@ -269,4 +291,37 @@ class Gateway {
     public String xpanID = "";
     public String masterkey = "asdas";
     public String ipv6 = "";
+}
+
+class Thing{
+    public Integer ID;
+    public String name;
+    public String channel;
+    public String netName;
+    public String panID;
+    public String xpanID;
+    public String masterkey;
+    public String ipv6;
+
+    public Thing(){}
+
+    public Thing(Integer id, String name, String channel , String netName , String panID, String xpanID, String masterkey, String ipv6){
+        this.ID = id;
+        this.name = name;
+        this.channel = channel;
+        this. netName = netName;
+        this.panID = panID;
+        this.xpanID = xpanID;
+        this.masterkey = masterkey;
+        this.ipv6 = ipv6;
+    }
+
+    public void printThingSettings(){
+        Log.d("DEV-LOG",this.name);
+        Log.d("DEV-LOG",this.channel);
+        Log.d("DEV-LOG",this.netName);
+        Log.d("DEV-LOG",this.panID);
+        Log.d("DEV-LOG",this.xpanID);
+        Log.d("DEV-LOG",this.ipv6);
+    }
 }

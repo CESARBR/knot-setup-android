@@ -27,7 +27,7 @@ public class scanDeviceActivity  extends AppCompatActivity {
     private List<BluetoothDevice> deviceList;
     private DeviceAdapter adapter;
     boolean operation;
-    String gatewayID;
+    Integer gatewayID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +40,7 @@ public class scanDeviceActivity  extends AppCompatActivity {
         if(operation){
             //this is the UUID if we are searching for a thing
             bluetoothWrapper.setScanUUID("a8a9e49c-aa9a-d441-9bec-817bb4900d30");
-            gatewayID = getIntent().getStringExtra("gateway");
+            gatewayID = getIntent().getIntExtra("gatewayID",0);
         }
 
         else{
@@ -136,7 +136,11 @@ public class scanDeviceActivity  extends AppCompatActivity {
                 Intent intent = new Intent(scanDeviceActivity.this, configureGatewayActivity.class);
 
                 //If doing a setup, it's necessary know from witch gateway we are getting the configuration
-                if(operation){intent.putExtra("gateway",gatewayID);}
+                if(operation){
+                    intent.putExtra("gatewayID",gatewayID);
+                    intent.putExtra("operation",operation);
+                }
+
                 startActivity(intent);
                 finish();
             }
