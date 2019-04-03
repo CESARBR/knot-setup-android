@@ -42,12 +42,20 @@ public class DBHelper extends SQLiteOpenHelper {
         return true;
     }
 
-    public Cursor getData(int id) {
+    public Cursor getData(String column, int id) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res =  db.rawQuery( "select * from KNoT_Devices where id="+id+"", null );
+        Cursor res =  db.rawQuery( "select * from KNoT_Devices where " + column + "=" + id +"", null );
+        res.moveToFirst();
         return res;
     }
-    
+
+    public String getData(String column, String id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res =  db.rawQuery( "select * from KNoT_Devices where " + column+"=" + "'" + id + "'" , null );
+        res.moveToFirst();
+        return res.getString(res.getColumnIndex("id"));
+    }
+
     public boolean updateKNoTDevice (Integer id,String name, String channel, String netName, String panID,String xpanID, String masterkey, String ipv6) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
