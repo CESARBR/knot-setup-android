@@ -21,4 +21,8 @@
     <string name="masterkey">Masterkey</string>
     <string name="IPV6">IPV6</string>
 
+    <!-- Strings used in configure devices -->
+    <string name="thingSetup">KNoT Setup</string>
+    <string name="thingLabel">&#160;Things</string>
+
 </resources>

@@ -31,6 +31,7 @@ public class listGatewayActivity extends AppCompatActivity {
 
         //Add new device button interaction
         FloatingActionButton addButton = findViewById(R.id.add_gateway);
+
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,8 +65,8 @@ public class listGatewayActivity extends AppCompatActivity {
                         String gateway = deviceList.get(position);
 
                         Log.d("DEV-LOG",gateway);
-                        //Intent i = new Intent(scanDeviceActivity.this,thingsListActivity.class);
-                        //startActivity(i);
+                        Intent i = new Intent(listGatewayActivity.this,thingsListActivity.class);
+                        startActivity(i);
                     }
                 });
             }
