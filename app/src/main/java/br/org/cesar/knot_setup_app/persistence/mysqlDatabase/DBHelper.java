@@ -18,6 +18,8 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create table KNoT_Devices " + "(id integer primary key, name text,Channel text,NetName text, PanID text,XpanID text, Masterkey text, IPV6 text)");
+        db.execSQL("create table KNoT_Things " + "(id integer primary key, name text,Channel text,NetName text, PanID text,XpanID text, Masterkey text, IPV6 text)");
+        db.execSQL("create table gateway_Devices " + "(id_Gateway integer, id_Thing primary key)" );
     }
 
 
@@ -39,6 +41,30 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put("MasterKey", masterkey);
         contentValues.put("IPV6", ipv6);
         db.insert("KNoT_Devices", null, contentValues);
+        return true;
+    }
+
+    public boolean insertThing (Integer id,String name, String channel, String netName, String panID,String xpanID, String masterkey, String ipv6) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("id", id);
+        contentValues.put("name", name);
+        contentValues.put("Channel", channel);
+        contentValues.put("NetName", netName);
+        contentValues.put("PanID", panID);
+        contentValues.put("XpanID", xpanID);
+        contentValues.put("MasterKey", masterkey);
+        contentValues.put("IPV6", ipv6);
+        db.insert("KNoT_Things", null, contentValues);
+        return true;
+    }
+
+    public boolean insertGatewayThing(Integer gatewayID, Integer thingID){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("id_Gateway",gatewayID);
+        contentValues.put("id_Thing",thingID);
+        db.insert("gateway_Devices", null, contentValues);
         return true;
     }
 
