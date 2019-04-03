@@ -103,6 +103,8 @@ public class DBHelper extends SQLiteOpenHelper {
                 new String[] { Integer.toString(id) });
     }
 
+
+
     public ArrayList<String> getAllKNoTDevices() {
         ArrayList<String> array_list = new ArrayList<String>();
 
@@ -113,6 +115,21 @@ public class DBHelper extends SQLiteOpenHelper {
 
         while(res.isAfterLast() == false){
             array_list.add(res.getString(res.getColumnIndex("name")));
+            res.moveToNext();
+        }
+        return array_list;
+    }
+
+
+    public ArrayList<String> getAllGatewayThings() {
+        ArrayList<String> array_list = new ArrayList<String>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res =  db.rawQuery( "select * from gateway_Devices", null );
+        res.moveToFirst();
+
+        while(res.isAfterLast() == false){
+            array_list.add(res.getString(res.getColumnIndex("id_Thing")));
             res.moveToNext();
         }
         return array_list;

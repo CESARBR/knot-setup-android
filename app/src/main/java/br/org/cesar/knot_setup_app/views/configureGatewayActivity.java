@@ -96,6 +96,7 @@ public class configureGatewayActivity extends AppCompatActivity {
                 }
                 else{
                     gateway = new Gateway();
+                    gateway.name = device.getDevice().getName();
                     gatewayConfigRead();
                 }
             }
@@ -109,6 +110,7 @@ public class configureGatewayActivity extends AppCompatActivity {
             public void onCharacteristicWriteComplete(){
                 Log.d("DEV-LOG","Characteristic writen");
                 if(writeDone){
+                    thingGatewayWrapper();
                     bluetoothWrapper.closeConn();
                 }
                 else {
@@ -261,6 +263,14 @@ public class configureGatewayActivity extends AppCompatActivity {
         mydb = new DBHelper(this);
         Log.d("DEV-LOG","Writing to database");
         mydb.insertDevice(gateway.ID,gateway.name,gateway.channel,gateway.netName,gateway.panID,gateway.xpanID,gateway.masterkey,gateway.ipv6);
+        Log.d("DEV-LOG","Writing to database over");
+    }
+
+    private void thingGatewayWrapper(){
+        mydb = new DBHelper(this);
+        Log.d("DEV-LOG","Writing to database");
+        mydb.insertThing(thing.ID,thing.name,thing.channel,thing.netName,thing.panID,thing.xpanID,thing.masterkey,thing.ipv6);
+        mydb.insertGatewayThing(gatewayID,thing.ID);
         Log.d("DEV-LOG","Writing to database over");
     }
 
