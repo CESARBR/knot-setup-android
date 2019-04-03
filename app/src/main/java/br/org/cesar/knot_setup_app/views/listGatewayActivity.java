@@ -35,7 +35,6 @@ public class listGatewayActivity extends AppCompatActivity {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO: Pass something that sinalizes the UUID i want to filter by
                 Intent i = new Intent(listGatewayActivity.this,scanDeviceActivity.class );
                 startActivity(i);
             }
@@ -64,8 +63,8 @@ public class listGatewayActivity extends AppCompatActivity {
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         String gateway = deviceList.get(position);
 
-                        Log.d("DEV-LOG",gateway);
                         Intent i = new Intent(listGatewayActivity.this,thingsListActivity.class);
+                        i.putExtra("gateway",gateway);
                         startActivity(i);
                     }
                 });

@@ -24,6 +24,8 @@ public class thingsListActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //TODO: Pass something that sinalizes the UUID i want to filter by
                 Intent i = new Intent(thingsListActivity.this,scanDeviceActivity.class );
+                i.putExtra("operation",true);
+                i.putExtra("gateway",getIntent().getStringExtra("gateway"));
                 startActivity(i);
             }
         });

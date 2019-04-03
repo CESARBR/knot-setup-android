@@ -3,6 +3,7 @@ package br.org.cesar.knot_setup_app.views;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -25,12 +26,28 @@ public class scanDeviceActivity  extends AppCompatActivity {
     private BluetoothWrapper bluetoothWrapper;
     private List<BluetoothDevice> deviceList;
     private DeviceAdapter adapter;
+    boolean operation;
+    String gatewayID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scan_for_devices);
         this.bluetoothWrapper = knotSetupApplication.getBluetoothWrapper();
+
+        operation = (boolean) getIntent().getBooleanExtra("operation",false);
+
+        if(operation){
+            //this is the UUID if we are searching for a thing
+            bluetoothWrapper.setScanUUID("a8a9e49c-aa9a-d441-9bec-817bb4900d30");
+            gatewayID = getIntent().getStringExtra("gateway");
+        }
+
+        else{
+            //this is the UUID if we are searching for a gateway
+            bluetoothWrapper.setScanUUID("a8a9e49c-aa9a-d441-9bec-817bb4900d30");
+        }
+
         checkBluetooth();
     }
 
@@ -117,6 +134,9 @@ public class scanDeviceActivity  extends AppCompatActivity {
                 knotSetupApplication.setBluetoothDevice(device);
 
                 Intent intent = new Intent(scanDeviceActivity.this, configureGatewayActivity.class);
+
+                //If doing a setup, it's necessary know from witch gateway we are getting the configuration
+                if(operation){intent.putExtra("gateway",gatewayID);}
                 startActivity(intent);
                 finish();
             }
