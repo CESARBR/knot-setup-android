@@ -39,19 +39,22 @@ public class BluetoothWrapper {
     private Context context;
     private ScanCallback scanCallback;
     private BluetoothGatt my_gatt = null;
+    private UUID ScanUUID;
 
 
     private String TAG = "br.org.cesar.knot_setup_app.wrapper.BluetoothWrapper";
 
     //Create class that instantiates a class with these characteristics
 
-    public static UUID SERVICE_UUID = UUID.fromString("a8a9e49c-aa9a-d441-9bec-817bb4900d30");
     public static UUID STATE_CHARACTERISTIC  = UUID.fromString("a8a9e49c-aa9a-d441-9bec-817bb4900d32");
 
     public BluetoothWrapper(Context context) {
         this.context = context;
     }
 
+    public void setScanUUID(String uuid){
+        this.ScanUUID = UUID.fromString(uuid);
+    }
 
     public boolean checkBluetoothHardware(Activity activity) {
 
@@ -122,7 +125,7 @@ public class BluetoothWrapper {
 
         if (bluetoothAdapter != null) {
             ScanFilter filter = new ScanFilter.Builder()
-                    .setServiceUuid(new ParcelUuid(SERVICE_UUID)).build();
+                    .setServiceUuid(new ParcelUuid(ScanUUID)).build();
             ScanSettings settings = new ScanSettings.Builder()
                     .setScanMode(MATCH_NUM_FEW_ADVERTISEMENT).build();
             bluetoothAdapter.getBluetoothLeScanner().startScan(
@@ -141,6 +144,7 @@ public class BluetoothWrapper {
         }
         return true;
     }
+
 
     /**
      * Connect directly with the smart device
