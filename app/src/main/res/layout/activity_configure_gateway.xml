@@ -7,6 +7,38 @@
     tools:context=".views.configureGatewayActivity">
 
 
+    <ProgressBar
+        android:id="@+id/progressBar9"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="32dp"
+        android:layout_height="28dp"
+        app:layout_constraintBottom_toBottomOf="@+id/IPV62"
+        app:layout_constraintEnd_toEndOf="@+id/progressBar2"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/progressBar2"
+        app:layout_constraintTop_toTopOf="@+id/IPV62" />
+
+    <ProgressBar
+        android:id="@+id/progressBar8"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="32dp"
+        android:layout_height="28dp"
+        app:layout_constraintBottom_toBottomOf="@+id/masterkey"
+        app:layout_constraintEnd_toEndOf="@+id/progressBar2"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/progressBar2"
+        app:layout_constraintTop_toTopOf="@+id/masterkey" />
+
+    <ProgressBar
+        android:id="@+id/progressBar7"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="32dp"
+        android:layout_height="28dp"
+        app:layout_constraintBottom_toBottomOf="@+id/xpanid"
+        app:layout_constraintEnd_toEndOf="@+id/progressBar2"
+        app:layout_constraintStart_toStartOf="@+id/progressBar2"
+        app:layout_constraintTop_toTopOf="@+id/xpanid" />
+
     <TextView
         android:id="@+id/viewTitle"
         android:layout_width="wrap_content"
@@ -22,34 +54,108 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ProgressBar
-        android:id="@+id/progressBar"
+        android:id="@+id/progressBar2"
         style="?android:attr/progressBarStyle"
-        android:layout_width="137dp"
-        android:layout_height="280dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_width="32dp"
+        android:layout_height="28dp"
+        android:layout_marginStart="32dp"
+        app:layout_constraintBottom_toBottomOf="@+id/channel"
+        app:layout_constraintStart_toEndOf="@+id/channel"
+        app:layout_constraintTop_toTopOf="@+id/channel" />
 
+    <ProgressBar
+        android:id="@+id/progressBar4"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="32dp"
+        android:layout_height="28dp"
+        app:layout_constraintBottom_toBottomOf="@+id/netname"
+        app:layout_constraintEnd_toEndOf="@+id/progressBar2"
+        app:layout_constraintStart_toStartOf="@+id/progressBar2"
+        app:layout_constraintTop_toTopOf="@+id/netname" />
+
+    <ProgressBar
+        android:id="@+id/progressBar6"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="32dp"
+        android:layout_height="28dp"
+        app:layout_constraintBottom_toBottomOf="@+id/panid"
+        app:layout_constraintEnd_toEndOf="@+id/progressBar2"
+        app:layout_constraintStart_toStartOf="@+id/progressBar2"
+        app:layout_constraintTop_toTopOf="@+id/panid" />
 
     <TextView
-        android:id="@+id/loading"
+        android:id="@+id/otSettings"
         android:layout_width="wrap_content"
-        android:layout_height="12dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:fontFamily="sans-serif-condensed"
-        android:text="@string/loading"
-        android:textColor="@color/colorWhite"
-        android:textSize="12dp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="64dp"
+        android:text="@string/otsettings"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/progressBar" />
+        app:layout_constraintTop_toBottomOf="@+id/viewTitle" />
+
+    <TextView
+        android:id="@+id/channel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/channel"
+        app:layout_constraintStart_toEndOf="@+id/otSettings"
+        app:layout_constraintTop_toBottomOf="@+id/otSettings" />
+
+    <TextView
+        android:id="@+id/netname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/netname"
+        app:layout_constraintStart_toStartOf="@+id/channel"
+        app:layout_constraintTop_toBottomOf="@+id/channel" />
+
+    <TextView
+        android:id="@+id/panid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/panid"
+        app:layout_constraintStart_toStartOf="@+id/netname"
+        app:layout_constraintTop_toBottomOf="@+id/netname" />
+
+    <TextView
+        android:id="@+id/xpanid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/xpanid"
+        app:layout_constraintStart_toStartOf="@+id/panid"
+        app:layout_constraintTop_toBottomOf="@+id/panid" />
+
+    <TextView
+        android:id="@+id/masterkey"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/masterkey"
+        app:layout_constraintStart_toStartOf="@+id/xpanid"
+        app:layout_constraintTop_toBottomOf="@+id/xpanid" />
+
+    <TextView
+        android:id="@+id/IPV6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="@string/IPV6"
+        app:layout_constraintEnd_toEndOf="@+id/otSettings"
+        app:layout_constraintStart_toStartOf="@+id/otSettings"
+        app:layout_constraintTop_toBottomOf="@+id/masterkey" />
+
+    <TextView
+        android:id="@+id/IPV62"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/IPV6"
+        app:layout_constraintStart_toStartOf="@+id/masterkey"
+        app:layout_constraintTop_toBottomOf="@+id/IPV6" />
 
 </android.support.constraint.ConstraintLayout>

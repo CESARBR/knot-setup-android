@@ -3,7 +3,7 @@
 
     <!-- Strings used in activity_list_gateway -->
     <string name="list_gateway_title">KNoT Setup</string>
-    <string name="gateway_subtitle">&#160; Gateway</string>
+    <string name="gateway_subtitle">&#160;Gateway</string>
 
     <!-- Strings used in activity_scan_for_devices -->
     <string name="scan_label">Chose the KNoT gateway you want to connect with.</string>
@@ -11,5 +11,14 @@
 
     <string name="bluetooth_device">Bluetooth setting THINGs up</string>
     <string name="loading">Loading... </string>
+
+    <!--Strings used in configure_gateway_activity -->
+    <string name="otsettings">OT&#160;Settings</string>
+    <string name="channel">Channel</string>
+    <string name="netname">Net&#160;Name</string>
+    <string name="panid">Pan&#160;ID</string>
+    <string name="xpanid">Xpanid</string>
+    <string name="masterkey">Masterkey</string>
+    <string name="IPV6">IPV6</string>
 
 </resources>
