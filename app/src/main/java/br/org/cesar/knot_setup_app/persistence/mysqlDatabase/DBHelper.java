@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -122,17 +123,24 @@ public class DBHelper extends SQLiteOpenHelper {
 
 
     public ArrayList<String> getAllGatewayThings() {
-        ArrayList<String> array_list = new ArrayList<String>();
+        ArrayList<String> array_list_ID = new ArrayList<String>();
+        ArrayList<String> array_list_Names = new ArrayList<String>();
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor res =  db.rawQuery( "select * from gateway_Devices", null );
         res.moveToFirst();
 
         while(res.isAfterLast() == false){
-            array_list.add(res.getString(res.getColumnIndex("id_Thing")));
+            array_list_ID.add(res.getString(res.getColumnIndex("id_Thing")));
             res.moveToNext();
         }
-        return array_list;
+
+        for (String things : array_list_ID){
+            res =  db.rawQuery( "select * from KNoT_Things where " + "id" + "="  + things , null );
+            res.moveToFirst();
+            array_list_Names.add(res.getString(res.getColumnIndex("name")));
+        }
+        return array_list_Names;
     }
 
 }
