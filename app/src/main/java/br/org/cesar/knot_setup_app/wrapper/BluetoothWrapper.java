@@ -53,10 +53,11 @@ public class BluetoothWrapper {
     }
 
     public void setScanUUID(String uuid){
+        Log.d("DEV-LOG","UUID: " + uuid);
         this.ScanUUID = UUID.fromString(uuid);
     }
 
-    public boolean checkBluetoothHardware(Activity activity) {
+    public boolean checkBluetoothHardware() {
 
         //Init bluetooth and check if it's enabled''
         boolean bluetoothEnabled = this.initBluetooth();
@@ -72,7 +73,7 @@ public class BluetoothWrapper {
                 //Request for user permission to use fine and coarse location
                 int permissionCheck = ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION);
                 if (permissionCheck != PackageManager.PERMISSION_GRANTED){
-                    activity.requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+                    return false;
                 } else {
                     return true;
                 }
@@ -124,18 +125,20 @@ public class BluetoothWrapper {
         };
 
         if (bluetoothAdapter != null) {
+            Log.d("DEV-LOG", "Searching for: " + ScanUUID.toString());
             ScanFilter filter = new ScanFilter.Builder()
                     .setServiceUuid(new ParcelUuid(ScanUUID)).build();
             ScanSettings settings = new ScanSettings.Builder()
                     .setScanMode(MATCH_NUM_FEW_ADVERTISEMENT).build();
             bluetoothAdapter.getBluetoothLeScanner().startScan(
                     Collections.singletonList(filter),settings,scanCallback);
-
         }
     }
 
     public void stopScan(){
-        bluetoothAdapter.getBluetoothLeScanner().stopScan(scanCallback);
+        if(bluetoothAdapter != null) {
+            bluetoothAdapter.getBluetoothLeScanner().stopScan(scanCallback);
+        }
     }
 
     public boolean isConnected(){

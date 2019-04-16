@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorKnotGreen"
-    tools:context="br.org.cesar.knot_setup_app.views.scanDeviceActivity">
+    tools:context="br.org.cesar.knot_setup_app.activity.scan.ScanActivity">
 
     <ImageButton
         android:id="@+id/scan_btn"

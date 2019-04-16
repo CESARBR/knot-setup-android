@@ -1,9 +1,8 @@
-package br.org.cesar.knot_setup_app.views.adapter;
+package br.org.cesar.knot_setup_app.domain.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,11 +14,11 @@ import java.util.List;
 
 import br.org.cesar.knot_setup_app.R;
 
-public class gatewayAdapter extends ArrayAdapter<String> {
+public class DeviceAdapter extends ArrayAdapter<String> {
     private List<String> deviceList;
 
 
-    public gatewayAdapter(@NonNull Context context, int resource, @NonNull List<String>
+    public DeviceAdapter(@NonNull Context context, int resource, @NonNull List<String>
             objects) {
         super(context, resource, objects);
 

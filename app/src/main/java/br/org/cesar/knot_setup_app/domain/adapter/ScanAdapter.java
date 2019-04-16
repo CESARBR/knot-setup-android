@@ -1,9 +1,8 @@
-package br.org.cesar.knot_setup_app.views.adapter;
+package br.org.cesar.knot_setup_app.domain.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,11 +15,11 @@ import br.org.cesar.knot_setup_app.R;
 import br.org.cesar.knot_setup_app.model.BluetoothDevice;
 
 
-public class DeviceAdapter extends ArrayAdapter<BluetoothDevice> {
+public class ScanAdapter extends ArrayAdapter<BluetoothDevice> {
 
     private List<BluetoothDevice> deviceList;
 
-    public DeviceAdapter(@NonNull Context context, int resource, @NonNull List<BluetoothDevice>
+    public ScanAdapter(@NonNull Context context, int resource, @NonNull List<BluetoothDevice>
             objects) {
         super(context, resource, objects);
 

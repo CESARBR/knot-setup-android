@@ -6,7 +6,7 @@ import br.org.cesar.knot_setup_app.model.BluetoothDevice;
 import br.org.cesar.knot_setup_app.wrapper.BluetoothWrapper;
 
 // This class is used for sharing bluetooth between activities
-public class knotSetupApplication extends Application {
+public class KnotSetupApplication extends Application {
 
     private static BluetoothWrapper bluetoothWrapper;
     private static BluetoothDevice bluetoothDevice;

@@ -1,60 +1,47 @@
-package br.org.cesar.knot_setup_app.views;
-
+package br.org.cesar.knot_setup_app.activity.configureDevice;
 import android.database.Cursor;
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.widget.Toast;
 
 import java.util.UUID;
 
-import br.org.cesar.knot_setup_app.R;
+import br.org.cesar.knot_setup_app.activity.configureDevice.ConfigureDeviceContract.Presenter;
+import br.org.cesar.knot_setup_app.activity.configureDevice.ConfigureDeviceContract.ViewModel;
 import br.org.cesar.knot_setup_app.domain.callback.DeviceCallback;
-import br.org.cesar.knot_setup_app.knotSetupApplication;
+import br.org.cesar.knot_setup_app.KnotSetupApplication;
 import br.org.cesar.knot_setup_app.model.BluetoothDevice;
 import br.org.cesar.knot_setup_app.persistence.mysqlDatabase.DBHelper;
 import br.org.cesar.knot_setup_app.wrapper.BluetoothWrapper;
+import br.org.cesar.knot_setup_app.utils.Constants;
 
-public class configureGatewayActivity extends AppCompatActivity {
-
+public class ConfigureDevicePresenter implements Presenter{
+    private ViewModel mViewModel;
+    private int gatewayID;
+    private boolean operation;
     private BluetoothWrapper bluetoothWrapper;
     private BluetoothDevice device;
-    private Integer read_count = 0;
-    private Integer write_count = 0;
-    private boolean readDone = false;
-    private boolean writeDone = false;
 
     private DBHelper mydb;
 
     private Gateway gateway;
     private Thing thing;
 
-    private boolean operation;
-    private Integer gatewayID;
-
-    private final UUID otSettingsService = UUID.fromString("a8a9e49c-aa9a-d441-9bec-817bb4900d30");
-    private final UUID ChannelCharacteristic = UUID.fromString("a8a9e49c-aa9a-d441-9bec-817bb4900d31");
-    private final UUID NetNameCharacteristic = UUID.fromString("a8a9e49c-aa9a-d441-9bec-817bb4900d32");
-    private final UUID PanIDCharacteristic = UUID.fromString("a8a9e49c-aa9a-d441-9bec-817bb4900d33"); //Int
-    private final UUID XpanidCharacteristic = UUID.fromString("a8a9e49c-aa9a-d441-9bec-817bb4900d34");
-    private final UUID MasterKeyCharacteristic = UUID.fromString("a8a9e49c-aa9a-d441-9bec-817bb4900d35");
-
-    private final UUID IPV6Service = UUID.fromString("49601183-5db4-498b-b35a-e6ddbe1c1470");
-    private final UUID IPV6Characteristic = UUID.fromString("49601183-5db4-498b-b35a-e6ddbe1c1471");
+    private Integer read_count = 0;
+    private Integer write_count = 0;
+    private boolean readDone = false;
+    private boolean writeDone = false;
+    private Constants constants;
 
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_configure_gateway);
 
-        this.bluetoothWrapper = knotSetupApplication.getBluetoothWrapper();
-        this.device = knotSetupApplication.getBluetoothDevice();
-
-        gatewayID = getIntent().getIntExtra("gatewayID",0);
-        operation = (boolean) getIntent().getBooleanExtra("operation",false);
-
+    ConfigureDevicePresenter(ViewModel viewModel,int gatewayID, boolean operation, DBHelper dbHelper){
+        this.mViewModel = viewModel;
+        this.gatewayID = gatewayID;
+        this.operation = operation;
+        this.bluetoothWrapper = KnotSetupApplication.getBluetoothWrapper();
+        this.device = KnotSetupApplication.getBluetoothDevice();
+        this.mydb = dbHelper;
+        this.constants = new Constants();
         callbackFlux();
     }
 
@@ -64,13 +51,7 @@ public class configureGatewayActivity extends AppCompatActivity {
         bluetoothWrapper.waitForBonding(device, new DeviceCallback() {
             @Override
             public void onConnect() {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(getApplicationContext(), "Scan for device " +
-                                "successful!", Toast.LENGTH_LONG).show();
-                    }
-                });
+                mViewModel.callbackOnConnected();
                 Log.d("DEV-LOG","OnConnect");
                 bluetoothWrapper.discoverServices();
             }
@@ -84,7 +65,7 @@ public class configureGatewayActivity extends AppCompatActivity {
             public void onDisconnect(){
                 Log.d("DEV-LOG","Disconnected");
                 bluetoothWrapper.closeGatt();
-                finish();
+                mViewModel.callbackOnDisconnected();
             }
 
             @Override
@@ -166,6 +147,8 @@ public class configureGatewayActivity extends AppCompatActivity {
         });
     }
 
+
+
     private void writeWrapper(UUID service, UUID characteristic, String valtoWrite){
         this.bluetoothWrapper.write(service,characteristic,valtoWrite);
     }
@@ -186,23 +169,23 @@ public class configureGatewayActivity extends AppCompatActivity {
         switch (write_count){
             case 0:
                 Log.d("DEV-LOG", "Write Wrapper: Channel" );
-                writeWrapper(otSettingsService,ChannelCharacteristic,value);
+                writeWrapper(constants.otSettingsService,constants.ChannelCharacteristic,value);
                 break;
             case 1:
                 Log.d("DEV-LOG", "WriteWrapper: NetName");
-                writeWrapper(otSettingsService,NetNameCharacteristic,thing.netName);
+                writeWrapper(constants.otSettingsService,constants.NetNameCharacteristic,thing.netName);
                 break;
             case 2:
                 Log.d("DEV-LOG", "WriteWrapper: PanID");
-                writeWrapper(otSettingsService,PanIDCharacteristic,value);
+                writeWrapper(constants.otSettingsService,constants.PanIDCharacteristic,value);
                 break;
             case 3:
                 Log.d("DEV-LOG", "WriteWrapper: XpanID");
-                writeWrapper(otSettingsService,XpanidCharacteristic,thing.xpanID);
+                writeWrapper(constants.otSettingsService,constants.XpanidCharacteristic,thing.xpanID);
                 break;
             case 4:
                 Log.d("DEV-LOG", "WriteWrapper: IPV6");
-                writeWrapper(IPV6Service,IPV6Characteristic,thing.ipv6);
+                writeWrapper(constants.IPV6Service,constants.IPV6Characteristic,thing.ipv6);
                 writeDone = true;
         }
     }
@@ -211,23 +194,23 @@ public class configureGatewayActivity extends AppCompatActivity {
         switch (read_count){
             case 0:
                 Log.d("DEV-LOG", "ReadWrapper: Channel" );
-                readWrapper(otSettingsService,ChannelCharacteristic);
+                readWrapper(constants.otSettingsService,constants.ChannelCharacteristic);
                 break;
             case 1:
                 Log.d("DEV-LOG", "ReadWrapper: NetName");
-                readWrapper(otSettingsService,NetNameCharacteristic);
+                readWrapper(constants.otSettingsService,constants.NetNameCharacteristic);
                 break;
             case 2:
                 Log.d("DEV-LOG", "ReadWrapper: PanID");
-                readWrapper(otSettingsService,PanIDCharacteristic);
+                readWrapper(constants.otSettingsService,constants.PanIDCharacteristic);
                 break;
             case 3:
                 Log.d("DEV-LOG", "ReadWrapper: XpanID");
-                readWrapper(otSettingsService,XpanidCharacteristic);
+                readWrapper(constants.otSettingsService,constants.XpanidCharacteristic);
                 break;
             case 4:
                 Log.d("DEV-LOG", "ReadWrapper: IPV6");
-                readWrapper(IPV6Service,IPV6Characteristic);
+                readWrapper(constants.IPV6Service,constants.IPV6Characteristic);
                 readDone = true;
         }
     }
@@ -260,14 +243,12 @@ public class configureGatewayActivity extends AppCompatActivity {
     }
 
     private void gatewayDBWrapper(){
-        mydb = new DBHelper(this);
         Log.d("DEV-LOG","Writing to database");
         mydb.insertDevice(gateway.ID,gateway.name,gateway.channel,gateway.netName,gateway.panID,gateway.xpanID,gateway.masterkey,gateway.ipv6);
         Log.d("DEV-LOG","Writing to database over");
     }
 
     private void thingGatewayWrapper(){
-        mydb = new DBHelper(this);
         Log.d("DEV-LOG","Writing to database");
         mydb.insertThing(thing.ID,thing.name,thing.channel,thing.netName,thing.panID,thing.xpanID,thing.masterkey,thing.ipv6);
         mydb.insertGatewayThing(gatewayID,thing.ID);
@@ -276,7 +257,6 @@ public class configureGatewayActivity extends AppCompatActivity {
 
     private void createThing(){
         Log.d("DEV-LOG","onCreateThing " + gatewayID);
-        mydb = new DBHelper(this);
         Cursor configs = mydb.getData("id",gatewayID);
         thing = new Thing();
         thing.ID = 123123213;
@@ -289,8 +269,9 @@ public class configureGatewayActivity extends AppCompatActivity {
         thing.ipv6 = configs.getString(configs.getColumnIndex("IPV6"));
         thing.printThingSettings();
     }
-
 }
+
+
 
 class Gateway {
     public Integer ID = 12123;
