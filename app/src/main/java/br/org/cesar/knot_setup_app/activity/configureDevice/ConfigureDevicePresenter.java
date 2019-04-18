@@ -29,9 +29,6 @@ public class ConfigureDevicePresenter implements Presenter{
     private Integer write_count = 0;
     private boolean readDone = false;
     private boolean writeDone = false;
-    private Constants constants;
-
-
 
 
     ConfigureDevicePresenter(ViewModel viewModel,int gatewayID, boolean operation, DBHelper dbHelper){
@@ -41,7 +38,6 @@ public class ConfigureDevicePresenter implements Presenter{
         this.bluetoothWrapper = KnotSetupApplication.getBluetoothWrapper();
         this.device = KnotSetupApplication.getBluetoothDevice();
         this.mydb = dbHelper;
-        this.constants = new Constants();
         callbackFlux();
     }
 
@@ -169,23 +165,23 @@ public class ConfigureDevicePresenter implements Presenter{
         switch (write_count){
             case 0:
                 Log.d("DEV-LOG", "Write Wrapper: Channel" );
-                writeWrapper(constants.otSettingsService,constants.ChannelCharacteristic,value);
+                writeWrapper(Constants.OT_SETTINGS_SERVICE,Constants.CHANNEL_CHARACTERISTIC,value);
                 break;
             case 1:
                 Log.d("DEV-LOG", "WriteWrapper: NetName");
-                writeWrapper(constants.otSettingsService,constants.NetNameCharacteristic,thing.netName);
+                writeWrapper(Constants.OT_SETTINGS_SERVICE,Constants.NET_NAME_CHARACTERISTIC,thing.netName);
                 break;
             case 2:
                 Log.d("DEV-LOG", "WriteWrapper: PanID");
-                writeWrapper(constants.otSettingsService,constants.PanIDCharacteristic,value);
+                writeWrapper(Constants.OT_SETTINGS_SERVICE,Constants.PAN_ID_CHARACTERISTIC,value);
                 break;
             case 3:
                 Log.d("DEV-LOG", "WriteWrapper: XpanID");
-                writeWrapper(constants.otSettingsService,constants.XpanidCharacteristic,thing.xpanID);
+                writeWrapper(Constants.OT_SETTINGS_SERVICE,Constants.XPANID_CHARACTERISTIC,thing.xpanID);
                 break;
             case 4:
                 Log.d("DEV-LOG", "WriteWrapper: IPV6");
-                writeWrapper(constants.IPV6Service,constants.IPV6Characteristic,thing.ipv6);
+                writeWrapper(Constants.IPV6_SERVICE,Constants.IPV6_CHARACTERISTIC,thing.ipv6);
                 writeDone = true;
         }
     }
@@ -194,23 +190,23 @@ public class ConfigureDevicePresenter implements Presenter{
         switch (read_count){
             case 0:
                 Log.d("DEV-LOG", "ReadWrapper: Channel" );
-                readWrapper(constants.otSettingsServiceGateway,constants.ChannelCharacteristicGateway);
+                readWrapper(Constants.OT_SETTINGS_SERVICE_GATEWAY,Constants.CHANNEL_CHARACTERISTIC_GATEWAY);
                 break;
             case 1:
                 Log.d("DEV-LOG", "ReadWrapper: NetName");
-                readWrapper(constants.otSettingsServiceGateway,constants.NetNameCharacteristicGateway);
+                readWrapper(Constants.OT_SETTINGS_SERVICE_GATEWAY,Constants.NET_NAME_CHARACTERISTIC_GATEWAY);
                 break;
             case 2:
                 Log.d("DEV-LOG", "ReadWrapper: PanID");
-                readWrapper(constants.otSettingsServiceGateway,constants.PanIDCharacteristicGateway);
+                readWrapper(Constants.OT_SETTINGS_SERVICE_GATEWAY,Constants.PAN_ID_CHARACTERISTIC_GATEWAY);
                 break;
             case 3:
                 Log.d("DEV-LOG", "ReadWrapper: XpanID");
-                readWrapper(constants.otSettingsServiceGateway,constants.XpanidCharacteristicGateway);
+                readWrapper(Constants.OT_SETTINGS_SERVICE_GATEWAY,Constants.XPANID_CHARACTERISTIC_GATEWAY);
                 break;
             case 4:
                 Log.d("DEV-LOG", "ReadWrapper: IPV6");
-                readWrapper(constants.IPV6Service,constants.IPV6Characteristic);
+                readWrapper(Constants.OT_SETTINGS_SERVICE_GATEWAY,Constants.IPV6_CHARACTERISTIC_GATEWAY);
                 readDone = true;
         }
     }
