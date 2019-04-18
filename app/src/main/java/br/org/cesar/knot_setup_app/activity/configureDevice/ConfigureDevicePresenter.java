@@ -194,19 +194,19 @@ public class ConfigureDevicePresenter implements Presenter{
         switch (read_count){
             case 0:
                 Log.d("DEV-LOG", "ReadWrapper: Channel" );
-                readWrapper(constants.otSettingsService,constants.ChannelCharacteristic);
+                readWrapper(constants.otSettingsServiceGateway,constants.ChannelCharacteristicGateway);
                 break;
             case 1:
                 Log.d("DEV-LOG", "ReadWrapper: NetName");
-                readWrapper(constants.otSettingsService,constants.NetNameCharacteristic);
+                readWrapper(constants.otSettingsServiceGateway,constants.NetNameCharacteristicGateway);
                 break;
             case 2:
                 Log.d("DEV-LOG", "ReadWrapper: PanID");
-                readWrapper(constants.otSettingsService,constants.PanIDCharacteristic);
+                readWrapper(constants.otSettingsServiceGateway,constants.PanIDCharacteristicGateway);
                 break;
             case 3:
                 Log.d("DEV-LOG", "ReadWrapper: XpanID");
-                readWrapper(constants.otSettingsService,constants.XpanidCharacteristic);
+                readWrapper(constants.otSettingsServiceGateway,constants.XpanidCharacteristicGateway);
                 break;
             case 4:
                 Log.d("DEV-LOG", "ReadWrapper: IPV6");

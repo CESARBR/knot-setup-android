@@ -10,15 +10,16 @@ import java.util.List;
 import br.org.cesar.knot_setup_app.domain.callback.ScannerCallback;
 import br.org.cesar.knot_setup_app.KnotSetupApplication;
 import br.org.cesar.knot_setup_app.model.BluetoothDevice;
+import br.org.cesar.knot_setup_app.utils.Constants;
 import br.org.cesar.knot_setup_app.wrapper.BluetoothWrapper;
-
+import br.org.cesar.knot_setup_app.utils.Constants;
 public class ScanPresenter implements ScanContract.Presenter {
 
     private BluetoothWrapper bluetoothWrapper;
     private ScanContract.ViewModel mViewModel;
     private int gatewayID;
     private boolean operation;
-
+    private Constants constants;
     private List<BluetoothDevice> deviceList;
 
 
@@ -26,16 +27,17 @@ public class ScanPresenter implements ScanContract.Presenter {
         this.mViewModel = viewModel;
         this.bluetoothWrapper = KnotSetupApplication.getBluetoothWrapper();
         this.operation = operation;
+        this.constants = new Constants();
 
         if (operation) {
             //this is the UUID if we are searching for a thing
-            bluetoothWrapper.setScanUUID("a8a9e49c-aa9a-d441-9bec-817bb4900d30");
+            bluetoothWrapper.setScanUUID(constants.otSettingsService);
             this.gatewayID = gatewayID;
         }
 
         else{
             //this is the UUID if we are searching for a gateway
-            bluetoothWrapper.setScanUUID("a8a9e49c-aa9a-d441-9bec-817bb4900d30");
+            bluetoothWrapper.setScanUUID(constants.otSettingsServiceGateway);
         }
 
     }

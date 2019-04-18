@@ -89,7 +89,6 @@ public class ScanActivity extends AppCompatActivity implements  ScanContract.Vie
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Log.d("DEV-LOG","notifyDatasetChanged");
                 adapter.notifyDataSetChanged();
             }
         });

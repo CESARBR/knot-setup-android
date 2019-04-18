@@ -52,9 +52,9 @@ public class BluetoothWrapper {
         this.context = context;
     }
 
-    public void setScanUUID(String uuid){
-        Log.d("DEV-LOG","UUID: " + uuid);
-        this.ScanUUID = UUID.fromString(uuid);
+    public void setScanUUID(UUID uuid){
+        Log.d("DEV-LOG","UUID: " + uuid.toString());
+        this.ScanUUID = uuid;
     }
 
     public boolean checkBluetoothHardware() {
@@ -112,6 +112,12 @@ public class BluetoothWrapper {
                 super.onScanResult(callbackType, result);
                 BluetoothDevice device = result.getDevice();
                 if(device.getName() != null) {
+                    Log.d("DEV-LOG", "NAME: " + device.getName());
+                    if(result.getScanRecord().getServiceUuids() != null) {
+                        for (ParcelUuid uuid :result.getScanRecord().getServiceUuids()) {
+                            Log.d("DEV-LOG", "      UUID: " + uuid.getUuid().toString());
+                        }
+                    }
                     callback.onScanComplete(result);
                 }
             }
@@ -160,6 +166,7 @@ public class BluetoothWrapper {
             public void onConnectionStateChange(BluetoothGatt gatt, int status, int newState) {
                 super.onConnectionStateChange(gatt, status, newState);
                 Log.d("DEV-LOG","onConnectionStateChange");
+
                 if (status == BluetoothGatt.GATT_SUCCESS && newState == BluetoothProfile.STATE_CONNECTED) {
                     Log.d("DEV-LOG","callback.onConnect");
                     callback.onConnect();
