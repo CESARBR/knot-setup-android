@@ -9,6 +9,8 @@ import br.org.cesar.knot_setup_app.activity.configureDevice.ConfigureDeviceContr
 import br.org.cesar.knot_setup_app.domain.callback.DeviceCallback;
 import br.org.cesar.knot_setup_app.KnotSetupApplication;
 import br.org.cesar.knot_setup_app.model.BluetoothDevice;
+import br.org.cesar.knot_setup_app.model.Gateway;
+import br.org.cesar.knot_setup_app.model.Thing;
 import br.org.cesar.knot_setup_app.persistence.mysqlDatabase.DBHelper;
 import br.org.cesar.knot_setup_app.wrapper.BluetoothWrapper;
 import br.org.cesar.knot_setup_app.utils.Constants;
@@ -73,7 +75,7 @@ public class ConfigureDevicePresenter implements Presenter{
                 }
                 else{
                     gateway = new Gateway();
-                    gateway.name = device.getDevice().getName();
+                    gateway.setName(device.getDevice().getName());
                     gatewayConfigRead();
                 }
             }
@@ -169,7 +171,7 @@ public class ConfigureDevicePresenter implements Presenter{
                 break;
             case 1:
                 Log.d("DEV-LOG", "WriteWrapper: NetName");
-                writeWrapper(Constants.OT_SETTINGS_SERVICE,Constants.NET_NAME_CHARACTERISTIC,thing.netName);
+                writeWrapper(Constants.OT_SETTINGS_SERVICE,Constants.NET_NAME_CHARACTERISTIC,thing.getNetName());
                 break;
             case 2:
                 Log.d("DEV-LOG", "WriteWrapper: PanID");
@@ -177,11 +179,11 @@ public class ConfigureDevicePresenter implements Presenter{
                 break;
             case 3:
                 Log.d("DEV-LOG", "WriteWrapper: XpanID");
-                writeWrapper(Constants.OT_SETTINGS_SERVICE,Constants.XPANID_CHARACTERISTIC,thing.xpanID);
+                writeWrapper(Constants.OT_SETTINGS_SERVICE,Constants.XPANID_CHARACTERISTIC,thing.getXpanID());
                 break;
             case 4:
                 Log.d("DEV-LOG", "WriteWrapper: IPV6");
-                writeWrapper(Constants.IPV6_SERVICE,Constants.IPV6_CHARACTERISTIC,thing.ipv6);
+                writeWrapper(Constants.IPV6_SERVICE,Constants.IPV6_CHARACTERISTIC,thing.getPanID());
                 writeDone = true;
         }
     }
@@ -214,19 +216,19 @@ public class ConfigureDevicePresenter implements Presenter{
     private void gatewayConfigPersist(String value){
         switch (read_count){
             case 0:
-                gateway.channel = value;
+                gateway.setChannel(value);
                 break;
             case 1:
-                gateway.netName = value;
+                gateway.setNetName(value);
                 break;
             case 2:
-                gateway.panID = value;
+                gateway.setPanID(value);
                 break;
             case 3:
-                gateway.xpanID = value;
+                gateway.setXpanID(value);
                 break;
             case 4:
-                gateway.ipv6 = value;
+                gateway.setIpv6(value);
         }
     }
 
@@ -240,75 +242,31 @@ public class ConfigureDevicePresenter implements Presenter{
 
     private void gatewayDBWrapper(){
         Log.d("DEV-LOG","Writing to database");
-        mydb.insertDevice(gateway.ID,gateway.name,gateway.channel,gateway.netName,gateway.panID,gateway.xpanID,gateway.masterkey,gateway.ipv6);
+        mydb.insertDevice(gateway.getID(),gateway.getName(),
+                gateway.getChannel(),gateway.getNetName(),
+                gateway.getPanID(),gateway.getXpanID(),
+                gateway.getMasterkey(),gateway.getIpv6());
         Log.d("DEV-LOG","Writing to database over");
     }
 
     private void thingGatewayWrapper(){
         Log.d("DEV-LOG","Writing to database");
-        mydb.insertThing(thing.ID,thing.name,thing.channel,thing.netName,thing.panID,thing.xpanID,thing.masterkey,thing.ipv6);
-        mydb.insertGatewayThing(gatewayID,thing.ID);
+        mydb.insertThing(thing.getID(),thing.getNickname(),thing.getChannel(),thing.getNickname(),thing.getPanID(),thing.getXpanID(),thing.getMasterkey(),thing.getIpv6());
+        mydb.insertGatewayThing(gatewayID,thing.getID());
         Log.d("DEV-LOG","Writing to database over");
     }
 
+    //TODO: Find out if I really need to set te Thing values
     private void createThing(){
         Log.d("DEV-LOG","onCreateThing " + gatewayID);
         Cursor configs = mydb.getData("id",gatewayID);
-        thing = new Thing();
-        thing.ID = 123123213;
-        thing.name = device.getDevice().getName();
-        thing.channel = configs.getString(configs.getColumnIndex("Channel"));
-        thing.netName = configs.getString(configs.getColumnIndex("NetName"));
-        thing.panID = configs.getString(configs.getColumnIndex("PanID"));
-        thing.xpanID = configs.getString(configs.getColumnIndex("XpanID"));
-        thing.masterkey = configs.getString(configs.getColumnIndex("Masterkey"));
-        thing.ipv6 = configs.getString(configs.getColumnIndex("IPV6"));
-        thing.printThingSettings();
-    }
-}
-
-
-
-class Gateway {
-    public Integer ID = 12123;
-    public String name = "";
-    public String channel = "";
-    public String netName = "";
-    public String panID = "";
-    public String xpanID = "";
-    public String masterkey = "asdas";
-    public String ipv6 = "";
-}
-
-class Thing{
-    public Integer ID;
-    public String name;
-    public String channel;
-    public String netName;
-    public String panID;
-    public String xpanID;
-    public String masterkey;
-    public String ipv6;
-
-    public Thing(){}
-
-    public Thing(Integer id, String name, String channel , String netName , String panID, String xpanID, String masterkey, String ipv6){
-        this.ID = id;
-        this.name = name;
-        this.channel = channel;
-        this. netName = netName;
-        this.panID = panID;
-        this.xpanID = xpanID;
-        this.masterkey = masterkey;
-        this.ipv6 = ipv6;
-    }
-
-    public void printThingSettings(){
-        Log.d("DEV-LOG",this.name);
-        Log.d("DEV-LOG",this.channel);
-        Log.d("DEV-LOG",this.netName);
-        Log.d("DEV-LOG",this.panID);
-        Log.d("DEV-LOG",this.xpanID);
-        Log.d("DEV-LOG",this.ipv6);
+        thing = new Thing(123123213,device.getDevice().getName(),
+                configs.getString(configs.getColumnIndex("Channel")),
+                configs.getString(configs.getColumnIndex("NetName")),
+                configs.getString(configs.getColumnIndex("PanID")),
+                configs.getString(configs.getColumnIndex("XpanID")),
+                configs.getString(configs.getColumnIndex("Masterkey")),
+                configs.getString(configs.getColumnIndex("IPV6")) );
+                thing.printThingSettings();
     }
 }
