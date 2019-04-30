@@ -19,4 +19,7 @@ public class Constants{
     public static final UUID XPANID_CHARACTERISTIC_GATEWAY = UUID.fromString("a8a9e49c-aa9a-d441-9bec-817bb4900d34");
     public static final UUID MASTER_KEY_CHARACTERISTIC_GATEWAY = UUID.fromString("a8a9e49c-aa9a-d441-9bec-817bb4900d35");
     public static final UUID IPV6_CHARACTERISTIC_GATEWAY = UUID.fromString("a8a9e49c-aa9a-d441-9bec-817bb4900d36");
+
+    public static final String BASE_URL = "http://localhost:8080";
+    public static final String Oauth = "";
 }
