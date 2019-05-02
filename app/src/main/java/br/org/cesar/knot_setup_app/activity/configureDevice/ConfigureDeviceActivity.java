@@ -2,6 +2,8 @@ package br.org.cesar.knot_setup_app.activity.configureDevice;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import br.org.cesar.knot_setup_app.R;
@@ -34,10 +36,35 @@ public class ConfigureDeviceActivity extends AppCompatActivity implements ViewMo
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(getApplicationContext(), "Scan for device " +
-                        "successful!", Toast.LENGTH_LONG).show();
-            }
+                Toast.makeText(getApplicationContext(), "Successfully paired" +
+                        "with device!!!", Toast.LENGTH_LONG).show();            }
         });
     }
 
+    @Override
+    public void callbackOnOperation(int val){
+        switch (val){
+            case 0:
+                this.removeProgressBar("channel");
+                break;
+            case 1:
+                this.removeProgressBar("net_name");
+                break;
+            case 2:
+                this.removeProgressBar("pan_id");
+                break;
+            case 3:
+                this.removeProgressBar("xpan_id");
+                break;
+            case 4:
+                this.removeProgressBar("IPV6");
+                break;
+        }
+    }
+
+    public void removeProgressBar(String progressBarID){
+        int resID = (int) getResources().getIdentifier(progressBarID + "_progress_bar","id",getPackageName());
+        ProgressBar progressBar = findViewById(resID);
+        progressBar.setVisibility(View.INVISIBLE);
+    }
 }

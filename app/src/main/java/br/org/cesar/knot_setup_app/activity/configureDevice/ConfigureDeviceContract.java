@@ -5,6 +5,7 @@ public interface ConfigureDeviceContract{
     interface ViewModel{
         void callbackOnConnected();
         void callbackOnDisconnected();
+        void callbackOnOperation(int write_count);
     }
 
     interface Presenter{

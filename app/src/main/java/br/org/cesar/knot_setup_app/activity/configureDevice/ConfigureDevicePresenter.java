@@ -27,8 +27,8 @@ public class ConfigureDevicePresenter implements Presenter{
     private Gateway gateway;
     private Thing thing;
 
-    private Integer read_count = 0;
-    private Integer write_count = 0;
+    private int read_count = 0;
+    private int write_count = 0;
     private boolean readDone = false;
     private boolean writeDone = false;
 
@@ -88,6 +88,8 @@ public class ConfigureDevicePresenter implements Presenter{
             @Override
             public void onCharacteristicWriteComplete(){
                 Log.d("DEV-LOG","Characteristic writen");
+                mViewModel.callbackOnOperation(write_count);
+
                 if(writeDone){
                     thingGatewayWrapper();
                     bluetoothWrapper.closeConn();
@@ -122,7 +124,7 @@ public class ConfigureDevicePresenter implements Presenter{
                 else {valueRead = new String(value);}
 
                 Log.d("DEV-LOG","Characteristic read: " + valueRead);
-
+                mViewModel.callbackOnOperation(read_count);
                 // Add read characteristic to gateway object
                 gatewayConfigPersist(new String(value));
 
