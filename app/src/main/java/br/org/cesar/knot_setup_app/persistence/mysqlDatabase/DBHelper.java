@@ -21,6 +21,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("create table KNoT_Devices " + "(id integer primary key, name text,Channel text,NetName text, PanID text,XpanID text, Masterkey text, IPV6 text)");
         db.execSQL("create table KNoT_Things " + "(id integer primary key, name text,Channel text,NetName text, PanID text,XpanID text, Masterkey text, IPV6 text)");
         db.execSQL("create table gateway_Devices " + "(id_Gateway integer, id_Thing primary key)" );
+        db.execSQL("create table account " + "(login text primary key, token text)");
     }
 
 
@@ -59,6 +60,17 @@ public class DBHelper extends SQLiteOpenHelper {
         db.insert("KNoT_Things", null, contentValues);
         return true;
     }
+
+    public boolean insertAccount(String login, String token){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("login",login);
+        contentValues.put("token",token);
+        db.replace("account", null,contentValues);
+        return true;
+    }
+
+
 
     public boolean insertGatewayThing(Integer gatewayID, Integer thingID){
         SQLiteDatabase db = this.getWritableDatabase();
@@ -142,5 +154,12 @@ public class DBHelper extends SQLiteOpenHelper {
         }
         return array_list_Names;
     }
+
+    public Cursor getAccount(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res =  db.rawQuery( "select * from account", null );
+        return res;
+    }
+
 
 }
