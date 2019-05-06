@@ -12,6 +12,7 @@ import java.util.ArrayList;
 
 import br.org.cesar.knot_setup_app.R;
 import br.org.cesar.knot_setup_app.activity.scan.ScanActivity;
+import br.org.cesar.knot_setup_app.activity.splash.SplashActivity;
 import br.org.cesar.knot_setup_app.persistence.mysqlDatabase.DBHelper;
 import br.org.cesar.knot_setup_app.domain.adapter.DeviceAdapter;
 import br.org.cesar.knot_setup_app.activity.thingList.ThingActivity;
@@ -70,7 +71,7 @@ public class GatewayActivity extends AppCompatActivity implements  GatewayContra
 
     @Override
     public void callBackOnGatewayFound(int gatewayID){
-        Intent i = new Intent(GatewayActivity.this, ThingActivity.class);
+        Intent i = new Intent(GatewayActivity.this, SplashActivity.class);
         i.putExtra("gatewayID", gatewayID);
         startActivity(i);
     }
