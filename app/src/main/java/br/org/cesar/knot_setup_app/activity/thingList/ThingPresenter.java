@@ -22,15 +22,18 @@ public class  ThingPresenter implements Presenter{
     private DBHelper dbHelper;
     private int gatewayID;
     private static DataManager dataManager;
+    private static String token;
 
     ThingPresenter(ViewModel viewModel,DBHelper dbHelper,int gatewayID) {
         mViewModel = viewModel;
         this.dbHelper = dbHelper;
         this.gatewayID = gatewayID;
+        this.token = this.dbHelper.getToken();
     }
 
+
     public void getDeviceList(){
-        dataManager.getInstance().getService().getDevices(Constants.Oauth)
+        dataManager.getInstance().getService().getDevices(token)
                 .timeout(30, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
