@@ -68,7 +68,8 @@ public class SplashPresenter implements Presenter{
     }
 
     private void handleStateSuccess(State state){
-        if(state.getState() == "ready"){
+        Log.d("DEV-LOG","State: " + state.getState());
+        if(state.getState().equals("ready")){
             checkToken();
         }
         else{
@@ -77,6 +78,7 @@ public class SplashPresenter implements Presenter{
     }
 
     private void onErrorHandler(Throwable throwable){
+        
         Log.d("DEV-LOG", "onErrorHandler: " + throwable.getMessage());
     }
 
