@@ -78,7 +78,9 @@ public class SplashPresenter implements Presenter{
     }
 
     private void onErrorHandler(Throwable throwable){
-        
+        if(throwable.getMessage().contains("401")){
+            mViewModel.doLogin();
+        }
         Log.d("DEV-LOG", "onErrorHandler: " + throwable.getMessage());
     }
 
