@@ -22,4 +22,7 @@ public class Constants{
 
     public static final String BASE_URL = "http://localhost:8080";
     public static final String Oauth = "";
+
+    public static final String DNS_SD_SERVICE_TYPE = "_services._dns-sd._udp";
+    public static final String DNS_SD_SERVICE_NAME = "knot.local";
 }
