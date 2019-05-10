@@ -161,5 +161,11 @@ public class DBHelper extends SQLiteOpenHelper {
         return res;
     }
 
+    public String getToken(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res =  db.rawQuery( "select * from account", null );
+        res.moveToFirst();
+        return res.getString(res.getColumnIndex("token"));
+    }
 
 }
