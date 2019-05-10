@@ -49,7 +49,7 @@ public class LoginPresenter implements LoginContract.Presenter{
 
     private void loginSucceeded(User user) {
         Log.d("DEV-LOG",user.getToken());
-        dbHelper.insertAccount(email, user.getToken());
+        dbHelper.insertAccount(email,"Bearer " + user.getToken());
         mViewModel.callbackOnLogin();
     }
 
