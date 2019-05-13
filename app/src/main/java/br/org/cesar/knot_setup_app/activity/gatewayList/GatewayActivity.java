@@ -35,7 +35,6 @@ public class GatewayActivity extends AppCompatActivity implements  GatewayContra
 
         mPresenter = new GatewayPresenter(this,(NsdManager) this.getSystemService(Context.NSD_SERVICE));
 
-        //Add new device button interaction
         FloatingActionButton addButton = findViewById(R.id.add_gateway);
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,7 +50,6 @@ public class GatewayActivity extends AppCompatActivity implements  GatewayContra
     protected void onResume() {
         super.onResume();
         this.mPresenter.clearNsdServiceList();
-        this.mPresenter.initializeResolveListener();
         this.mPresenter.initializeDiscoveryListener();
     }
 

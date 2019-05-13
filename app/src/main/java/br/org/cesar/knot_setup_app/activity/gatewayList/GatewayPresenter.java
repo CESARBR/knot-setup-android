@@ -15,7 +15,6 @@ public class GatewayPresenter implements GatewayContract.Presenter {
     private GatewayContract.ViewModel mViewModel;
 
     private NsdManager nsdManager;
-    private NsdManager.ResolveListener resolveListener;
     private NsdManager.DiscoveryListener discoveryListener;
 
     private ArrayList<NsdServiceInfo> mService;
@@ -115,24 +114,6 @@ public class GatewayPresenter implements GatewayContract.Presenter {
 
         nsdManager.discoverServices("_http._tcp.", NsdManager.PROTOCOL_DNS_SD, discoveryListener);
 
-    }
-
-    public void initializeResolveListener() {
-        resolveListener = new NsdManager.ResolveListener() {
-            @Override
-            public void onResolveFailed(NsdServiceInfo serviceInfo, int errorCode) {
-                // Called when the resolve fails. Use the error code to debug.
-                Log.e("DEV-LOG", "Resolve failed: " + errorCode);
-            }
-
-            @Override
-            public void onServiceResolved(NsdServiceInfo serviceInfo) {
-                Log.e("DEV-LOG", "Resolve Succeeded. " + serviceInfo);
-                if (serviceInfo.getServiceName().equals(Constants.DNS_SD_SERVICE_NAME)){
-                    Log.d("DEV-LOG", "Same IP.");
-                }
-            }
-        };
     }
 
 }
