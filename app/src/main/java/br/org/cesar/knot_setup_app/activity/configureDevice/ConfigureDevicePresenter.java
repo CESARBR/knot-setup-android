@@ -1,5 +1,4 @@
 package br.org.cesar.knot_setup_app.activity.configureDevice;
-import android.database.Cursor;
 import android.util.Log;
 
 import java.util.UUID;
@@ -11,7 +10,6 @@ import br.org.cesar.knot_setup_app.KnotSetupApplication;
 import br.org.cesar.knot_setup_app.model.BluetoothDevice;
 import br.org.cesar.knot_setup_app.model.Gateway;
 import br.org.cesar.knot_setup_app.model.Thing;
-import br.org.cesar.knot_setup_app.persistence.mysqlDatabase.DBHelper;
 import br.org.cesar.knot_setup_app.wrapper.BluetoothWrapper;
 import br.org.cesar.knot_setup_app.utils.Constants;
 
@@ -22,7 +20,6 @@ public class ConfigureDevicePresenter implements Presenter{
     private BluetoothWrapper bluetoothWrapper;
     private BluetoothDevice device;
 
-    private DBHelper mydb;
 
     private Gateway gateway;
     private Thing thing;
@@ -33,13 +30,12 @@ public class ConfigureDevicePresenter implements Presenter{
     private boolean writeDone = false;
 
 
-    ConfigureDevicePresenter(ViewModel viewModel,int gatewayID, boolean operation, DBHelper dbHelper){
+    ConfigureDevicePresenter(ViewModel viewModel,int gatewayID, boolean operation){
         this.mViewModel = viewModel;
         this.gatewayID = gatewayID;
         this.operation = operation;
         this.bluetoothWrapper = KnotSetupApplication.getBluetoothWrapper();
         this.device = KnotSetupApplication.getBluetoothDevice();
-        this.mydb = dbHelper;
         callbackFlux();
     }
 
@@ -70,7 +66,6 @@ public class ConfigureDevicePresenter implements Presenter{
             public void onServiceDiscoveryComplete(){
                 Log.d("DEV-LOG","Services discovered");
                 if(operation){
-                    createThing();
                     thingConfigWrite();
                 }
                 else{
@@ -91,7 +86,6 @@ public class ConfigureDevicePresenter implements Presenter{
                 mViewModel.callbackOnOperation(write_count);
 
                 if(writeDone){
-                    thingGatewayWrapper();
                     bluetoothWrapper.closeConn();
                 }
                 else {
@@ -125,11 +119,8 @@ public class ConfigureDevicePresenter implements Presenter{
 
                 Log.d("DEV-LOG","Characteristic read: " + valueRead);
                 mViewModel.callbackOnOperation(read_count);
-                // Add read characteristic to gateway object
-                gatewayConfigPersist(new String(value));
 
                 if(readDone){
-                    gatewayDBWrapper();
                     bluetoothWrapper.closeConn();
                 }
 
@@ -215,25 +206,6 @@ public class ConfigureDevicePresenter implements Presenter{
         }
     }
 
-    private void gatewayConfigPersist(String value){
-        switch (read_count){
-            case 0:
-                gateway.setChannel(value);
-                break;
-            case 1:
-                gateway.setNetName(value);
-                break;
-            case 2:
-                gateway.setPanID(value);
-                break;
-            case 3:
-                gateway.setXpanID(value);
-                break;
-            case 4:
-                gateway.setIpv6(value);
-        }
-    }
-
     private static String bytesToHex(byte[] hashInBytes) {
         StringBuilder sb = new StringBuilder();
         for (byte b : hashInBytes) {
@@ -242,33 +214,4 @@ public class ConfigureDevicePresenter implements Presenter{
         return sb.toString();
     }
 
-    private void gatewayDBWrapper(){
-        Log.d("DEV-LOG","Writing to database");
-        mydb.insertDevice(gateway.getID(),gateway.getName(),
-                gateway.getChannel(),gateway.getNetName(),
-                gateway.getPanID(),gateway.getXpanID(),
-                gateway.getMasterkey(),gateway.getIpv6());
-        Log.d("DEV-LOG","Writing to database over");
-    }
-
-    private void thingGatewayWrapper(){
-        Log.d("DEV-LOG","Writing to database");
-        mydb.insertThing(thing.getID(),thing.getNickname(),thing.getChannel(),thing.getNickname(),thing.getPanID(),thing.getXpanID(),thing.getMasterkey(),thing.getIpv6());
-        mydb.insertGatewayThing(gatewayID,thing.getID());
-        Log.d("DEV-LOG","Writing to database over");
-    }
-
-    //TODO: Find out if I really need to set te Thing values
-    private void createThing(){
-        Log.d("DEV-LOG","onCreateThing " + gatewayID);
-        Cursor configs = mydb.getData("id",gatewayID);
-        thing = new Thing(123123213,device.getDevice().getName(),
-                configs.getString(configs.getColumnIndex("Channel")),
-                configs.getString(configs.getColumnIndex("NetName")),
-                configs.getString(configs.getColumnIndex("PanID")),
-                configs.getString(configs.getColumnIndex("XpanID")),
-                configs.getString(configs.getColumnIndex("Masterkey")),
-                configs.getString(configs.getColumnIndex("IPV6")) );
-                thing.printThingSettings();
-    }
 }

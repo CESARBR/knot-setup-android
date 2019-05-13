@@ -6,7 +6,6 @@ import android.util.Log;
 
 import java.util.ArrayList;
 
-import br.org.cesar.knot_setup_app.persistence.mysqlDatabase.DBHelper;
 import br.org.cesar.knot_setup_app.utils.Constants;
 
 import static br.org.cesar.knot_setup_app.utils.Constants.DNS_SD_SERVICE_TYPE;

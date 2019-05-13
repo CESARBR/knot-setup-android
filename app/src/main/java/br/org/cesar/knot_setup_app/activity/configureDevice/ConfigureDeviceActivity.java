@@ -9,7 +9,6 @@ import android.widget.Toast;
 import br.org.cesar.knot_setup_app.R;
 import br.org.cesar.knot_setup_app.activity.configureDevice.ConfigureDeviceContract.ViewModel;
 import br.org.cesar.knot_setup_app.activity.configureDevice.ConfigureDeviceContract.Presenter;
-import br.org.cesar.knot_setup_app.persistence.mysqlDatabase.DBHelper;
 
 public class ConfigureDeviceActivity extends AppCompatActivity implements ViewModel {
     private Presenter mPresenter;
@@ -18,11 +17,10 @@ public class ConfigureDeviceActivity extends AppCompatActivity implements ViewMo
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_configure_gateway);
-        DBHelper dbHelper = new DBHelper(this);
 
         int gatewayID = getIntent().getIntExtra("gatewayID",0);
         boolean operation = (boolean) getIntent().getBooleanExtra("operation",false);
-        this.mPresenter = new ConfigureDevicePresenter(this,gatewayID,operation,dbHelper);
+        this.mPresenter = new ConfigureDevicePresenter(this,gatewayID,operation);
 
     }
 

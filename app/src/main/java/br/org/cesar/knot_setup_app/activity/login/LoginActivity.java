@@ -10,7 +10,6 @@ import android.widget.EditText;
 import br.org.cesar.knot_setup_app.R;
 import br.org.cesar.knot_setup_app.activity.login.LoginContract.Presenter;
 import br.org.cesar.knot_setup_app.activity.thingList.ThingActivity;
-import br.org.cesar.knot_setup_app.persistence.mysqlDatabase.DBHelper;
 import br.org.cesar.knot_setup_app.utils.Utils;
 
 public class LoginActivity extends AppCompatActivity implements LoginContract.ViewModel {
@@ -21,7 +20,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_login);
 
-            mPresenter = new LoginPresenter(this, new DBHelper(this));
+            mPresenter = new LoginPresenter(this);
 
             Button button = findViewById(R.id.send);
             EditText emailFld = findViewById(R.id.email);

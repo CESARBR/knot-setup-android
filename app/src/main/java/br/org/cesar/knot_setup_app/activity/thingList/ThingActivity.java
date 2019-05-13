@@ -12,13 +12,11 @@ import java.util.ArrayList;
 
 import br.org.cesar.knot_setup_app.R;
 import br.org.cesar.knot_setup_app.activity.scan.ScanActivity;
-import br.org.cesar.knot_setup_app.persistence.mysqlDatabase.DBHelper;
 import br.org.cesar.knot_setup_app.domain.adapter.DeviceAdapter;
 import br.org.cesar.knot_setup_app.activity.thingList.ThingContract.Presenter;
 import br.org.cesar.knot_setup_app.activity.thingList.ThingContract.ViewModel;
 
 public class ThingActivity extends AppCompatActivity implements  ViewModel{
-    private DBHelper dbHelper;
     private DeviceAdapter adapter;
     private Presenter mPresenter;
 
@@ -28,8 +26,7 @@ public class ThingActivity extends AppCompatActivity implements  ViewModel{
         setContentView(R.layout.activity_things_list);
 
         final int gatewayID = getIntent().getIntExtra("gatewayID",0);
-        dbHelper = new DBHelper(this);
-        mPresenter = new ThingPresenter(this,dbHelper,gatewayID);
+        mPresenter = new ThingPresenter(this,gatewayID);
 
 
         FloatingActionButton addButton = findViewById(R.id.add_thing);

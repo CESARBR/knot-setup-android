@@ -6,29 +6,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import br.org.cesar.knot_setup_app.activity.gatewayList.GatewayContract;
 import br.org.cesar.knot_setup_app.activity.thingList.ThingContract.ViewModel;
 import br.org.cesar.knot_setup_app.activity.thingList.ThingContract.Presenter;
 import br.org.cesar.knot_setup_app.data.DataManager;
-import br.org.cesar.knot_setup_app.data.api.ApiService;
 import br.org.cesar.knot_setup_app.model.Gateway;
-import br.org.cesar.knot_setup_app.persistence.mysqlDatabase.DBHelper;
-import br.org.cesar.knot_setup_app.utils.Constants;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 public class  ThingPresenter implements Presenter{
     private ViewModel mViewModel;
-    private DBHelper dbHelper;
     private int gatewayID;
     private static DataManager dataManager;
     private static String token;
 
-    ThingPresenter(ViewModel viewModel,DBHelper dbHelper,int gatewayID) {
+    ThingPresenter(ViewModel viewModel,int gatewayID) {
         mViewModel = viewModel;
-        this.dbHelper = dbHelper;
         this.gatewayID = gatewayID;
-        this.token = this.dbHelper.getToken();
     }
 
 

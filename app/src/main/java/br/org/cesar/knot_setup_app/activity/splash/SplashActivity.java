@@ -6,12 +6,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 import br.org.cesar.knot_setup_app.R;
-import br.org.cesar.knot_setup_app.activity.gatewayList.GatewayActivity;
 import br.org.cesar.knot_setup_app.activity.login.LoginActivity;
 import br.org.cesar.knot_setup_app.activity.splash.SplashContract.ViewModel;
 import br.org.cesar.knot_setup_app.activity.splash.SplashContract.Presenter;
 import br.org.cesar.knot_setup_app.activity.thingList.ThingActivity;
-import br.org.cesar.knot_setup_app.persistence.mysqlDatabase.DBHelper;
 import br.org.cesar.knot_setup_app.utils.Utils;
 
 public class SplashActivity extends AppCompatActivity implements  ViewModel{
@@ -23,7 +21,7 @@ public class SplashActivity extends AppCompatActivity implements  ViewModel{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        mPresenter = new SplashPresenter(this, new DBHelper(this));
+        mPresenter = new SplashPresenter(this);
 
         if(Utils.isConnected(this)){
             mPresenter.chooseActivity();

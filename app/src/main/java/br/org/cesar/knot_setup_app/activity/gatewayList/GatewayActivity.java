@@ -18,7 +18,6 @@ import br.org.cesar.knot_setup_app.R;
 import br.org.cesar.knot_setup_app.activity.scan.ScanActivity;
 import br.org.cesar.knot_setup_app.activity.splash.SplashActivity;
 import br.org.cesar.knot_setup_app.domain.adapter.GatewayAdapter;
-import br.org.cesar.knot_setup_app.persistence.mysqlDatabase.DBHelper;
 
 public class GatewayActivity extends AppCompatActivity implements  GatewayContract.ViewModel{
 
