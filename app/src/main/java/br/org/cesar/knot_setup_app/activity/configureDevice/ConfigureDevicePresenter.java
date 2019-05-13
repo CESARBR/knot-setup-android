@@ -70,7 +70,6 @@ public class ConfigureDevicePresenter implements Presenter{
                 }
                 else{
                     gateway = new Gateway();
-                    gateway.setName(device.getDevice().getName());
                     gatewayConfigRead();
                 }
             }
@@ -164,7 +163,7 @@ public class ConfigureDevicePresenter implements Presenter{
                 break;
             case 1:
                 Log.d("DEV-LOG", "WriteWrapper: NetName");
-                writeWrapper(Constants.OT_SETTINGS_SERVICE,Constants.NET_NAME_CHARACTERISTIC,thing.getNetName());
+                writeWrapper(Constants.OT_SETTINGS_SERVICE,Constants.NET_NAME_CHARACTERISTIC,"netname");
                 break;
             case 2:
                 Log.d("DEV-LOG", "WriteWrapper: PanID");
@@ -172,11 +171,11 @@ public class ConfigureDevicePresenter implements Presenter{
                 break;
             case 3:
                 Log.d("DEV-LOG", "WriteWrapper: XpanID");
-                writeWrapper(Constants.OT_SETTINGS_SERVICE,Constants.XPANID_CHARACTERISTIC,thing.getXpanID());
+                writeWrapper(Constants.OT_SETTINGS_SERVICE,Constants.XPANID_CHARACTERISTIC,"xpanid");
                 break;
             case 4:
                 Log.d("DEV-LOG", "WriteWrapper: IPV6");
-                writeWrapper(Constants.IPV6_SERVICE,Constants.IPV6_CHARACTERISTIC,thing.getPanID());
+                writeWrapper(Constants.IPV6_SERVICE,Constants.IPV6_CHARACTERISTIC,"panid");
                 writeDone = true;
         }
     }
