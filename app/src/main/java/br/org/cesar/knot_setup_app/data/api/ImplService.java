@@ -12,17 +12,18 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Url;
 
 public interface ImplService {
 
-    @GET("api/state")
-    Observable<State> getState();
+    @GET
+    Observable<State> getState(@Url String url);
 
-    @GET("api/devices")
-    Observable<List<Gateway>> getDevices(@Header("Authorization") String auth);
+    @GET
+    Observable<List<Gateway>> getDevices(@Url String url ,@Header("Authorization") String auth);
 
     @FormUrlEncoded
-    @POST("/api/auth")
-    Observable<User> login(@Field("email") String email, @Field("password") String password);
+    @POST
+    Observable<User> login(@Url String url,@Field("email") String email, @Field("password") String password);
 
 }

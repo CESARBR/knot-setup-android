@@ -26,7 +26,7 @@ public class ThingActivity extends AppCompatActivity implements  ViewModel{
         setContentView(R.layout.activity_things_list);
 
         final int gatewayID = getIntent().getIntExtra("gatewayID",0);
-        mPresenter = new ThingPresenter(this,gatewayID);
+        mPresenter = new ThingPresenter(this,gatewayID,this);
 
 
         FloatingActionButton addButton = findViewById(R.id.add_thing);

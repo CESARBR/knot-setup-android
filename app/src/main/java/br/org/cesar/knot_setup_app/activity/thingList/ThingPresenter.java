@@ -1,5 +1,6 @@
 package br.org.cesar.knot_setup_app.activity.thingList;
 
+import android.content.Context;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -17,16 +18,32 @@ public class  ThingPresenter implements Presenter{
     private ViewModel mViewModel;
     private int gatewayID;
     private static DataManager dataManager;
-    private static String token;
+    private static String token,login,ip,request;
+    private Context context;
 
-    ThingPresenter(ViewModel viewModel,int gatewayID) {
+    ThingPresenter(ViewModel viewModel, int gatewayID, Context context) {
         mViewModel = viewModel;
         this.gatewayID = gatewayID;
+        this.context = context;
+
+        this.login = dataManager.getInstance()
+                .getPersistentPreference()
+                .getSharedPreferenceString(context,"email");
+
+        this.token = dataManager.getInstance()
+                .getPersistentPreference()
+                .getSharedPreferenceString(context,"token");
+
+        this.ip = dataManager.getInstance()
+                .getPreference()
+                .getSharedPreferenceString(context,"ip");
+
+        this.request = "http://" + ip +":8080/api/devices";
     }
 
 
     public void getDeviceList(){
-        dataManager.getInstance().getService().getDevices(token)
+        dataManager.getInstance().getService().getDevices(this.request,token)
                 .timeout(30, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -37,7 +54,7 @@ public class  ThingPresenter implements Presenter{
     private void handleDeviceSuccess(List<Gateway> gat){
         if(!gat.isEmpty()) {
             ArrayList<String> deviceList = new ArrayList<String>();
-
+            //TOOD: Check if this is in fact correct (Gateway gt :gat). should'nt it be Thing gt ...
             Log.d("DEV-LOG", "Entered");
             for (Gateway gt : gat) {
                 deviceList.add(gt.getName());

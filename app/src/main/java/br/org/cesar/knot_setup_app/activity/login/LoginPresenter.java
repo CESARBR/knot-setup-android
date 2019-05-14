@@ -18,6 +18,7 @@ public class LoginPresenter implements LoginContract.Presenter{
     private ViewModel mViewModel;
     private static DataManager dataManager;
     private String email;
+    private String request;
     private Context context;
 
     public void setEmail(String email){this.email = email;}
@@ -25,6 +26,10 @@ public class LoginPresenter implements LoginContract.Presenter{
     LoginPresenter(ViewModel viewModel, Context context){
         this.mViewModel = viewModel;
         this.context = context;
+        String ip = dataManager.getInstance()
+                .getPreference().getSharedPreferenceString(context,"ip");
+        this.request = "http://" + ip +":8080/api/auth";
+
     }
 
     @Override
@@ -33,8 +38,8 @@ public class LoginPresenter implements LoginContract.Presenter{
 
     @Override
     public void doLogin(String password){
-        Log.d("DEV-LOG","email: " + email + " password: " + password);
-        dataManager.getInstance().getService().login(email,password)
+        Log.d("DEV-LOG","email: " + email + " password: " + password + " request: " + request);
+        dataManager.getInstance().getService().login(this.request,email,password)
         .timeout(30, TimeUnit.SECONDS)
         .subscribeOn(Schedulers.newThread())
         .observeOn(AndroidSchedulers.mainThread())

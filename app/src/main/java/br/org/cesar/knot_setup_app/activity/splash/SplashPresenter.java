@@ -19,19 +19,26 @@ public class SplashPresenter implements Presenter{
 
     private ViewModel mViewModel;
     private static DataManager dataManager;
-    private  String login,token;
+    private  String login,token,request,ip;
     private Context context;
 
     SplashPresenter(ViewModel viewModel, Context context){
         this.mViewModel = viewModel;
         this.context = context;
 
-        this.login = dataManager.getPersistentPreference()
+        this.login = dataManager.getInstance()
+                .getPersistentPreference()
                 .getSharedPreferenceString(context,"email");
 
-        this.token = dataManager.getPersistentPreference()
+        this.token = dataManager.getInstance()
+                .getPersistentPreference()
                 .getSharedPreferenceString(context,"token");
 
+        this.ip = dataManager.getInstance()
+                .getPreference()
+                .getSharedPreferenceString(context,"ip");
+
+        this.request = "http://" + ip +":8080/api/state";
     }
 
     @Override
@@ -40,12 +47,12 @@ public class SplashPresenter implements Presenter{
             checkApi();
         }
         else{
-            mViewModel.doLogin();
+            checkApi();
         }
     }
 
     public void checkApi(){
-        dataManager.getInstance().getService().getState()
+        dataManager.getInstance().getService().getState(this.request)
                 .timeout(30, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -54,7 +61,7 @@ public class SplashPresenter implements Presenter{
     }
 
     public void checkToken(){
-        dataManager.getInstance().getService().getDevices(token)
+        dataManager.getInstance().getService().getDevices(this.request,token)
                 .timeout(30, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -69,6 +76,7 @@ public class SplashPresenter implements Presenter{
     private void handleStateSuccess(State state){
         Log.d("DEV-LOG","State: " + state.getState());
         if(state.getState().equals("ready")){
+            this.request = "http://" + ip +":8080/api/devices";
             checkToken();
         }
         else{
