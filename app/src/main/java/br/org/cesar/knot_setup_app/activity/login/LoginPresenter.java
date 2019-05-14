@@ -1,6 +1,7 @@
 package br.org.cesar.knot_setup_app.activity.login;
 
 
+import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
 
@@ -17,11 +18,13 @@ public class LoginPresenter implements LoginContract.Presenter{
     private ViewModel mViewModel;
     private static DataManager dataManager;
     private String email;
+    private Context context;
 
     public void setEmail(String email){this.email = email;}
 
-    LoginPresenter(ViewModel viewModel){
+    LoginPresenter(ViewModel viewModel, Context context){
         this.mViewModel = viewModel;
+        this.context = context;
     }
 
     @Override
@@ -40,8 +43,12 @@ public class LoginPresenter implements LoginContract.Presenter{
     }
 
     private void loginSucceeded(User user) {
-        Log.d("DEV-LOG",user.getToken());
-        //TODO: Change this by a shared preference
+        dataManager.getInstance().getPersistentPreference()
+                .setSharedPreferenceString(context,"email",email);
+
+        dataManager.getInstance().getPersistentPreference()
+                .setSharedPreferenceString(context,"token","Bearer " + user.getToken());
+
         mViewModel.callbackOnLogin();
     }
 

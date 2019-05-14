@@ -20,7 +20,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_login);
 
-            mPresenter = new LoginPresenter(this);
+            mPresenter = new LoginPresenter(this,this);
 
             Button button = findViewById(R.id.send);
             EditText emailFld = findViewById(R.id.email);
