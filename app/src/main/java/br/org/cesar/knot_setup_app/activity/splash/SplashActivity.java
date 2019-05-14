@@ -21,7 +21,7 @@ public class SplashActivity extends AppCompatActivity implements  ViewModel{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        mPresenter = new SplashPresenter(this);
+        mPresenter = new SplashPresenter(this,this);
 
         if(Utils.isConnected(this)){
             mPresenter.chooseActivity();

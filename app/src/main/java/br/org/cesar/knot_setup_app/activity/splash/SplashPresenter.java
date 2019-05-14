@@ -1,5 +1,6 @@
 package br.org.cesar.knot_setup_app.activity.splash;
 
+import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
 
@@ -19,14 +20,28 @@ public class SplashPresenter implements Presenter{
     private ViewModel mViewModel;
     private static DataManager dataManager;
     private  String login,token;
+    private Context context;
 
-    SplashPresenter(ViewModel viewModel){
+    SplashPresenter(ViewModel viewModel, Context context){
         this.mViewModel = viewModel;
-    }
+        this.context = context;
 
+        this.login = dataManager.getPersistentPreference()
+                .getSharedPreferenceString(context,"email");
+
+        this.token = dataManager.getPersistentPreference()
+                .getSharedPreferenceString(context,"token");
+
+    }
 
     @Override
     public void chooseActivity(){
+        if(this.login != null && this.token != null){
+            checkApi();
+        }
+        else{
+            mViewModel.doLogin();
+        }
     }
 
     public void checkApi(){
