@@ -1,11 +1,13 @@
 package br.org.cesar.knot_setup_app.activity.gatewayList;
 
+import android.content.Context;
 import android.net.nsd.NsdManager;
 import android.net.nsd.NsdServiceInfo;
 import android.util.Log;
 
 import java.util.ArrayList;
 
+import br.org.cesar.knot_setup_app.data.DataManager;
 import br.org.cesar.knot_setup_app.utils.Constants;
 
 import static br.org.cesar.knot_setup_app.utils.Constants.DNS_SD_SERVICE_TYPE;
@@ -13,16 +15,18 @@ import static br.org.cesar.knot_setup_app.utils.Constants.DNS_SD_SERVICE_TYPE;
 public class GatewayPresenter implements GatewayContract.Presenter {
 
     private GatewayContract.ViewModel mViewModel;
-
+    private static DataManager dataManager;
+    private Context context;
     private NsdManager nsdManager;
     private NsdManager.DiscoveryListener discoveryListener;
 
     private ArrayList<NsdServiceInfo> mService;
 
-    GatewayPresenter(GatewayContract.ViewModel viewModel, NsdManager nsdManager) {
+    GatewayPresenter(GatewayContract.ViewModel viewModel, NsdManager nsdManager, Context context) {
         mViewModel = viewModel;
         this.mService = new ArrayList<NsdServiceInfo>();
         this.nsdManager = nsdManager;
+        this.context = context;
     }
 
     public void getAllGateways(){
@@ -42,6 +46,15 @@ public class GatewayPresenter implements GatewayContract.Presenter {
             @Override
             public void onServiceResolved(NsdServiceInfo serviceInfo) {
                 Log.e("DEV-LOG", "Resolve Succeeded. " + serviceInfo);
+
+                dataManager.getInstance().getPreference().
+                        setSharedPreferenceString(context,
+                                "ip",serviceInfo.getHost().getHostAddress());
+
+                dataManager.getInstance().getPreference().
+                        setSharedPreferenceString(context,
+                                "port", String.valueOf(serviceInfo.getPort()));
+
                 mViewModel.callBackOnGatewayFound(1);
                 if (serviceInfo.getServiceName().equals(Constants.DNS_SD_SERVICE_NAME)){
                     Log.d("DEV-LOG", "Same IP.");

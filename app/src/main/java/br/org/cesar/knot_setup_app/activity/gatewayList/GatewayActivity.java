@@ -33,7 +33,9 @@ public class GatewayActivity extends AppCompatActivity implements  GatewayContra
 
         setAdapter();
 
-        mPresenter = new GatewayPresenter(this,(NsdManager) this.getSystemService(Context.NSD_SERVICE));
+        mPresenter = new GatewayPresenter(this,
+                (NsdManager) this.getSystemService(Context.NSD_SERVICE)
+                ,this);
 
         FloatingActionButton addButton = findViewById(R.id.add_gateway);
         addButton.setOnClickListener(new View.OnClickListener() {
