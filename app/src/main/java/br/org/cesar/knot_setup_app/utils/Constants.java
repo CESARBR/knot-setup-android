@@ -24,4 +24,7 @@ public class Constants{
 
     public static final String DNS_SD_SERVICE_TYPE = "_services._dns-sd._udp";
     public static final String DNS_SD_SERVICE_NAME = "knot.local";
+
+    public static final String PERSISTENT_PREFERENCE_FILE = "persistent_file";
+
 }
