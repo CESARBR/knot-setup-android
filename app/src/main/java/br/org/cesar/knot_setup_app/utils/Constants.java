@@ -26,5 +26,5 @@ public class Constants{
     public static final String DNS_SD_SERVICE_NAME = "knot.local";
 
     public static final String PERSISTENT_PREFERENCE_FILE = "persistent_file";
-
+    public static final String PREFERENCE_FILE = "non_persistent_file";
 }
