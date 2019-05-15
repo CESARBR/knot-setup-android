@@ -6,6 +6,7 @@ import android.net.nsd.NsdServiceInfo;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import br.org.cesar.knot_setup_app.data.DataManager;
 import br.org.cesar.knot_setup_app.utils.Constants;
@@ -55,12 +56,36 @@ public class GatewayPresenter implements GatewayContract.Presenter {
                         setSharedPreferenceString(context,
                                 "port", String.valueOf(serviceInfo.getPort()));
 
+                if(!setAllValues(serviceInfo.getAttributes())){
+                }
+
                 mViewModel.callBackOnGatewayFound(1);
                 if (serviceInfo.getServiceName().equals(Constants.DNS_SD_SERVICE_NAME)){
                     Log.d("DEV-LOG", "Same IP.");
                 }
             }
         });
+    }
+
+    private boolean setAllValues(Map<String, byte[]> characteristics){
+        String[] characteristic = {"netname","channel", "xpanid", "panid","masterkey","ipv6"};
+        for (String string : characteristic){
+            if(!setValue(characteristics,string)){
+                return false;
+            }
+        }
+        return  true;
+    }
+
+    private boolean setValue(Map<String, byte[]> characteristics ,String str){
+        if(characteristics.containsKey(str)){
+            Log.d("DEV-LOG","key= " + str + " value= " + new String (characteristics.get(str)));
+            dataManager.getInstance()
+                    .getPreference()
+                    .setSharedPreferenceString(context,str, new String(characteristics.get(str)));
+            return true;
+        }
+        return false;
     }
 
     public void stopScanning(){
