@@ -20,7 +20,7 @@ public class ConfigureDeviceActivity extends AppCompatActivity implements ViewMo
 
         int gatewayID = getIntent().getIntExtra("gatewayID",0);
         boolean operation = (boolean) getIntent().getBooleanExtra("operation",false);
-        this.mPresenter = new ConfigureDevicePresenter(this,gatewayID,operation);
+        this.mPresenter = new ConfigureDevicePresenter(this,gatewayID,operation,this);
 
     }
 

@@ -1,10 +1,12 @@
 package br.org.cesar.knot_setup_app.activity.configureDevice;
+import android.content.Context;
 import android.util.Log;
 
 import java.util.UUID;
 
 import br.org.cesar.knot_setup_app.activity.configureDevice.ConfigureDeviceContract.Presenter;
 import br.org.cesar.knot_setup_app.activity.configureDevice.ConfigureDeviceContract.ViewModel;
+import br.org.cesar.knot_setup_app.data.DataManager;
 import br.org.cesar.knot_setup_app.domain.callback.DeviceCallback;
 import br.org.cesar.knot_setup_app.KnotSetupApplication;
 import br.org.cesar.knot_setup_app.model.BluetoothDevice;
@@ -19,7 +21,7 @@ public class ConfigureDevicePresenter implements Presenter{
     private boolean operation;
     private BluetoothWrapper bluetoothWrapper;
     private BluetoothDevice device;
-
+    private Context context;
 
     private Gateway gateway;
     private Thing thing;
@@ -30,12 +32,13 @@ public class ConfigureDevicePresenter implements Presenter{
     private boolean writeDone = false;
 
 
-    ConfigureDevicePresenter(ViewModel viewModel,int gatewayID, boolean operation){
+    ConfigureDevicePresenter(ViewModel viewModel,int gatewayID, boolean operation,Context context){
         this.mViewModel = viewModel;
         this.gatewayID = gatewayID;
         this.operation = operation;
         this.bluetoothWrapper = KnotSetupApplication.getBluetoothWrapper();
         this.device = KnotSetupApplication.getBluetoothDevice();
+        this.context = context;
         callbackFlux();
     }
 
@@ -153,31 +156,48 @@ public class ConfigureDevicePresenter implements Presenter{
     }
 
     private void thingConfigWrite(){
-        byte[] value = new byte[1];
-        value[0] = (byte) (0x12);
+        String value;
 
         switch (write_count){
             case 0:
                 Log.d("DEV-LOG", "Write Wrapper: Channel" );
-                writeWrapper(Constants.OT_SETTINGS_SERVICE,Constants.CHANNEL_CHARACTERISTIC,value);
+                value = getValue("channel");
+                writeWrapper(Constants.OT_SETTINGS_SERVICE,Constants.CHANNEL_CHARACTERISTIC,value.getBytes());
                 break;
+
             case 1:
                 Log.d("DEV-LOG", "WriteWrapper: NetName");
-                writeWrapper(Constants.OT_SETTINGS_SERVICE,Constants.NET_NAME_CHARACTERISTIC,"netname");
+
+                value = getValue("netname");
+                writeWrapper(Constants.OT_SETTINGS_SERVICE,Constants.NET_NAME_CHARACTERISTIC,value);
                 break;
+
             case 2:
                 Log.d("DEV-LOG", "WriteWrapper: PanID");
-                writeWrapper(Constants.OT_SETTINGS_SERVICE,Constants.PAN_ID_CHARACTERISTIC,value);
+                value = getValue("panid");
+                writeWrapper(Constants.OT_SETTINGS_SERVICE,Constants.PAN_ID_CHARACTERISTIC,value.getBytes());
                 break;
+
             case 3:
                 Log.d("DEV-LOG", "WriteWrapper: XpanID");
-                writeWrapper(Constants.OT_SETTINGS_SERVICE,Constants.XPANID_CHARACTERISTIC,"xpanid");
+                value = getValue("xpanid");
+                writeWrapper(Constants.OT_SETTINGS_SERVICE,Constants.XPANID_CHARACTERISTIC,value);
                 break;
+
             case 4:
                 Log.d("DEV-LOG", "WriteWrapper: IPV6");
-                writeWrapper(Constants.IPV6_SERVICE,Constants.IPV6_CHARACTERISTIC,"panid");
+                value = getValue("ipv6");
+                writeWrapper(Constants.IPV6_SERVICE,Constants.IPV6_CHARACTERISTIC,value);
                 writeDone = true;
         }
+        
+    }
+
+    private String getValue(String characteristic){
+        return  DataManager
+                .getInstance()
+                .getPreference()
+                .getSharedPreferenceString(context,characteristic);
     }
 
     private void gatewayConfigRead(){
