@@ -18,7 +18,7 @@ public class  ThingPresenter implements Presenter{
     private ViewModel mViewModel;
     private int gatewayID;
     private static DataManager dataManager;
-    private static String token,login,ip,request;
+    private static String token,login,ip,request,port;
     private Context context;
 
     ThingPresenter(ViewModel viewModel, int gatewayID, Context context) {
@@ -38,11 +38,15 @@ public class  ThingPresenter implements Presenter{
                 .getPreference()
                 .getSharedPreferenceString(context,"ip");
 
-        this.request = "http://" + ip +":8080/api/devices";
+        this.port = dataManager.getInstance()
+                .getPreference().getSharedPreferenceString(context,"port");
+
+        this.request = "http://" + ip + ":" + port +"/api/devices";
     }
 
 
     public void getDeviceList(){
+        Log.d("DEV-LOG","Request: " + this.request);
         dataManager.getInstance().getService().getDevices(this.request,token)
                 .timeout(30, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.newThread())

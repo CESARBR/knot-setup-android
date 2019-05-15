@@ -18,7 +18,7 @@ public class LoginPresenter implements LoginContract.Presenter{
     private ViewModel mViewModel;
     private static DataManager dataManager;
     private String email;
-    private String request;
+    private String request,port;
     private Context context;
 
     public void setEmail(String email){this.email = email;}
@@ -28,7 +28,11 @@ public class LoginPresenter implements LoginContract.Presenter{
         this.context = context;
         String ip = dataManager.getInstance()
                 .getPreference().getSharedPreferenceString(context,"ip");
-        this.request = "http://" + ip +":8080/api/auth";
+
+        this.port = dataManager.getInstance()
+                    .getPreference().getSharedPreferenceString(context,"port");
+
+        this.request = "http://" + ip +":" + port +"/api/auth";
 
     }
 

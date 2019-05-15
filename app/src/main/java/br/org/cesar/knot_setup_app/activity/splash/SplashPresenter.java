@@ -19,7 +19,7 @@ public class SplashPresenter implements Presenter{
 
     private ViewModel mViewModel;
     private static DataManager dataManager;
-    private  String login,token,request,ip;
+    private  String login,token,request,ip,port;
     private Context context;
 
     SplashPresenter(ViewModel viewModel, Context context){
@@ -38,7 +38,11 @@ public class SplashPresenter implements Presenter{
                 .getPreference()
                 .getSharedPreferenceString(context,"ip");
 
-        this.request = "http://" + ip +":8080/api/state";
+        this.port = dataManager.getInstance()
+                .getPreference()
+                .getSharedPreferenceString(context,"port");
+
+        this.request = "http://" + ip +":" + port +  "/api/state";
     }
 
     @Override
