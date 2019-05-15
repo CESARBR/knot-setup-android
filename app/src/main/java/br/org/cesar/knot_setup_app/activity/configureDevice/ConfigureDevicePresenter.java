@@ -157,36 +157,38 @@ public class ConfigureDevicePresenter implements Presenter{
 
     private void thingConfigWrite(){
         String value;
+        byte[] valueBytes;
 
         switch (write_count){
             case 0:
-                Log.d("DEV-LOG", "Write Wrapper: Channel" );
                 value = getValue("channel");
-                writeWrapper(Constants.OT_SETTINGS_SERVICE,Constants.CHANNEL_CHARACTERISTIC,value.getBytes());
+                Log.d("DEV-LOG", "Write Wrapper: Channel Value: " + value);
+                valueBytes = stringToByte(value);
+                writeWrapper(Constants.OT_SETTINGS_SERVICE,Constants.CHANNEL_CHARACTERISTIC, valueBytes);
                 break;
 
             case 1:
-                Log.d("DEV-LOG", "WriteWrapper: NetName");
-
                 value = getValue("netname");
+                Log.d("DEV-LOG", "WriteWrapper: NetName + Value: " + value);
                 writeWrapper(Constants.OT_SETTINGS_SERVICE,Constants.NET_NAME_CHARACTERISTIC,value);
                 break;
 
             case 2:
-                Log.d("DEV-LOG", "WriteWrapper: PanID");
                 value = getValue("panid");
-                writeWrapper(Constants.OT_SETTINGS_SERVICE,Constants.PAN_ID_CHARACTERISTIC,value.getBytes());
+                Log.d("DEV-LOG", "WriteWrapper: PanID Value: "+ value );
+                valueBytes  = stringToByte(value);
+                writeWrapper(Constants.OT_SETTINGS_SERVICE,Constants.PAN_ID_CHARACTERISTIC,valueBytes);
                 break;
 
             case 3:
-                Log.d("DEV-LOG", "WriteWrapper: XpanID");
                 value = getValue("xpanid");
+                Log.d("DEV-LOG", "WriteWrapper: XpanID Value: " + value);
                 writeWrapper(Constants.OT_SETTINGS_SERVICE,Constants.XPANID_CHARACTERISTIC,value);
                 break;
 
             case 4:
-                Log.d("DEV-LOG", "WriteWrapper: IPV6");
                 value = getValue("ipv6");
+                Log.d("DEV-LOG", "WriteWrapper: IPV6 Value: " + value);
                 writeWrapper(Constants.IPV6_SERVICE,Constants.IPV6_CHARACTERISTIC,value);
                 writeDone = true;
         }
@@ -231,6 +233,13 @@ public class ConfigureDevicePresenter implements Presenter{
             sb.append(String.format("%02x", b));
         }
         return sb.toString();
+    }
+
+    private static byte[] stringToByte(String str) {
+        int value = Integer.valueOf(str);
+        byte[] byteArr = new byte[1];
+        byteArr[0] = (byte) (value >>> 0);
+        return byteArr;
     }
 
 }
