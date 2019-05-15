@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -84,6 +85,12 @@ public class GatewayActivity extends AppCompatActivity implements  GatewayContra
                 mPresenter.getGateway(deviceList.get(position));
             }
         });
+    }
+
+    @Override
+    public void callbackOnMissingCharacteristic(){
+        Toast.makeText(this,"" +
+                "Some configuration has been forgotten",Toast.LENGTH_LONG);
     }
 
     @Override

@@ -57,6 +57,7 @@ public class GatewayPresenter implements GatewayContract.Presenter {
                                 "port", String.valueOf(serviceInfo.getPort()));
 
                 if(!setAllValues(serviceInfo.getAttributes())){
+                    mViewModel.callbackOnMissingCharacteristic();
                 }
 
                 mViewModel.callBackOnGatewayFound(1);
