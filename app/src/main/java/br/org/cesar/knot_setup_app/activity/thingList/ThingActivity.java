@@ -41,7 +41,6 @@ public class ThingActivity extends AppCompatActivity implements  ViewModel{
             }
         });
 
-        mPresenter.getDeviceList();
     }
 
 
