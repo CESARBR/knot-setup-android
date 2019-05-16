@@ -163,7 +163,7 @@ public class ConfigureDevicePresenter implements Presenter{
             case 0:
                 value = getValue("channel");
                 Log.d("DEV-LOG", "Write Wrapper: Channel Value: " + value);
-                valueBytes = stringToByte(value);
+                valueBytes = stringToByte(value,Constants.CHANNEL_CHARACTERISTIC_BYTE_SIZE);
                 writeWrapper(Constants.OT_SETTINGS_SERVICE,Constants.CHANNEL_CHARACTERISTIC, valueBytes);
                 break;
 
@@ -176,7 +176,7 @@ public class ConfigureDevicePresenter implements Presenter{
             case 2:
                 value = getValue("panid");
                 Log.d("DEV-LOG", "WriteWrapper: PanID Value: "+ value );
-                valueBytes  = stringToByte(value);
+                valueBytes  = stringToByte(value,Constants.PANID_CHARACTERISTIC_BYTE_SIZE);
                 writeWrapper(Constants.OT_SETTINGS_SERVICE,Constants.PAN_ID_CHARACTERISTIC,valueBytes);
                 break;
 
@@ -235,10 +235,15 @@ public class ConfigureDevicePresenter implements Presenter{
         return sb.toString();
     }
 
-    private static byte[] stringToByte(String str) {
+
+    private static byte[] stringToByte(String str, int arrSize) {
         int value = Integer.valueOf(str);
-        byte[] byteArr = new byte[1];
-        byteArr[0] = (byte) (value >>> 0);
+        byte[] byteArr = new byte[arrSize];
+        int endianess = 0;
+        for (int i = 0; i < arrSize; i++) {
+            endianess = arrSize - i - 1;
+            byteArr[i] = (byte) (value >> 8 * endianess);
+        }
         return byteArr;
     }
 
