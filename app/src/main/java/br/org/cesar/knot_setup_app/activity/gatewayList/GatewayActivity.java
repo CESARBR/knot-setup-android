@@ -42,6 +42,7 @@ public class GatewayActivity extends AppCompatActivity implements  GatewayContra
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mPresenter.stopScanning();
                 Intent i = new Intent(GatewayActivity.this, ScanActivity.class );
                 startActivity(i);
             }
