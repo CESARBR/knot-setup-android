@@ -9,7 +9,7 @@
     </style>
 
     <style name="NoActionBar" parent="Theme.AppCompat.NoActionBar">
-        <item name="android:background">@color/colorKnotGreen</item>
+        <item name="android:background">@color/colorWhite</item>
         <item name="android:windowActionBar">false</item>
         <item name="android:windowNoTitle">true</item>
     </style>
