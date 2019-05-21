@@ -65,8 +65,6 @@ public class BluetoothWrapper {
         //Check if user permission to user bluetooth
         if (!bluetoothEnabled) {
             //Request for user permission to enable bluetooth
-            Intent intent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-            context.startActivity(intent);
         } else {
             //Check if android version requires location permission
             if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {

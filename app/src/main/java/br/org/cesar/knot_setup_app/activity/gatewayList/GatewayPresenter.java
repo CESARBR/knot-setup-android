@@ -30,11 +30,6 @@ public class GatewayPresenter implements GatewayContract.Presenter {
         this.context = context;
     }
 
-    public void getAllGateways(){
-        final ArrayList<NsdServiceInfo> deviceList = new ArrayList<NsdServiceInfo>();
-        mViewModel.callbackOnGatewaysFound(deviceList);
-    }
-
     public void getGateway(NsdServiceInfo nsdServiceInfo){
         Log.d("DEV-LOG","service: " + nsdServiceInfo);
         nsdManager.resolveService(nsdServiceInfo,new NsdManager.ResolveListener() {
