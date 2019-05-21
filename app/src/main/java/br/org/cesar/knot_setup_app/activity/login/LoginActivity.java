@@ -24,7 +24,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
 
             Button button = findViewById(R.id.send);
             EditText emailFld = findViewById(R.id.email);
-            EditText passFld = findViewById(R.id.password);
+            EditText passFld = findViewById(R.id.password_input);
 
             button.setOnClickListener(new View.OnClickListener() {
                 @Override

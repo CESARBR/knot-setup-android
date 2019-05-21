@@ -25,4 +25,9 @@
     <string name="thingSetup">KNoT</string>
     <string name="thingLabel">&#160;Things</string>
 
+    <!-- Strings used in activity_login -->
+    <string name="login">Login:</string>
+    <string name="password">Password:</string>
+
+
 </resources>
