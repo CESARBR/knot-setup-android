@@ -83,7 +83,9 @@ public class GatewayActivity extends AppCompatActivity implements  GatewayContra
         deviceListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                mPresenter.getGateway(deviceList.get(position));
+                mPresenter.stopScanning();
+                Intent i = new Intent(GatewayActivity.this, SplashActivity.class);
+                startActivity(i);
             }
         });
     }
@@ -92,15 +94,6 @@ public class GatewayActivity extends AppCompatActivity implements  GatewayContra
     public void callbackOnMissingCharacteristic(){
         Toast.makeText(this,"" +
                 "Some configuration has been forgotten",Toast.LENGTH_LONG);
-    }
-
-    @Override
-    public void callBackOnGatewayFound(int gatewayID){
-        mPresenter.stopScanning();
-        Log.d("DEV-LOG","callbackOnGatewayFound");
-        Intent i = new Intent(GatewayActivity.this, SplashActivity.class);
-        i.putExtra("gatewayID", gatewayID);
-        startActivity(i);
     }
 
 
