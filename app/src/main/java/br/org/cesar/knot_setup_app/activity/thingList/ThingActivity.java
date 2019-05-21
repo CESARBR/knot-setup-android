@@ -8,13 +8,14 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import br.org.cesar.knot_setup_app.R;
 import br.org.cesar.knot_setup_app.activity.scan.ScanActivity;
 import br.org.cesar.knot_setup_app.domain.adapter.DeviceAdapter;
 import br.org.cesar.knot_setup_app.activity.thingList.ThingContract.Presenter;
 import br.org.cesar.knot_setup_app.activity.thingList.ThingContract.ViewModel;
+import br.org.cesar.knot_setup_app.model.Gateway;
 
 public class ThingActivity extends AppCompatActivity implements  ViewModel{
     private DeviceAdapter adapter;
@@ -53,10 +54,11 @@ public class ThingActivity extends AppCompatActivity implements  ViewModel{
 
     /**
      * Setup current devices list with smart devices saved on database
+     * @param deviceList
      */
 
     @Override
-    public void callbackOnDeviceList(ArrayList<String> deviceList){
+    public void callbackOnDeviceList(List<Gateway> deviceList){
 
         adapter = new DeviceAdapter(ThingActivity.this, R.layout.item_gateway, deviceList);
 

@@ -1,7 +1,6 @@
 package br.org.cesar.knot_setup_app.domain.adapter;
 
 import android.content.Context;
-import android.net.nsd.NsdManager;
 import android.net.nsd.NsdServiceInfo;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -35,7 +34,9 @@ public class GatewayAdapter extends ArrayAdapter<NsdServiceInfo> {
             holder = new ViewHolder();
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_gateway,
                     parent, false);
-            holder.deviceName = convertView.findViewById(R.id.gateway_name);
+            holder.deviceName = convertView.findViewById(R.id.device_name);
+            holder.deviceIP= convertView.findViewById(R.id.device_info);
+            holder.deviceMac = convertView.findViewById(R.id.device_info2);
             convertView.setTag(holder);
         } else {
             holder = (GatewayAdapter.ViewHolder) convertView.getTag();
@@ -43,12 +44,16 @@ public class GatewayAdapter extends ArrayAdapter<NsdServiceInfo> {
 
         NsdServiceInfo device = deviceList.get(position);
         holder.deviceName.setText(device.getServiceName());
+        holder.deviceIP.setText(device.getHost().getHostAddress());
+        holder.deviceMac.setText("");
         return convertView;
     }
 
     private class ViewHolder {
 
         private TextView deviceName;
+        private TextView deviceIP;
+        private TextView deviceMac;
         private ImageView deviceImage;
 
     }
