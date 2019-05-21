@@ -13,15 +13,14 @@ import android.widget.TextView;
 import java.util.List;
 
 import br.org.cesar.knot_setup_app.R;
+import br.org.cesar.knot_setup_app.model.Gateway;
 
-public class DeviceAdapter extends ArrayAdapter<String> {
-    private List<String> deviceList;
+public class DeviceAdapter extends ArrayAdapter<Gateway> {
+    private List<Gateway> deviceList;
 
 
-    public DeviceAdapter(@NonNull Context context, int resource, @NonNull List<String>
-            objects) {
+    public DeviceAdapter(@NonNull Context context, int resource, @NonNull List<Gateway> objects) {
         super(context, resource, objects);
-
         deviceList = objects;
     }
 
@@ -35,14 +34,18 @@ public class DeviceAdapter extends ArrayAdapter<String> {
             holder = new ViewHolder();
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_gateway,
                     parent, false);
-            holder.deviceName = convertView.findViewById(R.id.gateway_name);
+            holder.deviceName = convertView.findViewById(R.id.device_name);
+            holder.deviceInfo = convertView.findViewById(R.id.device_info);
+            holder.deviceInfo2 = convertView.findViewById(R.id.device_info2);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        String device = deviceList.get(position);
-        holder.deviceName.setText(device);
+        Gateway device = deviceList.get(position);
+        holder.deviceName.setText(device.getName());
+        holder.deviceInfo.setText(device.getId());
+        holder.deviceInfo2.setText("");
 
         return convertView;
     }
@@ -50,6 +53,8 @@ public class DeviceAdapter extends ArrayAdapter<String> {
     private class ViewHolder {
 
         private TextView deviceName;
+        private TextView deviceInfo;
+        private TextView deviceInfo2;
         private ImageView deviceImage;
 
     }

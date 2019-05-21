@@ -29,7 +29,7 @@
         app:srcCompat="@drawable/ic_speaker" />
 
     <TextView
-        android:id="@+id/gateway_name"
+        android:id="@+id/device_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/colorKnotGreen"
@@ -44,7 +44,7 @@
         />
 
     <TextView
-        android:id="@+id/ip"
+        android:id="@+id/device_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/colorKnotGreen"
@@ -55,11 +55,11 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="12dp"
         app:layout_constraintStart_toEndOf="@id/gateway_image"
-        app:layout_constraintTop_toBottomOf="@id/gateway_name"
+        app:layout_constraintTop_toBottomOf="@id/device_name"
         />
 
     <TextView
-        android:id="@+id/address"
+        android:id="@+id/device_info2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/colorKnotGreen"
@@ -70,7 +70,7 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="12dp"
         app:layout_constraintStart_toEndOf="@id/gateway_image"
-        app:layout_constraintTop_toBottomOf="@id/ip"
+        app:layout_constraintTop_toBottomOf="@id/device_info"
         />
 
 
