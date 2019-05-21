@@ -3,16 +3,17 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingLeft="16dp"
-    android:background="@color/colorKnotGreen"
+    android:background="@drawable/header_border"
     android:layout_alignParentTop="true"
+    android:elevation="25dp"
     >
 
     <ImageView
         android:id="@+id/imageView1"
-        android:layout_width="167dp"
-        android:layout_height="65dp"
-        android:background="@color/colorKnotGreen"
+        android:layout_width="71dp"
+        android:layout_height="45dp"
         android:layout_alignParentTop="true"
+        android:background="@color/colorKnotGreen"
         android:layout_centerHorizontal="true"
         android:adjustViewBounds="true"
         />
