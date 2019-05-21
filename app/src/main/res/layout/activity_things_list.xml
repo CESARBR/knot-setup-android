@@ -7,42 +7,8 @@
     tools:context=".activity.thingList.ThingActivity">
 
 
-    <TextView
-        android:id="@+id/thing_setup_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
-        android:fontFamily="sans-serif-condensed"
-        android:text="@string/thingSetup"
-        android:textColor="@color/colorWhite"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginLeft="24dp" />
+    <include  layout="@layout/activity_header" android:id="@+id/id" />
 
-    <TextView
-        android:id="@+id/thing_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-condensed"
-        android:text="@string/thingLabel"
-        android:textColor="@color/colorWhite"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="@+id/thing_setup_label"
-        app:layout_constraintStart_toEndOf="@+id/thing_setup_label"
-        app:layout_constraintTop_toTopOf="@+id/thing_setup_label" />
-
-    <ImageView
-        android:id="@+id/knot_symbol"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="24dp"
-        android:src="@drawable/knot"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/add_thing"
@@ -51,8 +17,8 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="24dp"
         android:clickable="true"
-        android:tint="@color/colorKnotGreen"
-        app:backgroundTint="@color/colorWhite"
+        android:tint="@color/colorWhite"
+        app:backgroundTint="@color/colorKnotGreen"
         app:elevation="5dp"
         app:fabSize="normal"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -64,13 +30,10 @@
         android:id="@+id/thing_list"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="24dp"
         android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/knot_symbol"
+        app:layout_constraintBottom_toTopOf="@+id/add_thing"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/thing_setup_label" />
+        app:layout_constraintTop_toBottomOf="@+id/id" />
 
 </android.support.constraint.ConstraintLayout>
