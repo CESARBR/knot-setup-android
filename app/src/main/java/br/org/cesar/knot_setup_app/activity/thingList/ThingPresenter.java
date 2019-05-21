@@ -3,7 +3,6 @@ package br.org.cesar.knot_setup_app.activity.thingList;
 import android.content.Context;
 import android.util.Log;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -57,13 +56,7 @@ public class  ThingPresenter implements Presenter{
 
     private void handleDeviceSuccess(List<Gateway> gat){
         if(!gat.isEmpty()) {
-            ArrayList<String> deviceList = new ArrayList<String>();
-            //TOOD: Check if this is in fact correct (Gateway gt :gat). should'nt it be Thing gt ...
-            Log.d("DEV-LOG", "Entered");
-            for (Gateway gt : gat) {
-                deviceList.add(gt.getName());
-            }
-            this.mViewModel.callbackOnDeviceList(deviceList);
+            this.mViewModel.callbackOnDeviceList(gat);
         }
         else{
             Log.d("DEV-LOG","There are no devices avaiable.");
