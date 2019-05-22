@@ -5,12 +5,15 @@ import android.content.Intent;
 import android.net.nsd.NsdManager;
 import android.net.nsd.NsdServiceInfo;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -33,6 +36,13 @@ public class GatewayActivity extends AppCompatActivity implements  GatewayContra
         setContentView(R.layout.activity_list_gateway);
 
         setAdapter();
+
+        TextView headerTitle = (TextView)findViewById(R.id.list_title);
+        headerTitle.setText("Gateways");
+        ImageView image = (ImageView) findViewById(R.id.imageView1);
+        image.setImageResource(R.drawable.knot);
+
+
 
         mPresenter = new GatewayPresenter(this,
                 (NsdManager) this.getSystemService(Context.NSD_SERVICE)
