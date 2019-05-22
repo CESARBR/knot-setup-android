@@ -60,7 +60,7 @@ public class ScanActivity extends AppCompatActivity implements  ScanContract.Vie
         deviceList = new ArrayList<>();
         adapter = new ScanAdapter(this, R.layout.item_device, deviceList);
 
-        ListView listView = findViewById(R.id.device_list);
+        ListView listView = findViewById(R.id.list);
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
