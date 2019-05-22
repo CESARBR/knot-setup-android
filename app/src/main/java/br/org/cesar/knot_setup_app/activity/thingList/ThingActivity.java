@@ -69,7 +69,7 @@ public class ThingActivity extends AppCompatActivity implements  ViewModel{
 
         adapter = new DeviceAdapter(ThingActivity.this, R.layout.item_gateway, deviceList);
 
-        ListView deviceListView = findViewById(R.id.thing_list);
+        ListView deviceListView = findViewById(R.id.list);
 
         deviceListView.setAdapter(adapter);
 
