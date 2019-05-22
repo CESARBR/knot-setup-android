@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".activity.gatewayList.GatewayActivity">
 
-    <include  layout="@layout/activity_header" android:id="@+id/id" />
+    <include  layout="@layout/activity_template_list" android:id="@+id/id" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/add_gateway"

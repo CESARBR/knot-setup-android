@@ -87,7 +87,7 @@ public class GatewayActivity extends AppCompatActivity implements  GatewayContra
         deviceList = new ArrayList<>();
         adapter = new GatewayAdapter(GatewayActivity.this, R.layout.item_gateway, deviceList);
         Log.d("DEV-LOG","CREATING ADAPTER");
-        ListView deviceListView = findViewById(R.id.gateway_list);
+        ListView deviceListView = findViewById(R.id.list);
         deviceListView.setAdapter(adapter);
         Log.d("DEV-LOG","ADAPTER SET");
         deviceListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
