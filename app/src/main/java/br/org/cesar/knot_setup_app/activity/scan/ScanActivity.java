@@ -1,6 +1,7 @@
 package br.org.cesar.knot_setup_app.activity.scan;
 
 import android.Manifest;
+import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -109,9 +110,8 @@ public class ScanActivity extends AppCompatActivity implements  ScanContract.Vie
 
     @Override
     public void callbackOnBluetoothPermissionRequired() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            this.requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION}, 1);
-        }
+        Intent intent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+        this.startActivity(intent);
     }
 
     protected void onDestroy(){
