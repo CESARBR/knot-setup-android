@@ -6,7 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.List;
 
@@ -26,9 +28,14 @@ public class ThingActivity extends AppCompatActivity implements  ViewModel{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_things_list);
 
+
+        TextView headerTitle = (TextView)findViewById(R.id.list_title);
+        headerTitle.setText("THINGs");
+        ImageView image = (ImageView) findViewById(R.id.imageView1);
+        image.setImageResource(R.drawable.knot);
+
         final int gatewayID = getIntent().getIntExtra("gatewayID",0);
         mPresenter = new ThingPresenter(this,gatewayID,this);
-
 
         FloatingActionButton addButton = findViewById(R.id.add_thing);
 
