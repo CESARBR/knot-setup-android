@@ -72,4 +72,10 @@ public class ConfigureDeviceActivity extends AppCompatActivity implements ViewMo
         ProgressBar progressBar = findViewById(resID);
         progressBar.setVisibility(View.INVISIBLE);
     }
+
+    public void addCheck(String settingID){
+        int resID = (int) getResources().getIdentifier(settingID + "_check","id",getPackageName());
+        ImageView imageView = findViewById(resID);
+        imageView.setVisibility(View.VISIBLE);
+    }
 }
