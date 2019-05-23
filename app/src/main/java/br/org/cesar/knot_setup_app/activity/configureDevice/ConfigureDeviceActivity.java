@@ -3,7 +3,9 @@ package br.org.cesar.knot_setup_app.activity.configureDevice;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import br.org.cesar.knot_setup_app.R;
@@ -17,6 +19,11 @@ public class ConfigureDeviceActivity extends AppCompatActivity implements ViewMo
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_configure_gateway);
+
+        TextView headerTitle = (TextView)findViewById(R.id.list_title);
+        headerTitle.setText("Open Thread Configuration");
+        ImageView image = (ImageView) findViewById(R.id.imageView1);
+        image.setImageResource(R.drawable.knot);
 
         int gatewayID = getIntent().getIntExtra("gatewayID",0);
         boolean operation = (boolean) getIntent().getBooleanExtra("operation",false);
