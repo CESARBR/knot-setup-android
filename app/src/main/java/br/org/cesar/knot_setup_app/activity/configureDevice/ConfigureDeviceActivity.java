@@ -48,28 +48,37 @@ public class ConfigureDeviceActivity extends AppCompatActivity implements ViewMo
 
     @Override
     public void callbackOnOperation(int val){
-        switch (val){
-            case 0:
-                this.removeProgressBar("channel");
-                addCheck("channel");
-                break;
-            case 1:
-                this.removeProgressBar("net_name");
-                addCheck("net_name");
-                break;
-            case 2:
-                this.removeProgressBar("pan_id");
-                addCheck("pan_id");
-                break;
-            case 3:
-                this.removeProgressBar("xpan_id");
-                addCheck("xpan_id");
-                break;
-            case 4:
-                this.removeProgressBar("ip");
-                addCheck("ip");
-                break;
-        }
+        runOnUiThread(new Runnable() {
+
+            @Override
+            public void run() {
+
+                switch (val){
+                    case 0:
+                        removeProgressBar("channel");
+                        addCheck("channel");
+                        break;
+                    case 1:
+                        removeProgressBar("net_name");
+                        addCheck("net_name");
+                        break;
+                    case 2:
+                        removeProgressBar("pan_id");
+                        addCheck("pan_id");
+                        break;
+                    case 3:
+                        removeProgressBar("xpan_id");
+                        addCheck("xpan_id");
+                        break;
+                    case 4:
+                        removeProgressBar("ip");
+                        addCheck("ip");
+                        break;
+                }
+
+            }
+        });
+
     }
 
     public void removeProgressBar(String progressBarID){
