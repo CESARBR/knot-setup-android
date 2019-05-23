@@ -41,6 +41,18 @@
             android:layout_below="@+id/ip_text_view"
             android:layout_centerHorizontal="true"
             />
+        <ImageView
+            android:id="@+id/ip_check"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_below="@+id/ip_text_view"
+            android:layout_alignRight="@+id/ip_progress_bar"
+            android:layout_alignLeft="@+id/ip_progress_bar"
+            android:layout_alignTop="@+id/ip_progress_bar"
+            android:layout_alignBottom="@+id/ip_progress_bar"
+            android:src="@drawable/ic_check_24px"
+            android:visibility="invisible"
+            />
     </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>
