@@ -51,18 +51,23 @@ public class ConfigureDeviceActivity extends AppCompatActivity implements ViewMo
         switch (val){
             case 0:
                 this.removeProgressBar("channel");
+                addCheck("channel");
                 break;
             case 1:
                 this.removeProgressBar("net_name");
+                addCheck("net_name");
                 break;
             case 2:
                 this.removeProgressBar("pan_id");
+                addCheck("pan_id");
                 break;
             case 3:
                 this.removeProgressBar("xpan_id");
+                addCheck("xpan_id");
                 break;
             case 4:
-                this.removeProgressBar("IPV6");
+                this.removeProgressBar("ip");
+                addCheck("ip");
                 break;
         }
     }
