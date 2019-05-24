@@ -10,14 +10,14 @@
 
     <ImageView
         android:id="@+id/gateway_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="54dp"
+        android:layout_height="72dp"
         android:layout_marginStart="8dp"
         android:backgroundTint="@color/colorWhite"
         android:tint="@color/colorKnotGreen"
-        app:layout_constraintStart_toStartOf="@+id/imageView3"
-        app:layout_constraintTop_toTopOf="@+id/imageView3"
-        app:layout_constraintBottom_toBottomOf="@id/imageView3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_speaker" />
 
     <TextView
@@ -28,11 +28,12 @@
         android:backgroundTint="@color/colorWhite"
         android:fontFamily="sans-serif-smallcaps"
         android:text="TextView"
+        android:textStyle="bold"
         android:textColor="@color/colorKnotGreen"
-        android:layout_marginTop="12dp"
         android:layout_marginStart="24dp"
         app:layout_constraintStart_toEndOf="@id/gateway_image"
-        app:layout_constraintTop_toTopOf="@id/imageView3"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/device_info"
         />
 
     <TextView
@@ -42,12 +43,13 @@
         android:background="@color/colorKnotGreen"
         android:backgroundTint="@color/colorWhite"
         android:fontFamily="sans-serif-smallcaps"
+        android:textStyle="bold"
         android:text="TextView"
         android:textColor="@color/colorKnotGreen"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="12dp"
         app:layout_constraintStart_toEndOf="@id/gateway_image"
         app:layout_constraintTop_toBottomOf="@id/device_name"
+        app:layout_constraintBottom_toTopOf="@id/device_info2"
         />
 
     <TextView
@@ -57,12 +59,13 @@
         android:background="@color/colorKnotGreen"
         android:backgroundTint="@color/colorWhite"
         android:fontFamily="sans-serif-smallcaps"
+        android:textStyle="bold"
         android:text="TextView"
         android:textColor="@color/colorKnotGreen"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="12dp"
         app:layout_constraintStart_toEndOf="@id/gateway_image"
         app:layout_constraintTop_toBottomOf="@id/device_info"
+        app:layout_constraintBottom_toBottomOf="parent"
         />
 
 
