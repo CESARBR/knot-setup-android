@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import br.org.cesar.knot_setup_app.R;
 import br.org.cesar.knot_setup_app.activity.login.LoginContract.Presenter;
@@ -19,6 +21,12 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
         protected void onCreate(Bundle savedInstanceState){
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_login);
+
+
+            TextView headerTitle = (TextView)findViewById(R.id.list_title);
+            headerTitle.setText("LOGIN");
+            ImageView image = (ImageView) findViewById(R.id.imageView1);
+            image.setImageResource(R.drawable.knot);
 
             mPresenter = new LoginPresenter(this,this);
 
