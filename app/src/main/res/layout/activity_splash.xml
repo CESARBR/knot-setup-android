@@ -7,11 +7,12 @@
 
     <ImageView
         android:id="@+id/imageView1"
-        android:layout_centerInParent="true"
-        android:layout_width="290dp"
-        android:layout_height="380dp"
-        android:src="@drawable/knot"
-        tools:ignore="MissingConstraints" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/knot_logo"
+        />
 
 
     <ProgressBar
