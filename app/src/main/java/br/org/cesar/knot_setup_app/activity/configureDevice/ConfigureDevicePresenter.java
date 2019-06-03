@@ -186,7 +186,14 @@ public class ConfigureDevicePresenter implements Presenter{
                 writeWrapper(Constants.OT_SETTINGS_SERVICE,Constants.XPANID_CHARACTERISTIC,value);
                 break;
 
+
             case 4:
+                value = getValue("masterkey");
+                Log.d("DEV-LOG", "WriteWrapper: XpanID Value: " + value);
+                writeWrapper(Constants.OT_SETTINGS_SERVICE,Constants.MASTER_KEY_CHARACTERISTIC,value);
+                break;
+
+            case 5:
                 value = getValue("ipv6");
                 Log.d("DEV-LOG", "WriteWrapper: IPV6 Value: " + value);
                 writeWrapper(Constants.IPV6_SERVICE,Constants.IPV6_CHARACTERISTIC,value);
@@ -220,7 +227,13 @@ public class ConfigureDevicePresenter implements Presenter{
                 Log.d("DEV-LOG", "ReadWrapper: XpanID");
                 readWrapper(Constants.OT_SETTINGS_SERVICE_GATEWAY,Constants.XPANID_CHARACTERISTIC_GATEWAY);
                 break;
+
             case 4:
+                Log.d("DEV-LOG", "ReadWrapper: XpanID");
+                readWrapper(Constants.OT_SETTINGS_SERVICE_GATEWAY,Constants.MASTER_KEY_CHARACTERISTIC_GATEWAY);
+                break;
+
+            case 5:
                 Log.d("DEV-LOG", "ReadWrapper: IPV6");
                 readWrapper(Constants.OT_SETTINGS_SERVICE_GATEWAY,Constants.IPV6_CHARACTERISTIC_GATEWAY);
                 readDone = true;
