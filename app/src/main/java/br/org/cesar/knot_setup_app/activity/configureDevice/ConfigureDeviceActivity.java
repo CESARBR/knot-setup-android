@@ -71,9 +71,12 @@ public class ConfigureDeviceActivity extends AppCompatActivity implements ViewMo
                         addCheck("xpan_id");
                         break;
                     case 4:
+                        removeProgressBar("masterkey");
+                        addCheck("masterkey");
+                        break;
+                    case 5:
                         removeProgressBar("ip");
                         addCheck("ip");
-                        break;
                 }
 
             }
