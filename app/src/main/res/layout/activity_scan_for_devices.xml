@@ -6,36 +6,7 @@
     android:layout_height="match_parent"
     tools:context="br.org.cesar.knot_setup_app.activity.scan.ScanActivity">
 
-    <ImageButton
-        android:id="@+id/scan_btn"
-        style="@style/Widget.AppCompat.ImageButton"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="28dp"
-        android:backgroundTint="@android:color/transparent"
-        android:scaleType="fitCenter"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scan_label"
-        app:srcCompat="@drawable/ic_speaker"
-        tools:ignore="VectorDrawableCompat" />
-
-    <TextView
-        android:id="@+id/scan_label"
-        android:layout_width="0dp"
-        android:layout_height="39dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="24dp"
-        android:fontFamily="sans-serif-smallcaps"
-        android:gravity="center"
-        android:text="@string/scan_label"
-        android:textAlignment="center"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <include  layout="@layout/activity_header" android:id="@+id/id" />
 
     <ListView
         android:id="@+id/device_list"
