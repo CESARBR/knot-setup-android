@@ -60,7 +60,8 @@ public class GatewayPresenter implements GatewayContract.Presenter {
                     mViewModel.callbackOnMissingCharacteristic();
                 }
 
-                mViewModel.callBackOnGatewayFound(1);
+                mService.add(serviceInfo);
+                mViewModel.callbackOnGatewaysFound(mService);
                 if (serviceInfo.getServiceName().equals(Constants.DNS_SD_SERVICE_NAME)){
                     Log.d("DEV-LOG", "Same IP.");
                 }
@@ -114,8 +115,7 @@ public class GatewayPresenter implements GatewayContract.Presenter {
                 if (!service.getServiceType().equals(DNS_SD_SERVICE_TYPE)) {
                     Log.d("DEV-LOG", "Service: " + service);
                     if (service.getServiceName().contains(Constants.DNS_SD_SERVICE_NAME)) {
-                        mService.add(service);
-                        mViewModel.callbackOnGatewaysFound(mService);
+                        getGateway(service);
                     }
                 }
             }
@@ -126,7 +126,6 @@ public class GatewayPresenter implements GatewayContract.Presenter {
                 for (NsdServiceInfo info:mService) {
                     if(info.getServiceName().equals(service.getServiceName())){
                         Log.e("DEV-LOG", "service lost: " + service + "IndexOf: " + mService.indexOf(service));
-                        mService.remove(info);
                     }
                 }
                 mViewModel.callbackOnGatewaysFound(mService);
