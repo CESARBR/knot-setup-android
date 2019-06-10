@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a240a734_ffb43956",
+        "filename": "app/src/main/java/br/org/cesar/knot_setup_app/activity/configureDevice/ConfigureDevicePresenter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1013169
+      },
+      "writtenOn": "2019-06-10T21:53:42Z",
+      "side": 1,
+      "message": "Rewrite this method name to tell what it actually does (converting string to array and inverting the endianess), or separate it in two methods (one that converts string to array and another one that inverts the endianess).",
+      "range": {
+        "startLine": 239,
+        "startChar": 26,
+        "endLine": 239,
+        "endChar": 38
+      },
+      "revId": "4fbfc6289d4e470f84bfaa3b122a5d4fb69553bb",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
