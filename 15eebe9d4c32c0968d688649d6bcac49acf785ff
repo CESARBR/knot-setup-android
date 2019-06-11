@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0bc3ef4c_cee763be",
+        "filename": "app/src/main/res/layout/activity_login.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1013169
+      },
+      "writtenOn": "2019-06-11T14:19:02Z",
+      "side": 1,
+      "message": "The `id` shouldn\u0027t be \"@+id/password\"?",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 35
+      },
+      "revId": "15eebe9d4c32c0968d688649d6bcac49acf785ff",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
