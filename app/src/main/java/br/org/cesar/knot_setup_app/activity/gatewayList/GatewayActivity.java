@@ -83,6 +83,9 @@ public class GatewayActivity extends AppCompatActivity implements  GatewayContra
         deviceListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                mPresenter.stopScanning();
+                Intent i = new Intent(GatewayActivity.this, SplashActivity.class);
+                startActivity(i);
             }
         });
     }
