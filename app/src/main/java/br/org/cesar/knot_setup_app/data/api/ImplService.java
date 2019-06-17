@@ -4,6 +4,8 @@ import java.util.List;
 import br.org.cesar.knot_setup_app.model.Gateway;
 import br.org.cesar.knot_setup_app.model.State;
 import br.org.cesar.knot_setup_app.model.User;
+import br.org.cesar.knot_setup_app.model.Openthread;
+
 import io.reactivex.Observable;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
@@ -25,5 +27,8 @@ public interface ImplService {
     @FormUrlEncoded
     @POST
     Observable<User> login(@Url String url,@Field("email") String email, @Field("password") String password);
+
+    @GET
+    Observable<Openthread> getOpenthreadConfig(@Url String url, @Header("Authorization") String auth);
 
 }
