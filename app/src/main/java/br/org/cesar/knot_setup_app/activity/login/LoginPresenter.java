@@ -9,6 +9,7 @@ import java.util.concurrent.TimeUnit;
 
 import br.org.cesar.knot_setup_app.activity.login.LoginContract.ViewModel;
 import br.org.cesar.knot_setup_app.data.DataManager;
+import br.org.cesar.knot_setup_app.model.Openthread;
 import br.org.cesar.knot_setup_app.model.User;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -52,6 +53,48 @@ public class LoginPresenter implements LoginContract.Presenter{
         this::onErrorHandler);
     }
 
+    private void getOpenthreadConfig(){
+        String bearer;
+        bearer = dataManager.getInstance()
+                .getPersistentPreference()
+                .getSharedPreferenceString(context,"token");
+
+        this.request = "http://" + ip + ":" + port +"/api/radio/openthread";
+
+        dataManager.getInstance().getService().getOpenthreadConfig(this.request,bearer)
+                .timeout(30, TimeUnit.SECONDS)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::getOpenThreadSucceeded,
+                        this::onErrorHandler);
+
+    }
+
+    private void getOpenThreadSucceeded(Openthread openthread){
+
+        dataManager.getInstance().getPreference()
+                .setSharedPreferenceString(context,"netname",openthread.getNetworkName());
+
+        dataManager.getInstance().getPreference()
+                .setSharedPreferenceString(context,"channel",openthread.getChannel());
+
+        dataManager.getInstance().getPreference()
+                .setSharedPreferenceString(context,"xpanid",openthread.getXpanId());
+
+        dataManager.getInstance().getPreference()
+                .setSharedPreferenceString(context,"panid", openthread.getPanId());
+
+        dataManager.getInstance().getPreference()
+                .setSharedPreferenceString(context,"ipv6",openthread.getMeshIpv6());
+
+        dataManager.getInstance().getPreference()
+                .setSharedPreferenceString(context,"masterkey",openthread.getMasterKey());
+
+        mViewModel.callbackOnLogin();
+    }
+
+
+
     private void loginSucceeded(User user) {
         dataManager.getInstance().getPersistentPreference()
                 .setSharedPreferenceString(context,"email",email);
@@ -59,7 +102,7 @@ public class LoginPresenter implements LoginContract.Presenter{
         dataManager.getInstance().getPersistentPreference()
                 .setSharedPreferenceString(context,"token","Bearer " + user.getToken());
 
-        mViewModel.callbackOnLogin();
+        getOpenthreadConfig();
     }
 
     private void onErrorHandler(Throwable throwable){
