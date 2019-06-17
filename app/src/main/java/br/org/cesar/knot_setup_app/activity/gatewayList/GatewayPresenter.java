@@ -51,10 +51,6 @@ public class GatewayPresenter implements GatewayContract.Presenter {
                         setSharedPreferenceString(context,
                                 "port", String.valueOf(serviceInfo.getPort()));
 
-                if(!setAllValues(serviceInfo.getAttributes())){
-                    mViewModel.callbackOnMissingCharacteristic();
-                }
-
                 mService.add(serviceInfo);
                 mViewModel.callbackOnGatewaysFound(mService);
                 if (serviceInfo.getServiceName().equals(Constants.DNS_SD_SERVICE_NAME)){
@@ -64,26 +60,6 @@ public class GatewayPresenter implements GatewayContract.Presenter {
         });
     }
 
-    private boolean setAllValues(Map<String, byte[]> characteristics){
-        String[] characteristic = {"netname","channel", "xpanid", "panid","masterkey","ipv6"};
-        for (String string : characteristic){
-            if(!setValue(characteristics,string)){
-                return false;
-            }
-        }
-        return  true;
-    }
-
-    private boolean setValue(Map<String, byte[]> characteristics ,String str){
-        if(characteristics.containsKey(str)){
-            Log.d("DEV-LOG","key= " + str + " value= " + new String (characteristics.get(str)));
-            dataManager.getInstance()
-                    .getPreference()
-                    .setSharedPreferenceString(context,str, new String(characteristics.get(str)));
-            return true;
-        }
-        return false;
-    }
 
     public void stopScanning(){
         nsdManager.stopServiceDiscovery(discoveryListener);
