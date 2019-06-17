@@ -80,7 +80,7 @@ public class SplashPresenter implements Presenter{
     private void handleStateSuccess(State state){
         Log.d("DEV-LOG","State: " + state.getState());
         if(state.getState().equals("ready")){
-            this.request = "http://" + ip +":8080/api/devices";
+            this.request = "http://" + ip  + ":"+ this.port +"/api/devices";
             checkToken();
         }
         else{
