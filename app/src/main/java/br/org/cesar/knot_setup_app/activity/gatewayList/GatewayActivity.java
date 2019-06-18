@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,7 +44,6 @@ public class GatewayActivity extends AppCompatActivity implements  GatewayContra
         image.setImageResource(R.drawable.knot);
 
 
-
         mPresenter = new GatewayPresenter(this,
                 (NsdManager) this.getSystemService(Context.NSD_SERVICE)
                 ,this);
@@ -68,18 +68,27 @@ public class GatewayActivity extends AppCompatActivity implements  GatewayContra
     }
 
 
+    public void setSearchingFeedback(int visibility){
+        TextView gatewaytitle = findViewById(R.id.searchingForGatewayText);
+        ProgressBar progressBar = findViewById(R.id.progressBar3);
+
+        runOnUiThread(() -> {
+            gatewaytitle.setVisibility(visibility);
+            progressBar.setVisibility(visibility);
+        });
+
+    }
+
+
     /**
      * Setup current devices list with smart devices saved on database
      */
     @Override
     public void callbackOnGatewaysFound(ArrayList<NsdServiceInfo> deviceListReceived){
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                deviceList.clear();
-                deviceList.addAll(deviceListReceived );
-                adapter.notifyDataSetChanged();
-            }
+        runOnUiThread(() -> {
+            deviceList.clear();
+            deviceList.addAll(deviceListReceived );
+            adapter.notifyDataSetChanged();
         });
     }
 

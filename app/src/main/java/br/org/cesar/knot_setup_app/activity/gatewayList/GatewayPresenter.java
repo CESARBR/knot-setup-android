@@ -4,9 +4,9 @@ import android.content.Context;
 import android.net.nsd.NsdManager;
 import android.net.nsd.NsdServiceInfo;
 import android.util.Log;
+import android.view.View;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 import br.org.cesar.knot_setup_app.data.DataManager;
 import br.org.cesar.knot_setup_app.utils.Constants;
@@ -31,7 +31,6 @@ public class GatewayPresenter implements GatewayContract.Presenter {
     }
 
     public void getGateway(NsdServiceInfo nsdServiceInfo){
-        Log.d("DEV-LOG","service: " + nsdServiceInfo);
         nsdManager.resolveService(nsdServiceInfo,new NsdManager.ResolveListener() {
             @Override
             public void onResolveFailed(NsdServiceInfo serviceInfo, int errorCode) {
@@ -82,6 +81,7 @@ public class GatewayPresenter implements GatewayContract.Presenter {
 
             @Override
             public void onServiceFound(NsdServiceInfo service) {
+                mViewModel.setSearchingFeedback(View.INVISIBLE);
                 // A service was found! Do something with it.
                 if (!service.getServiceType().equals(DNS_SD_SERVICE_TYPE)) {
                     Log.d("DEV-LOG", "Service: " + service);
@@ -100,6 +100,11 @@ public class GatewayPresenter implements GatewayContract.Presenter {
                         mService.remove(info);
                     }
                 }
+
+                if(mService.isEmpty()){
+                    mViewModel.setSearchingFeedback(View.VISIBLE);
+                }
+
                 mViewModel.callbackOnGatewaysFound(mService);
             }
 
