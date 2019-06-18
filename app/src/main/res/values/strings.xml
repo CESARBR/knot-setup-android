@@ -3,6 +3,7 @@
 
     <!-- Strings used in activity_list_gateway -->
     <string name="list_gateway_title">KNoT</string>
+    <string name="searching_for_gateways">Looking for gateways...</string>
     <string name="gateway_subtitle">&#160;Gateways</string>
 
     <!-- Strings used in activity_scan_for_devices -->
