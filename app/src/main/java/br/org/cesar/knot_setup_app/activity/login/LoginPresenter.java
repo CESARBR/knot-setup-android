@@ -107,5 +107,8 @@ public class LoginPresenter implements LoginContract.Presenter{
 
     private void onErrorHandler(Throwable throwable){
         Log.d("DEV-LOG", "onErrorHandler: " + throwable.getMessage());
+        if(throwable.getMessage().contains("401")){
+            mViewModel.invalidCredentials();
+        }
     }
 }
