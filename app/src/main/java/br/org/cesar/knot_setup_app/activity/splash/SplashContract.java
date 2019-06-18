@@ -10,5 +10,6 @@ public interface SplashContract {
         void doLogin();
         void doListGateways();
         void apiNotConfigured();
+        void callbackOnConnectionError();
     }
 }

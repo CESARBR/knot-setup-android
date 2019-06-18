@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -91,6 +92,11 @@ public class SplashPresenter implements Presenter{
     private void onErrorHandler(Throwable throwable){
         if(throwable.getMessage().contains("401")){
             mViewModel.doLogin();
+        }
+
+
+        if(throwable instanceof IOException){
+            mViewModel.callbackOnConnectionError();
         }
         Log.d("DEV-LOG", "onErrorHandler: " + throwable.getMessage());
     }

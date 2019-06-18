@@ -52,4 +52,11 @@ public class SplashActivity extends AppCompatActivity implements  ViewModel{
         Toast.makeText(this,"The backend of the webUI needs to be configured.",Toast.LENGTH_LONG).show();
     }
 
+    @Override
+    public void callbackOnConnectionError(){
+        Toast.makeText(this,"Network failure, " +
+                "please try again later",Toast.LENGTH_LONG).show();
+        finish();
+    }
+
 }
