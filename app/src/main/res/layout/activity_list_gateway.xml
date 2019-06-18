@@ -53,5 +53,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         />
 
+    <ProgressBar
+        android:id="@+id/progressBar3"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="78dp"
+        android:layout_height="74dp"
+        android:layout_marginTop="40dp"
+        app:layout_constraintEnd_toEndOf="@id/searchingForGatewayText"
+        app:layout_constraintStart_toStartOf="@id/searchingForGatewayText"
+        app:layout_constraintTop_toBottomOf="@id/searchingForGatewayText" />
 
 </android.support.constraint.ConstraintLayout>
