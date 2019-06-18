@@ -6,6 +6,7 @@ public interface LoginContract {
 
     interface ViewModel{
         void fillEmailText(String email);
+        void invalidCredentials();
         void callbackOnLogin();
     }
     interface Presenter{
