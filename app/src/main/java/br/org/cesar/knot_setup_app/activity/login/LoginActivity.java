@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import br.org.cesar.knot_setup_app.R;
 import br.org.cesar.knot_setup_app.activity.login.LoginContract.Presenter;
@@ -58,6 +59,12 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
         public void fillEmailText(String email){
             EditText emailFld = findViewById(R.id.email);
             emailFld.setText(email);
+        }
+
+        @Override
+        public void loginFailed(){
+            Toast.makeText(this,"Incorrect username or password."
+            ,Toast.LENGTH_LONG).show();
         }
 
 }
