@@ -93,8 +93,6 @@ public class SplashPresenter implements Presenter{
         if(throwable.getMessage().contains("401")){
             mViewModel.doLogin();
         }
-
-
         if(throwable instanceof IOException){
             mViewModel.callbackOnConnectionError();
         }
