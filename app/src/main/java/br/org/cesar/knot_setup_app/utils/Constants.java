@@ -31,4 +31,7 @@ public class Constants{
     public static final String PERSISTENT_PREFERENCE_FILE = "persistent_file";
     public static final String PREFERENCE_FILE = "non_persistent_file";
 
+    //PERMISSION IDS
+    public static final int BLUETOOTH_PERMISSION_ID = 123;
+
 }
