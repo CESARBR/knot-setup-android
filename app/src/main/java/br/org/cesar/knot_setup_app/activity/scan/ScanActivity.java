@@ -5,6 +5,7 @@ import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -21,6 +22,7 @@ import br.org.cesar.knot_setup_app.R;
 import br.org.cesar.knot_setup_app.domain.adapter.ScanAdapter;
 import br.org.cesar.knot_setup_app.activity.configureDevice.ConfigureDeviceActivity;
 import br.org.cesar.knot_setup_app.model.BluetoothDevice;
+import br.org.cesar.knot_setup_app.utils.Constants;
 
 public class ScanActivity extends AppCompatActivity implements  ScanContract.ViewModel {
 
@@ -121,6 +123,10 @@ public class ScanActivity extends AppCompatActivity implements  ScanContract.Vie
     public void callbackOnBluetoothPermissionRequired() {
         Intent intent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
         this.startActivity(intent);
+        ActivityCompat.requestPermissions(this,
+                new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                Constants.BLUETOOTH_PERMISSION_ID);
+        this.finish();
     }
 
     protected void onDestroy(){
