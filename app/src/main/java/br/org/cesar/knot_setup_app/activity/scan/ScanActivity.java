@@ -5,6 +5,7 @@ import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -121,6 +122,10 @@ public class ScanActivity extends AppCompatActivity implements  ScanContract.Vie
     public void callbackOnBluetoothPermissionRequired() {
         Intent intent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
         this.startActivity(intent);
+        ActivityCompat.requestPermissions(this,
+                new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                123);
+        this.finish();
     }
 
     protected void onDestroy(){
