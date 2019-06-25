@@ -140,7 +140,9 @@ public class BluetoothWrapper {
     }
 
     public void stopScan(){
-        if(bluetoothAdapter != null  && bluetoothAdapter.isEnabled()) {
+        if(bluetoothAdapter != null  && bluetoothAdapter.isEnabled()
+                && bluetoothAdapter.getScanMode() == bluetoothAdapter.SCAN_MODE_CONNECTABLE
+                && scanCallback != null) {
             bluetoothAdapter.getBluetoothLeScanner().stopScan(scanCallback);
         }
     }
