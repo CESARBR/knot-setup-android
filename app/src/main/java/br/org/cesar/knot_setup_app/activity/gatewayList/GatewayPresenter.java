@@ -36,6 +36,7 @@ public class GatewayPresenter implements GatewayContract.Presenter {
             public void onResolveFailed(NsdServiceInfo serviceInfo, int errorCode) {
                 // Called when the resolve fails. Use the error code to debug.
                 Log.e("DEV-LOG", "Resolve failed: " + errorCode);
+                getGateway(serviceInfo);
             }
 
             @Override
