@@ -94,6 +94,8 @@ public class GatewayActivity extends AppCompatActivity implements  GatewayContra
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 mPresenter.stopScanning();
+                mPresenter.setIpAndPort(deviceList.get(position));
+
                 Intent i = new Intent(GatewayActivity.this, SplashActivity.class);
                 startActivity(i);
             }
