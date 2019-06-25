@@ -43,14 +43,6 @@ public class GatewayPresenter implements GatewayContract.Presenter {
             public void onServiceResolved(NsdServiceInfo serviceInfo) {
                 Log.e("DEV-LOG", "Resolve Succeeded. " + serviceInfo);
 
-                dataManager.getInstance().getPreference().
-                        setSharedPreferenceString(context,
-                                "ip",serviceInfo.getHost().getHostAddress());
-
-                dataManager.getInstance().getPreference().
-                        setSharedPreferenceString(context,
-                                "port", String.valueOf(serviceInfo.getPort()));
-
                 mService.add(serviceInfo);
                 mViewModel.callbackOnGatewaysFound(mService);
                 if (serviceInfo.getServiceName().equals(Constants.DNS_SD_SERVICE_NAME)){
@@ -58,6 +50,16 @@ public class GatewayPresenter implements GatewayContract.Presenter {
                 }
             }
         });
+    }
+
+    public void setIpAndPort(NsdServiceInfo serviceInfo){
+        dataManager.getInstance().getPreference().
+                setSharedPreferenceString(context,
+                        "ip",serviceInfo.getHost().getHostAddress());
+
+        dataManager.getInstance().getPreference().
+                setSharedPreferenceString(context,
+                        "port", String.valueOf(serviceInfo.getPort()));
     }
 
 

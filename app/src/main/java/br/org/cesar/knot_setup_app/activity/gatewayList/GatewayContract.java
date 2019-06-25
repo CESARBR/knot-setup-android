@@ -14,5 +14,6 @@ public interface GatewayContract {
 
     interface Presenter {
         void clearNsdServiceList();
+        void setIpAndPort(NsdServiceInfo serviceInfo);
     }
 }
