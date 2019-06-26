@@ -59,6 +59,7 @@ public class LoginPresenter implements LoginContract.Presenter{
         dataManager.getInstance().getPersistentPreference()
                 .setSharedPreferenceString(context,"token","Bearer " + user.getToken());
 
+        mViewModel.callbackOnLogin();
     }
 
     private void onErrorHandler(Throwable throwable){
