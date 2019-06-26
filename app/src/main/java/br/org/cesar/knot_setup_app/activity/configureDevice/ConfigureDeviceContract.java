@@ -6,6 +6,7 @@ public interface ConfigureDeviceContract{
         void callbackOnConnected();
         void callbackOnDisconnected();
         void callbackOnOperation(int write_count);
+        void callbackOnErrorHandler(Throwable throwable);
     }
 
     interface Presenter{

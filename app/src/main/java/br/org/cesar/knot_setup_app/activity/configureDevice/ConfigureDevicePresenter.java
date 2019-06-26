@@ -3,6 +3,7 @@ import android.content.Context;
 import android.util.Log;
 
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 import br.org.cesar.knot_setup_app.activity.configureDevice.ConfigureDeviceContract.Presenter;
 import br.org.cesar.knot_setup_app.activity.configureDevice.ConfigureDeviceContract.ViewModel;
@@ -11,9 +12,14 @@ import br.org.cesar.knot_setup_app.domain.callback.DeviceCallback;
 import br.org.cesar.knot_setup_app.KnotSetupApplication;
 import br.org.cesar.knot_setup_app.model.BluetoothDevice;
 import br.org.cesar.knot_setup_app.model.Gateway;
+import br.org.cesar.knot_setup_app.model.Openthread;
 import br.org.cesar.knot_setup_app.model.Thing;
 import br.org.cesar.knot_setup_app.wrapper.BluetoothWrapper;
 import br.org.cesar.knot_setup_app.utils.Constants;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+
+
 
 public class ConfigureDevicePresenter implements Presenter{
     private ViewModel mViewModel;
@@ -31,6 +37,7 @@ public class ConfigureDevicePresenter implements Presenter{
     private boolean readDone = false;
     private boolean writeDone = false;
 
+    private static DataManager dataManager;
 
     ConfigureDevicePresenter(ViewModel viewModel,int gatewayID, boolean operation,Context context){
         this.mViewModel = viewModel;
@@ -39,7 +46,80 @@ public class ConfigureDevicePresenter implements Presenter{
         this.bluetoothWrapper = KnotSetupApplication.getBluetoothWrapper();
         this.device = KnotSetupApplication.getBluetoothDevice();
         this.context = context;
+        Log.d("DEV-LOG","getOpenthreadConfgig starting");
+        getOpenthreadConfig();
+    }
+
+
+    private void getOpenthreadConfig(){
+        String bearer,ip,port,request;
+        bearer = dataManager.getInstance()
+                .getPersistentPreference()
+                .getSharedPreferenceString(context,"token");
+
+        ip = dataManager.getInstance()
+                .getPreference()
+                .getSharedPreferenceString(context,"ip");
+
+        port = dataManager.getInstance()
+                .getPreference().getSharedPreferenceString(context,"port");
+
+        request = "http://" + ip + ":" + port +"/api/radio/openthread";
+        Log.d("DEV-LOG",bearer);
+        Log.d("DEV-LOG","request= " + request);
+
+        dataManager.getInstance().getService().getOpenthreadConfig(request,bearer)
+                .timeout(30, TimeUnit.SECONDS)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::getOpenThreadSucceeded,
+                        this::onErrorHandler);
+
+    }
+
+    private void getOpenThreadSucceeded(Openthread openthread){
+
+        dataManager.getInstance().getPreference()
+                .setSharedPreferenceString(context,"netname",openthread.getNetworkName());
+
+        Log.d("DEV-LOG","netname= " + getValue("netname"));
+
+        dataManager.getInstance().getPreference()
+                .setSharedPreferenceString(context,"channel",openthread.getChannel());
+
+        Log.d("DEV-LOG","channel= " + getValue("channel"));
+
+        dataManager.getInstance().getPreference()
+                .setSharedPreferenceString(context,"xpanid",openthread.getXpanId());
+
+        Log.d("DEV-LOG","xpanid= " + getValue("xpanid"));
+
+
+        dataManager.getInstance().getPreference()
+                .setSharedPreferenceString(context,"panid", openthread.getPanId());
+
+        Log.d("DEV-LOG","panid= " + getValue("panid"));
+
+
+        dataManager.getInstance().getPreference()
+                .setSharedPreferenceString(context,"ipv6",openthread.getMeshIpv6());
+
+        Log.d("DEV-LOG","ipv6= " + getValue("ipv6"));
+
+
+        dataManager.getInstance().getPreference()
+                .setSharedPreferenceString(context,"masterkey",openthread.getMasterKey());
+
+        Log.d("DEV-LOG","masterkey= " + getValue("masterkey"));
+
+        Log.d("DEV-LOG","callbackflux starting");
+
         callbackFlux();
+    }
+
+    private void onErrorHandler(Throwable throwable){
+        Log.d("DEV-LOG", "onErrorHandler: " + throwable.getMessage());
+
     }
 
     private void callbackFlux(){
