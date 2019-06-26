@@ -47,6 +47,11 @@ public class ConfigureDeviceActivity extends AppCompatActivity implements ViewMo
     }
 
     @Override
+    public void callbackOnErrorHandler(Throwable throwable){
+        finish();
+    }
+
+    @Override
     public void callbackOnOperation(int val){
         runOnUiThread(new Runnable() {
 

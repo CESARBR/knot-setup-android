@@ -34,4 +34,7 @@ public class Constants{
     //PERMISSION IDS
     public static final int BLUETOOTH_PERMISSION_ID = 123;
 
+    //REQUEST TIMEOUTS
+    public static final int GET_OPENTHREAD_TIMEOUT = 30;
+
 }
