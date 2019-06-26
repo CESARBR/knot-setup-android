@@ -35,10 +35,17 @@ public class LoginPresenter implements LoginContract.Presenter{
 
         this.request = "http://" + ip +":" + port +"/api/auth";
 
+        fillEmail();
+
+
     }
 
     @Override
     public void fillEmail(){
+        String email;
+        email = dataManager.getInstance().getPersistentPreference()
+                .getSharedPreferenceString(context,"email");
+        mViewModel.fillEmailText(email);
     }
 
     @Override
