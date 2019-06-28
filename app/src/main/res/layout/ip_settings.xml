@@ -50,7 +50,7 @@
             android:layout_alignLeft="@+id/ip_progress_bar"
             android:layout_alignTop="@+id/ip_progress_bar"
             android:layout_alignBottom="@+id/ip_progress_bar"
-            android:src="@drawable/ic_check_24px"
+            android:src="@drawable/ic_check_circle_2"
             android:visibility="invisible"
             />
     </RelativeLayout>

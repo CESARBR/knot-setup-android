@@ -55,7 +55,7 @@
             android:layout_alignLeft="@+id/net_name_progress_bar"
             android:layout_alignTop="@+id/net_name_progress_bar"
             android:layout_alignBottom="@+id/net_name_progress_bar"
-            android:src="@drawable/ic_check_24px"
+            android:src="@drawable/ic_check_circle_2"
             android:visibility="invisible"
             />
     </RelativeLayout>
@@ -99,7 +99,7 @@
             android:layout_alignLeft="@+id/channel_progress_bar"
             android:layout_alignTop="@+id/channel_progress_bar"
             android:layout_alignBottom="@+id/channel_progress_bar"
-            android:src="@drawable/ic_check_24px"
+            android:src="@drawable/ic_check_circle_2"
             android:visibility="invisible"
             />
     </RelativeLayout>
@@ -140,7 +140,7 @@
             android:layout_alignLeft="@+id/pan_id_progress_bar"
             android:layout_alignTop="@+id/pan_id_progress_bar"
             android:layout_alignBottom="@+id/pan_id_progress_bar"
-            android:src="@drawable/ic_check_24px"
+            android:src="@drawable/ic_check_circle_2"
             android:visibility="invisible"
             />
     </RelativeLayout>
@@ -182,7 +182,7 @@
             android:layout_alignLeft="@+id/xpan_id_progress_bar"
             android:layout_alignTop="@+id/xpan_id_progress_bar"
             android:layout_alignBottom="@+id/xpan_id_progress_bar"
-            android:src="@drawable/ic_check_24px"
+            android:src="@drawable/ic_check_circle_2"
             android:visibility="invisible"
             />
 
@@ -226,7 +226,7 @@
             android:layout_alignLeft="@+id/masterkey_progress_bar"
             android:layout_alignTop="@+id/masterkey_progress_bar"
             android:layout_alignBottom="@+id/masterkey_progress_bar"
-            android:src="@drawable/ic_check_24px"
+            android:src="@drawable/ic_check_circle_2"
             android:visibility="invisible"
             />
     </RelativeLayout>
