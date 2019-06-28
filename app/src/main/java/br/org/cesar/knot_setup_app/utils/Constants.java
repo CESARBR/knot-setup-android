@@ -26,7 +26,7 @@ public class Constants{
     public static final String BASE_URL = "http://172.26.4.240:8080";
 
     public static final String DNS_SD_SERVICE_TYPE = "_services._dns-sd._udp";
-    public static final String DNS_SD_SERVICE_NAME = "knot.local";
+    public static final String DNS_SD_SERVICE_NAME = "KNoT Gateway on";
 
     public static final String PERSISTENT_PREFERENCE_FILE = "persistent_file";
     public static final String PREFERENCE_FILE = "non_persistent_file";
