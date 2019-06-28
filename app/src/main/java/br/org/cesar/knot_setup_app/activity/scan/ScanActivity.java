@@ -38,7 +38,7 @@ public class ScanActivity extends AppCompatActivity implements  ScanContract.Vie
         TextView headerTitle = (TextView)findViewById(R.id.list_title);
         headerTitle.setText("Looking for devices...");
         ImageView image = (ImageView) findViewById(R.id.imageView1);
-        image.setImageResource(R.drawable.bluetooth);
+        image.setImageResource(R.drawable.asset_bluetooth_white);
 
 
         Boolean operation =  getIntent().getBooleanExtra("operation",false);
