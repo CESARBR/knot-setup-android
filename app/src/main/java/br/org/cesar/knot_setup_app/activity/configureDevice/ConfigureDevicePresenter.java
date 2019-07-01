@@ -177,6 +177,7 @@ public class ConfigureDevicePresenter implements Presenter{
             @Override
             public void onCharacteristicWriteFail(){
                 Log.d("DEV-LOG","Characteristic write failed");
+                mViewModel.callbackOnWriteFailed(writeCount);
             }
 
             @Override
