@@ -13,6 +13,7 @@
         android:fontFamily="sans-serif-condensed"
         android:text="@string/IPV6"
         android:textColor="@color/colorKnotGreen"
+        android:background="@color/transparent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -32,7 +33,9 @@
             android:layout_centerHorizontal="true"
             android:text="@string/IPV6"
             android:fontFamily="sans-serif-condensed"
-            android:textColor="@color/colorKnotGreen" />
+            android:textColor="@color/colorKnotGreen"
+            android:background="@color/colorWhite"
+            />
         <ProgressBar
             android:id="@+id/ip_progress_bar"
             style="?android:attr/progressBarStyle"
@@ -40,6 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/ip_text_view"
             android:layout_centerHorizontal="true"
+            android:background="@color/transparent"
             />
         <ImageView
             android:id="@+id/ip_check"
@@ -51,6 +55,7 @@
             android:layout_alignTop="@+id/ip_progress_bar"
             android:layout_alignBottom="@+id/ip_progress_bar"
             android:src="@drawable/ic_check_circle_2"
+            android:background="@color/transparent"
             android:visibility="invisible"
             />
     </RelativeLayout>

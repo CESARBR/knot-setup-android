@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorWhite"
     tools:context=".activity.gatewayList.GatewayActivity">
 
     <include  layout="@layout/activity_template_list" android:id="@+id/id" />
@@ -48,6 +49,7 @@
         android:fontFamily="sans-serif-condensed"
         android:textSize="24sp"
         android:layout_marginTop="130dp"
+        android:background="@color/transparent"
         app:layout_constraintTop_toTopOf="@+id/id"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -59,6 +61,7 @@
         android:layout_width="78dp"
         android:layout_height="74dp"
         android:layout_marginTop="40dp"
+        android:background="@color/transparent"
         app:layout_constraintEnd_toEndOf="@id/searchingForGatewayText"
         app:layout_constraintStart_toStartOf="@id/searchingForGatewayText"
         app:layout_constraintTop_toBottomOf="@id/searchingForGatewayText" />

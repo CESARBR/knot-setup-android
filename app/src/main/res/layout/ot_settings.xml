@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/grey_bg"
-    android:padding="1dp"
+    android:padding="5dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     >
 
@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         android:textColor="@color/colorKnotGreen"
         android:text="@string/otsettings"
+        android:background="@color/transparent"
         app:layout_constraintTop_toTopOf="parent"
         android:fontFamily="sans-serif-condensed"
         app:layout_constraintStart_toStartOf="parent"
@@ -35,7 +36,9 @@
             android:layout_centerHorizontal="true"
             android:text="@string/netname"
             android:fontFamily="sans-serif-condensed"
-            android:textColor="@color/colorKnotGreen" />
+            android:textColor="@color/colorKnotGreen"
+            android:background="@color/transparent"
+            />
 
         <ProgressBar
             android:id="@+id/net_name_progress_bar"
@@ -44,6 +47,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/net_name_text_view"
             android:layout_centerHorizontal="true"
+            android:background="@color/transparent"
             />
 
         <ImageView
@@ -57,6 +61,7 @@
             android:layout_alignBottom="@+id/net_name_progress_bar"
             android:src="@drawable/ic_check_circle_2"
             android:visibility="invisible"
+            android:background="@color/transparent"
             />
     </RelativeLayout>
 
@@ -79,7 +84,9 @@
             android:text="@string/channel"
             android:layout_centerHorizontal="true"
             android:fontFamily="sans-serif-condensed"
-            android:textColor="@color/colorKnotGreen" />
+            android:textColor="@color/colorKnotGreen"
+            android:background="@color/transparent"
+            />
 
         <ProgressBar
             android:id="@+id/channel_progress_bar"
@@ -88,6 +95,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/channel_text_view"
             android:layout_centerHorizontal="true"
+            android:background="@color/transparent"
             />
 
         <ImageView
@@ -101,6 +109,7 @@
             android:layout_alignBottom="@+id/channel_progress_bar"
             android:src="@drawable/ic_check_circle_2"
             android:visibility="invisible"
+            android:background="@color/transparent"
             />
     </RelativeLayout>
 
@@ -120,7 +129,9 @@
             android:text="@string/panid"
             android:layout_centerHorizontal="true"
             android:fontFamily="sans-serif-condensed"
-            android:textColor="@color/colorKnotGreen" />
+            android:textColor="@color/colorKnotGreen"
+            android:background="@color/transparent"
+            />
 
         <ProgressBar
             android:id="@+id/pan_id_progress_bar"
@@ -129,6 +140,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/pan_id_text_view"
             android:layout_centerHorizontal="true"
+            android:background="@color/transparent"
             />
 
         <ImageView
@@ -142,6 +154,7 @@
             android:layout_alignBottom="@+id/pan_id_progress_bar"
             android:src="@drawable/ic_check_circle_2"
             android:visibility="invisible"
+            android:background="@color/transparent"
             />
     </RelativeLayout>
 
@@ -162,7 +175,9 @@
             android:text="@string/xpanid"
             android:layout_centerHorizontal="true"
             android:fontFamily="sans-serif-condensed"
-            android:textColor="@color/colorKnotGreen" />
+            android:textColor="@color/colorKnotGreen"
+            android:background="@color/transparent"
+            />
 
         <ProgressBar
             android:id="@+id/xpan_id_progress_bar"
@@ -171,7 +186,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/xpan_id_text_view"
             android:layout_centerHorizontal="true"
-        />
+            android:background="@color/transparent"
+            />
 
         <ImageView
             android:id="@+id/xpan_id_check"
@@ -184,6 +200,7 @@
             android:layout_alignBottom="@+id/xpan_id_progress_bar"
             android:src="@drawable/ic_check_circle_2"
             android:visibility="invisible"
+            android:background="@color/transparent"
             />
 
     </RelativeLayout>
@@ -206,7 +223,9 @@
             android:text="@string/masterkey"
             android:layout_centerHorizontal="true"
             android:fontFamily="sans-serif-condensed"
-            android:textColor="@color/colorKnotGreen" />
+            android:textColor="@color/colorKnotGreen"
+            android:background="@color/transparent"
+            />
 
         <ProgressBar
             android:id="@+id/masterkey_progress_bar"
@@ -215,6 +234,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/masterkey_text_view"
             android:layout_centerHorizontal="true"
+            android:background="@color/transparent"
             />
 
         <ImageView
@@ -228,6 +248,7 @@
             android:layout_alignBottom="@+id/masterkey_progress_bar"
             android:src="@drawable/ic_check_circle_2"
             android:visibility="invisible"
+            android:background="@color/transparent"
             />
     </RelativeLayout>
 

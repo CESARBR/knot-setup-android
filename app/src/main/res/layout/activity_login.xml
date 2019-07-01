@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@color/colorWhite"
     android:layout_height="match_parent">
 
 
@@ -58,6 +59,7 @@
         android:layout_marginTop="8dp"
         android:text="@string/login"
         android:textColor="@color/colorKnotGreen"
+        android:background="@color/transparent"
         app:layout_constraintStart_toStartOf="@id/email"
         app:layout_constraintTop_toBottomOf="@id/header" />
 
@@ -67,6 +69,7 @@
         android:layout_height="wrap_content"
         android:text="@string/password"
         android:textColor="@color/colorKnotGreen"
+        android:background="@color/transparent"
         app:layout_constraintTop_toBottomOf="@id/email"
         app:layout_constraintStart_toStartOf="@id/email"
         />
