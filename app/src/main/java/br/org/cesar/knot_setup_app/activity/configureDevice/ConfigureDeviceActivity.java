@@ -89,6 +89,44 @@ public class ConfigureDeviceActivity extends AppCompatActivity implements ViewMo
 
     }
 
+    @Override
+    public void callbackOnWriteFailed(int val){
+        runOnUiThread(new Runnable() {
+
+            @Override
+            public void run() {
+
+                switch (val){
+                    case 0:
+                        addFail("channel");
+                        break;
+                    case 1:
+                        addFail("net_name");
+                        break;
+                    case 2:
+                        addFail("pan_id");
+                         break;
+                    case 3:
+                        addFail("xpan_id");
+                        break;
+                    case 4:
+                        addFail("masterkey");
+                        break;
+                    case 5:
+                        addFail("ip");
+                }
+
+            }
+        });
+
+        removeProgressBar("channel");
+        removeProgressBar("net_name");
+        removeProgressBar("pan_id");
+        removeProgressBar("xpan_id");
+        removeProgressBar("masterkey");
+        removeProgressBar("ip");
+    }
+
     public void removeProgressBar(String progressBarID){
         int resID = (int) getResources().getIdentifier(progressBarID + "_progress_bar","id",getPackageName());
         ProgressBar progressBar = findViewById(resID);
