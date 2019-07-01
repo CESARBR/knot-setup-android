@@ -26,19 +26,6 @@
         app:srcCompat="@drawable/ic_add_black_24dp"
         tools:ignore="VectorDrawableCompat" />
 
-    <ListView
-        android:id="@+id/gateway_list"
-        android:layout_width="0dp"
-        android:padding="8dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="8dp"
-        android:dividerHeight="15dp"
-        app:layout_constraintBottom_toTopOf="@+id/add_gateway"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/id" />
 
     <TextView
         android:id="@+id/searchingForGatewayText"
