@@ -100,4 +100,10 @@ public class ConfigureDeviceActivity extends AppCompatActivity implements ViewMo
         ImageView imageView = findViewById(resID);
         imageView.setVisibility(View.VISIBLE);
     }
+
+    public void addFail(String settingID){
+        int resID = (int) getResources().getIdentifier(settingID + "_fail","id",getPackageName());
+        ImageView imageView = findViewById(resID);
+        imageView.setVisibility(View.VISIBLE);
+    }
 }
