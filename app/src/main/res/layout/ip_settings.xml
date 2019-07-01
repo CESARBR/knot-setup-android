@@ -58,6 +58,21 @@
             android:background="@color/transparent"
             android:visibility="invisible"
             />
+
+        <ImageView
+            android:id="@+id/ip_fail"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_below="@+id/ip_text_view"
+            android:layout_alignRight="@+id/ip_progress_bar"
+            android:layout_alignLeft="@+id/ip_progress_bar"
+            android:layout_alignTop="@+id/ip_progress_bar"
+            android:layout_alignBottom="@+id/ip_progress_bar"
+            android:src="@drawable/asset_cancel_red"
+            android:background="@color/transparent"
+            android:visibility="invisible"
+            />
+
     </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>
