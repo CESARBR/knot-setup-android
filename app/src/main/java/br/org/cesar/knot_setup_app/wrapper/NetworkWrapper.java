@@ -7,8 +7,6 @@ import android.net.NetworkInfo;
 import android.os.Build;
 import android.util.Log;
 
-import br.org.cesar.knot_setup_app.utils.Constants;
-
 public class NetworkWrapper {
 
     private static Context context;
