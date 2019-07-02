@@ -12,7 +12,7 @@ import android.widget.TextView;
 import br.org.cesar.knot_setup_app.R;
 import br.org.cesar.knot_setup_app.activity.login.LoginContract.Presenter;
 import br.org.cesar.knot_setup_app.activity.thingList.ThingActivity;
-import br.org.cesar.knot_setup_app.utils.Utils;
+import br.org.cesar.knot_setup_app.wrapper.NetworkWrapper;
 
 public class LoginActivity extends AppCompatActivity implements LoginContract.ViewModel {
         private Presenter mPresenter;
@@ -42,7 +42,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
                 }
             });
 
-            if(Utils.isConnected(this)){
+            if(NetworkWrapper.isConnected(this)){
                 mPresenter.fillEmail();
             }
         }
