@@ -18,7 +18,7 @@ public class LoginPresenter implements LoginContract.Presenter{
     private ViewModel mViewModel;
     private static DataManager dataManager;
     private String email;
-    private String request,port;
+    private String request,port,ip;
     private Context context;
 
     public void setEmail(String email){this.email = email;}
@@ -26,7 +26,8 @@ public class LoginPresenter implements LoginContract.Presenter{
     LoginPresenter(ViewModel viewModel, Context context){
         this.mViewModel = viewModel;
         this.context = context;
-        String ip = dataManager.getInstance()
+
+        this.ip = dataManager.getInstance()
                 .getPreference().getSharedPreferenceString(context,"ip");
 
         this.port = dataManager.getInstance()
