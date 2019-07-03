@@ -94,11 +94,7 @@ public class GatewayPresenter implements GatewayContract.Presenter {
             @Override
             public void onServiceLost(NsdServiceInfo service) {
                 Log.d("DEV-LOG","onServiceLost");
-                for (NsdServiceInfo info:mService) {
-                    if(info.getServiceName().equals(service.getServiceName())){
-                        Log.e("DEV-LOG", "service lost: " + service + "IndexOf: " + mService.indexOf(service));
-                    }
-                }
+                removeFromListIfSameName(service);
                 mViewModel.callbackOnGatewaysFound(mService);
             }
 
