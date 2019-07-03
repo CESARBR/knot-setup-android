@@ -85,6 +85,7 @@ public class GatewayPresenter implements GatewayContract.Presenter {
                 // A service was found! Do something with it.
                 if (!service.getServiceType().equals(DNS_SD_SERVICE_TYPE)) {
                     Log.d("DEV-LOG", "Service: " + service);
+                    removeFromListIfSameName(service);
                     if (service.getServiceName().contains(Constants.DNS_SD_SERVICE_NAME)) {
                         getGateway(service);
                     }
