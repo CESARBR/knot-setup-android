@@ -42,7 +42,7 @@ public class ConfigureDeviceActivity extends AppCompatActivity implements ViewMo
             @Override
             public void run() {
                 Toast.makeText(getApplicationContext(), "Successfully paired" +
-                        "with device!!!", Toast.LENGTH_LONG).show();            }
+                        " with device!!!", Toast.LENGTH_LONG).show();            }
         });
     }
 
