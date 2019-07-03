@@ -125,4 +125,15 @@ public class GatewayPresenter implements GatewayContract.Presenter {
 
     }
 
+
+    private boolean removeFromListIfSameName(NsdServiceInfo service){
+        for (NsdServiceInfo info:mService) {
+            if(info.getServiceName().equals(service.getServiceName())){
+                mService.remove(info);
+                return true;
+            }
+        }
+        return false;
+    }
+
 }
