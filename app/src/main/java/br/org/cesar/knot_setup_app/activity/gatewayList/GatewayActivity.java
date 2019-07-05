@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -108,6 +109,15 @@ public class GatewayActivity extends AppCompatActivity implements  GatewayContra
                 "Some configuration has been forgotten",Toast.LENGTH_LONG);
     }
 
+
+    @Override
+    public void setSearchingFeedback(int visibilty){
+        TextView lookingForGateway = findViewById(R.id.searchingForGatewayText);
+        ProgressBar progressBar = findViewById(R.id.progressBar3);
+
+        lookingForGateway.setVisibility(visibilty);
+        progressBar.setVisibility(visibilty);
+    }
 
     @Override
     protected void onDestroy() {

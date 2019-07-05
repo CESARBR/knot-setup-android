@@ -8,6 +8,7 @@ public interface GatewayContract {
 
     interface ViewModel {
         void callbackOnGatewaysFound(ArrayList<NsdServiceInfo> deviceList);
+        void setSearchingFeedback(int visibility);
         void callbackOnMissingCharacteristic();
     }
 
