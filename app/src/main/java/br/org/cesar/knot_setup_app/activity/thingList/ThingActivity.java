@@ -14,13 +14,13 @@ import java.util.List;
 
 import br.org.cesar.knot_setup_app.R;
 import br.org.cesar.knot_setup_app.activity.scan.ScanActivity;
-import br.org.cesar.knot_setup_app.domain.adapter.DeviceAdapter;
+import br.org.cesar.knot_setup_app.domain.adapter.ThingAdapter;
 import br.org.cesar.knot_setup_app.activity.thingList.ThingContract.Presenter;
 import br.org.cesar.knot_setup_app.activity.thingList.ThingContract.ViewModel;
 import br.org.cesar.knot_setup_app.model.Gateway;
 
 public class ThingActivity extends AppCompatActivity implements  ViewModel{
-    private DeviceAdapter adapter;
+    private ThingAdapter adapter;
     private Presenter mPresenter;
 
     @Override
@@ -67,7 +67,7 @@ public class ThingActivity extends AppCompatActivity implements  ViewModel{
     @Override
     public void callbackOnDeviceList(List<Gateway> deviceList){
 
-        adapter = new DeviceAdapter(ThingActivity.this, R.layout.item_gateway, deviceList);
+        adapter = new ThingAdapter(ThingActivity.this, R.layout.item_thing, deviceList);
 
         ListView deviceListView = findViewById(R.id.list);
 

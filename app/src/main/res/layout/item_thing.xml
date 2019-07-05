@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/grey_light_bg"
+        >
+
+        <ImageView
+            android:id="@+id/thing_image"
+            android:layout_width="54dp"
+            android:layout_height="72dp"
+            android:layout_marginStart="8dp"
+            android:background="@color/transparent"
+            android:backgroundTint="@color/colorWhite"
+            android:tint="@color/colorKnotGreen"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_speaker" />
+
+        <TextView
+            android:id="@+id/device_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:backgroundTint="@color/colorWhite"
+            android:fontFamily="sans-serif-smallcaps"
+            android:text="TextView"
+            android:textStyle="bold"
+            android:textColor="@color/colorKnotGreen"
+            android:layout_marginStart="24dp"
+            app:layout_constraintStart_toEndOf="@id/thing_image"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/device_info"
+            />
+
+        <TextView
+            android:id="@+id/device_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:backgroundTint="@color/colorWhite"
+            android:fontFamily="sans-serif-smallcaps"
+            android:textStyle="bold"
+            android:text="TextView"
+            android:textColor="@color/colorKnotGreen"
+            android:layout_marginStart="24dp"
+            app:layout_constraintStart_toEndOf="@id/thing_image"
+            app:layout_constraintTop_toBottomOf="@id/device_name"
+            app:layout_constraintBottom_toTopOf="@id/device_info2"
+            />
+
+        <TextView
+            android:id="@+id/device_info2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:backgroundTint="@color/colorWhite"
+            android:fontFamily="sans-serif-smallcaps"
+            android:textStyle="bold"
+            android:text="TextView"
+            android:textColor="@color/colorKnotGreen"
+            android:layout_marginStart="24dp"
+            app:layout_constraintStart_toEndOf="@id/thing_image"
+            app:layout_constraintTop_toBottomOf="@id/device_info"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+
+
+</android.support.constraint.ConstraintLayout>
