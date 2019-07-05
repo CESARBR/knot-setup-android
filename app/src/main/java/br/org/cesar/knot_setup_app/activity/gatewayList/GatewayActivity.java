@@ -114,10 +114,13 @@ public class GatewayActivity extends AppCompatActivity implements  GatewayContra
     public void setSearchingFeedback(int visibilty){
         TextView lookingForGateway = findViewById(R.id.searchingForGatewayText);
         ProgressBar progressBar = findViewById(R.id.progressBar3);
-
-        lookingForGateway.setVisibility(visibilty);
-        progressBar.setVisibility(visibilty);
-    }
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                lookingForGateway.setVisibility(visibilty);
+                progressBar.setVisibility(visibilty);
+            }
+        });    }
 
     @Override
     protected void onDestroy() {
