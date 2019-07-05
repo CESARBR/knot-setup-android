@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.nsd.NsdManager;
 import android.net.nsd.NsdServiceInfo;
 import android.util.Log;
+import android.view.View;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -133,7 +134,20 @@ public class GatewayPresenter implements GatewayContract.Presenter {
                 return true;
             }
         }
+        checkIfGatewayListIsEmpty();
         return false;
+    }
+
+    private void checkIfGatewayListIsEmpty(){
+        Log.d("DEV-LOG","isMserviceEmpty: " + mService.isEmpty());
+        if(mService.isEmpty()){
+            mViewModel.setSearchingFeedback(View.INVISIBLE);
+        }
+
+        else{
+            mViewModel.setSearchingFeedback(View.VISIBLE);
+        }
+
     }
 
 }
