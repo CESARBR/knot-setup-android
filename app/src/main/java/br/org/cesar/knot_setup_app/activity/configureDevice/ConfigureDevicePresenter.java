@@ -31,8 +31,8 @@ public class ConfigureDevicePresenter implements Presenter{
     private Gateway gateway;
     private Thing thing;
 
-    private int read_count = 0;
-    private int write_count = 0;
+    private int readCount = 0;
+    private int writeCount = 0;
     private boolean readDone = false;
     private boolean writeDone = false;
 
@@ -163,13 +163,13 @@ public class ConfigureDevicePresenter implements Presenter{
             @Override
             public void onCharacteristicWriteComplete(){
                 Log.d("DEV-LOG","Characteristic writen");
-                mViewModel.callbackOnOperation(write_count);
+                mViewModel.callbackOnOperation(writeCount);
 
                 if(writeDone){
                     bluetoothWrapper.closeConn();
                 }
                 else {
-                    write_count++;
+                    writeCount++;
                     thingConfigWrite();
                 }
             }
@@ -198,14 +198,14 @@ public class ConfigureDevicePresenter implements Presenter{
                 else {valueRead = new String(value);}
 
                 Log.d("DEV-LOG","Characteristic read: " + valueRead);
-                mViewModel.callbackOnOperation(read_count);
+                mViewModel.callbackOnOperation(readCount);
 
                 if(readDone){
                     bluetoothWrapper.closeConn();
                 }
 
                 else {
-                    read_count++;
+                    readCount++;
                     gatewayConfigRead();
                 }
             }
@@ -237,7 +237,7 @@ public class ConfigureDevicePresenter implements Presenter{
         String value;
         byte[] valueBytes;
 
-        switch (write_count){
+        switch (writeCount){
             case 0:
                 value = getValue("channel");
                 Log.d("DEV-LOG", "Write Wrapper: Channel Value: " + value);
@@ -288,7 +288,7 @@ public class ConfigureDevicePresenter implements Presenter{
     }
 
     private void gatewayConfigRead(){
-        switch (read_count){
+        switch (readCount){
             case 0:
                 Log.d("DEV-LOG", "ReadWrapper: Channel" );
                 readWrapper(Constants.OT_SETTINGS_SERVICE_GATEWAY,Constants.CHANNEL_CHARACTERISTIC_GATEWAY);

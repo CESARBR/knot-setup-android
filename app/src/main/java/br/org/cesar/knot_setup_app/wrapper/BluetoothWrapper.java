@@ -1,7 +1,6 @@
 package br.org.cesar.knot_setup_app.wrapper;
 
 import android.Manifest;
-import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothGatt;
@@ -23,14 +22,12 @@ import android.os.ParcelUuid;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.UUID;
 
 import br.org.cesar.knot_setup_app.domain.callback.DeviceCallback;
 import br.org.cesar.knot_setup_app.domain.callback.ScannerCallback;
 
-import static android.bluetooth.BluetoothDevice.BOND_BONDED;
 import static android.bluetooth.le.ScanSettings.MATCH_NUM_FEW_ADVERTISEMENT;
 
 public class BluetoothWrapper {
@@ -38,8 +35,8 @@ public class BluetoothWrapper {
     private BluetoothAdapter bluetoothAdapter;
     private Context context;
     private ScanCallback scanCallback;
-    private BluetoothGatt my_gatt = null;
-    private UUID ScanUUID;
+    private BluetoothGatt myGatt = null;
+    private UUID scanUUID;
 
 
     private String TAG = "br.org.cesar.knot_setup_app.wrapper.BluetoothWrapper";
@@ -54,7 +51,7 @@ public class BluetoothWrapper {
 
     public void setScanUUID(UUID uuid){
         Log.d("DEV-LOG","UUID: " + uuid.toString());
-        this.ScanUUID = uuid;
+        this.scanUUID = uuid;
     }
 
     public boolean checkBluetoothHardware() {
@@ -129,9 +126,9 @@ public class BluetoothWrapper {
         };
 
         if (bluetoothAdapter != null) {
-            Log.d("DEV-LOG", "Searching for: " + ScanUUID.toString());
+            Log.d("DEV-LOG", "Searching for: " + scanUUID.toString());
             ScanFilter filter = new ScanFilter.Builder()
-                    .setServiceUuid(new ParcelUuid(ScanUUID)).build();
+                    .setServiceUuid(new ParcelUuid(scanUUID)).build();
             ScanSettings settings = new ScanSettings.Builder()
                     .setScanMode(MATCH_NUM_FEW_ADVERTISEMENT).build();
             bluetoothAdapter.getBluetoothLeScanner().startScan(
@@ -148,7 +145,7 @@ public class BluetoothWrapper {
     }
 
     public boolean isConnected(){
-        if(my_gatt == null){
+        if(myGatt == null){
             return false;
         }
         return true;
@@ -161,7 +158,7 @@ public class BluetoothWrapper {
      */
     public void connectToDevice(final br.org.cesar.knot_setup_app.model.BluetoothDevice device, final DeviceCallback callback) {
 
-        my_gatt = device.getDevice().connectGatt(context, true, new BluetoothGattCallback() {
+        myGatt = device.getDevice().connectGatt(context, true, new BluetoothGattCallback() {
             @Override
             public void onConnectionStateChange(BluetoothGatt gatt, int status, int newState) {
                 super.onConnectionStateChange(gatt, status, newState);
@@ -241,37 +238,37 @@ public class BluetoothWrapper {
 
 
     public void getRssi(){
-        my_gatt.readRemoteRssi();
+        myGatt.readRemoteRssi();
     }
 
 
     public void write(UUID service ,UUID characteristic, String valToWrite){
-        BluetoothGattCharacteristic writeCharacteristic = my_gatt.getService(service).getCharacteristic(characteristic);
+        BluetoothGattCharacteristic writeCharacteristic = myGatt.getService(service).getCharacteristic(characteristic);
         writeCharacteristic.setValue(valToWrite.getBytes());
-        my_gatt.writeCharacteristic(writeCharacteristic);
+        myGatt.writeCharacteristic(writeCharacteristic);
     }
 
     public void write(UUID service ,UUID characteristic, byte[] valToWrite){
-        BluetoothGattCharacteristic writeCharacteristic = my_gatt.getService(service).getCharacteristic(characteristic);
+        BluetoothGattCharacteristic writeCharacteristic = myGatt.getService(service).getCharacteristic(characteristic);
         writeCharacteristic.setValue(valToWrite);
-        my_gatt.writeCharacteristic(writeCharacteristic);
+        myGatt.writeCharacteristic(writeCharacteristic);
     }
 
     public void readCharacteristic(UUID service ,UUID characteristic){
-        BluetoothGattCharacteristic stateCharacteristic = my_gatt.getService(service).getCharacteristic(characteristic);
-        my_gatt.readCharacteristic(stateCharacteristic);
+        BluetoothGattCharacteristic stateCharacteristic = myGatt.getService(service).getCharacteristic(characteristic);
+        myGatt.readCharacteristic(stateCharacteristic);
     }
 
     public void closeConn(){
-        my_gatt.disconnect();
+        myGatt.disconnect();
     }
 
     public void closeGatt(){
-        my_gatt.close();
+        myGatt.close();
     }
 
     public void discoverServices(){
-        my_gatt.discoverServices();
+        myGatt.discoverServices();
     }
 
     /**
