@@ -15,11 +15,11 @@ import java.util.List;
 import br.org.cesar.knot_setup_app.R;
 import br.org.cesar.knot_setup_app.model.Gateway;
 
-public class DeviceAdapter extends ArrayAdapter<Gateway> {
+public class ThingAdapter extends ArrayAdapter<Gateway> {
     private List<Gateway> deviceList;
 
 
-    public DeviceAdapter(@NonNull Context context, int resource, @NonNull List<Gateway> objects) {
+    public ThingAdapter(@NonNull Context context, int resource, @NonNull List<Gateway> objects) {
         super(context, resource, objects);
         deviceList = objects;
     }
@@ -32,7 +32,7 @@ public class DeviceAdapter extends ArrayAdapter<Gateway> {
 
         if (convertView == null) {
             holder = new ViewHolder();
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_gateway,
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_thing,
                     parent, false);
             holder.deviceName = convertView.findViewById(R.id.device_name);
             holder.deviceInfo = convertView.findViewById(R.id.device_info);
