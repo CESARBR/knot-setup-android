@@ -1,5 +1,4 @@
 package br.org.cesar.knot_setup_app.data.api;
-import android.util.Log;
 
 import java.util.concurrent.TimeUnit;
 

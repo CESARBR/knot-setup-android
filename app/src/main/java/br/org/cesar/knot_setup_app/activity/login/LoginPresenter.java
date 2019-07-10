@@ -11,6 +11,7 @@ import br.org.cesar.knot_setup_app.activity.login.LoginContract.ViewModel;
 import br.org.cesar.knot_setup_app.data.DataManager;
 import br.org.cesar.knot_setup_app.model.Openthread;
 import br.org.cesar.knot_setup_app.model.User;
+import br.org.cesar.knot_setup_app.wrapper.LogWrapper;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
@@ -51,7 +52,7 @@ public class LoginPresenter implements LoginContract.Presenter{
 
     @Override
     public void doLogin(String password){
-        Log.d("DEV-LOG","email: " + email + " password: " + password + " request: " + request);
+        LogWrapper.Log("email: " + email + " password: " + password + " request: " + request, Log.DEBUG);
         dataManager.getInstance().getService().login(this.request,email,password)
         .timeout(30, TimeUnit.SECONDS)
         .subscribeOn(Schedulers.newThread())
@@ -71,7 +72,7 @@ public class LoginPresenter implements LoginContract.Presenter{
     }
 
     private void onErrorHandler(Throwable throwable){
-        Log.d("DEV-LOG", "onErrorHandler: " + throwable.getMessage());
+        LogWrapper.Log("onErrorHandler: " + throwable.getMessage(), Log.DEBUG);
         if(throwable.getMessage().contains("401")){
             mViewModel.invalidCredentials();
         }

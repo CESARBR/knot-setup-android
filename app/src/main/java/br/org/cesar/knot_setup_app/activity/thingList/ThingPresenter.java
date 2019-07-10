@@ -10,6 +10,7 @@ import br.org.cesar.knot_setup_app.activity.thingList.ThingContract.ViewModel;
 import br.org.cesar.knot_setup_app.activity.thingList.ThingContract.Presenter;
 import br.org.cesar.knot_setup_app.data.DataManager;
 import br.org.cesar.knot_setup_app.model.Gateway;
+import br.org.cesar.knot_setup_app.wrapper.LogWrapper;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
@@ -45,7 +46,7 @@ public class  ThingPresenter implements Presenter{
 
 
     public void getDeviceList(){
-        Log.d("DEV-LOG","Request: " + this.request);
+        LogWrapper.Log("request= " + this.request, Log.DEBUG);
         dataManager.getInstance().getService().getDevices(this.request,token)
                 .timeout(30, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.newThread())
@@ -59,12 +60,12 @@ public class  ThingPresenter implements Presenter{
             this.mViewModel.callbackOnDeviceList(gat);
         }
         else{
-            Log.d("DEV-LOG","There are no devices avaiable.");
+            LogWrapper.Log("There are no devices avaiable.", Log.DEBUG);
         }
     }
 
     private void onErrorHandler(Throwable throwable){
-        Log.d("DEV-LOG", "onErrorHandler: " + throwable.getMessage());
+        LogWrapper.Log("onErrorHandler: " + throwable.getMessage(), Log.DEBUG);
     }
 
 }

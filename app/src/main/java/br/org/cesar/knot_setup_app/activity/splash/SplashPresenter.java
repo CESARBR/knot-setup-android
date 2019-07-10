@@ -13,6 +13,7 @@ import br.org.cesar.knot_setup_app.activity.splash.SplashContract.Presenter;
 import br.org.cesar.knot_setup_app.data.DataManager;
 import br.org.cesar.knot_setup_app.model.Gateway;
 import br.org.cesar.knot_setup_app.model.State;
+import br.org.cesar.knot_setup_app.wrapper.LogWrapper;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
@@ -79,7 +80,7 @@ public class SplashPresenter implements Presenter{
     }
 
     private void handleStateSuccess(State state){
-        Log.d("DEV-LOG","State: " + state.getState());
+        LogWrapper.Log("State: " + state.getState(), Log.DEBUG);
         if(state.getState().equals("ready")){
             this.request = "http://" + ip  + ":"+ this.port +"/api/devices";
             checkToken();
@@ -96,7 +97,7 @@ public class SplashPresenter implements Presenter{
         if(throwable instanceof IOException){
             mViewModel.callbackOnConnectionError();
         }
-        Log.d("DEV-LOG", "onErrorHandler: " + throwable.getMessage());
+        LogWrapper.Log("onErrorHandler: " + throwable.getMessage(), Log.DEBUG);
     }
 
 }

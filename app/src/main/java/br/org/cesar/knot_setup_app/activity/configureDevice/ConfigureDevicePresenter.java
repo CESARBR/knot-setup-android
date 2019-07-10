@@ -16,6 +16,7 @@ import br.org.cesar.knot_setup_app.model.Openthread;
 import br.org.cesar.knot_setup_app.model.Thing;
 import br.org.cesar.knot_setup_app.wrapper.BluetoothWrapper;
 import br.org.cesar.knot_setup_app.utils.Constants;
+import br.org.cesar.knot_setup_app.wrapper.LogWrapper;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
@@ -45,7 +46,7 @@ public class ConfigureDevicePresenter implements Presenter{
         this.bluetoothWrapper = KnotSetupApplication.getBluetoothWrapper();
         this.device = KnotSetupApplication.getBluetoothDevice();
         this.context = context;
-        Log.d("DEV-LOG","getOpenthreadConfgig starting");
+        LogWrapper.Log("getOpenthreadConfgig starting", Log.DEBUG);
         getOpenthreadConfig();
     }
 
@@ -63,8 +64,8 @@ public class ConfigureDevicePresenter implements Presenter{
                 .getPreference().getSharedPreferenceString(context,"port");
 
         request = "http://" + ip + ":" + port +"/api/radio/openthread";
-        Log.d("DEV-LOG",bearer);
-        Log.d("DEV-LOG","request= " + request);
+        LogWrapper.Log("bearer= " + bearer, Log.DEBUG);
+        LogWrapper.Log("request= " + request, Log.DEBUG);
 
         dataManager.getInstance().getService().getOpenthreadConfig(request,bearer)
                 .timeout(Constants.GET_OPENTHREAD_TIMEOUT, TimeUnit.SECONDS)
@@ -80,72 +81,72 @@ public class ConfigureDevicePresenter implements Presenter{
         dataManager.getInstance().getPreference()
                 .setSharedPreferenceString(context,"netname",openthread.getNetworkName());
 
-        Log.d("DEV-LOG","netname= " + getValue("netname"));
+        LogWrapper.Log("netname= " + getValue("netname"), Log.DEBUG);
 
-        
         dataManager.getInstance().getPreference()
                 .setSharedPreferenceString(context,"channel",openthread.getChannel());
 
-        Log.d("DEV-LOG","channel= " + getValue("channel"));
+        LogWrapper.Log("channel= " + getValue("channel"), Log.DEBUG);
 
         dataManager.getInstance().getPreference()
                 .setSharedPreferenceString(context,"xpanid",openthread.getXpanId());
 
-        Log.d("DEV-LOG","xpanid= " + getValue("xpanid"));
+        LogWrapper.Log("xpanid= " + getValue("xpanid"), Log.DEBUG);
 
 
         dataManager.getInstance().getPreference()
                 .setSharedPreferenceString(context,"panid", openthread.getPanId());
 
-        Log.d("DEV-LOG","panid= " + getValue("panid"));
+        LogWrapper.Log("panid= " + getValue("panid"), Log.DEBUG);
 
 
         dataManager.getInstance().getPreference()
                 .setSharedPreferenceString(context,"ipv6",openthread.getMeshIpv6());
 
-        Log.d("DEV-LOG","ipv6= " + getValue("ipv6"));
+        LogWrapper.Log("ipv6= " + getValue("ipv6"), Log.DEBUG);
 
 
         dataManager.getInstance().getPreference()
                 .setSharedPreferenceString(context,"masterkey",openthread.getMasterKey());
 
-        Log.d("DEV-LOG","masterkey= " + getValue("masterkey"));
+        LogWrapper.Log("masterkey= "
+                + getValue("masterkey"), Log.DEBUG);
 
-        Log.d("DEV-LOG","callbackflux starting");
+        LogWrapper.Log("callbackflux starting", Log.DEBUG);
 
         callbackFlux();
     }
 
     private void onErrorHandler(Throwable throwable){
-        Log.d("DEV-LOG", "onErrorHandler: " + throwable.getMessage());
+        LogWrapper.Log("onErrorHandler: " + throwable.getMessage(), Log.DEBUG);
     }
 
     private void callbackFlux(){
 
-        Log.d("DEV-LOG","CallbackFlux");
+        LogWrapper.Log("CallbackFlux", Log.DEBUG);
         bluetoothWrapper.waitForBonding(device, new DeviceCallback() {
             @Override
             public void onConnect() {
                 mViewModel.callbackOnConnected();
-                Log.d("DEV-LOG","OnConnect");
+                LogWrapper.Log("OnConnect", Log.DEBUG);
                 bluetoothWrapper.discoverServices();
             }
 
             @Override
             public void onCharacteristicChanged(){
-                Log.d("DEV-LOG","Characteristic changed?");
+                LogWrapper.Log("Characteristic changed", Log.DEBUG);
             }
 
             @Override
             public void onDisconnect(){
-                Log.d("DEV-LOG","Disconnected");
+                LogWrapper.Log("Disconnected", Log.DEBUG);
                 bluetoothWrapper.closeGatt();
                 mViewModel.callbackOnDisconnected();
             }
 
             @Override
             public void onServiceDiscoveryComplete(){
-                Log.d("DEV-LOG","Services discovered");
+                LogWrapper.Log("Services discovered", Log.DEBUG);
                 if(operation){
                     thingConfigWrite();
                 }
@@ -157,12 +158,12 @@ public class ConfigureDevicePresenter implements Presenter{
 
             @Override
             public void onServiceDiscoveryFail(){
-                Log.d("DEV-LOG","Service discovery failed");
+                LogWrapper.Log("Service discovery failed", Log.DEBUG);
             }
 
             @Override
             public void onCharacteristicWriteComplete(){
-                Log.d("DEV-LOG","Characteristic writen");
+                LogWrapper.Log("Characteristic writen", Log.DEBUG);
                 mViewModel.callbackOnOperation(writeCount);
 
                 if(writeDone){
@@ -176,18 +177,18 @@ public class ConfigureDevicePresenter implements Presenter{
 
             @Override
             public void onCharacteristicWriteFail(){
-                Log.d("DEV-LOG","Characteristic write failed");
+                LogWrapper.Log("Characteristic write failed", Log.DEBUG);
                 mViewModel.callbackOnWriteFailed(writeCount);
             }
 
             @Override
             public void onReadRssiComplete(int rssi){
-                Log.d("DEV-LOG","Rssi read: " + rssi);
+                LogWrapper.Log("rssi= " + rssi, Log.DEBUG);
             }
 
             @Override
             public void onReadRssiFail(){
-                Log.d("DEV-LOG","Rssi read failed");
+                LogWrapper.Log("Rssi read failed", Log.DEBUG);
             }
 
             @Override
@@ -198,7 +199,7 @@ public class ConfigureDevicePresenter implements Presenter{
 
                 else {valueRead = new String(value);}
 
-                Log.d("DEV-LOG","Characteristic read: " + valueRead);
+                LogWrapper.Log("Characteristic read: " + valueRead, Log.DEBUG);
                 mViewModel.callbackOnOperation(readCount);
 
                 if(readDone){
@@ -213,7 +214,7 @@ public class ConfigureDevicePresenter implements Presenter{
 
             @Override
             public void onCharacteristicReadFail(){
-                Log.d("DEV-LOG","Characteristic read failed");
+                LogWrapper.Log("Characteristic read failed", Log.DEBUG);
             }
 
         });
@@ -241,40 +242,40 @@ public class ConfigureDevicePresenter implements Presenter{
         switch (writeCount){
             case 0:
                 value = getValue("channel");
-                Log.d("DEV-LOG", "Write Wrapper: Channel Value: " + value);
+                LogWrapper.Log("channel= " + value, Log.DEBUG);
                 valueBytes = stringToByteArrLittleEndian(value,Constants.CHANNEL_CHARACTERISTIC_BYTE_SIZE);
                 writeWrapper(Constants.OT_SETTINGS_SERVICE,Constants.CHANNEL_CHARACTERISTIC, valueBytes);
                 break;
 
             case 1:
                 value = getValue("netname");
-                Log.d("DEV-LOG", "WriteWrapper: NetName + Value: " + value);
+                LogWrapper.Log("netname= " + value, Log.DEBUG);
                 writeWrapper(Constants.OT_SETTINGS_SERVICE,Constants.NET_NAME_CHARACTERISTIC,value);
                 break;
 
             case 2:
                 value = getValue("panid");
-                Log.d("DEV-LOG", "WriteWrapper: PanID Value: "+ value );
+                LogWrapper.Log("panid= "+ value , Log.DEBUG);
                 valueBytes  = stringToByteArrLittleEndian(value,Constants.PANID_CHARACTERISTIC_BYTE_SIZE);
                 writeWrapper(Constants.OT_SETTINGS_SERVICE,Constants.PAN_ID_CHARACTERISTIC,valueBytes);
                 break;
 
             case 3:
                 value = getValue("xpanid");
-                Log.d("DEV-LOG", "WriteWrapper: XpanID Value: " + value);
+                LogWrapper.Log("xpanid= " + value, Log.DEBUG);
                 writeWrapper(Constants.OT_SETTINGS_SERVICE,Constants.XPANID_CHARACTERISTIC,value);
                 break;
 
 
             case 4:
                 value = getValue("masterkey");
-                Log.d("DEV-LOG", "WriteWrapper: Masterkey Value: " + value);
+                LogWrapper.Log("masterkey= " + value, Log.DEBUG);
                 writeWrapper(Constants.OT_SETTINGS_SERVICE,Constants.MASTER_KEY_CHARACTERISTIC,value);
                 break;
 
             case 5:
                 value = getValue("ipv6");
-                Log.d("DEV-LOG", "WriteWrapper: IPV6 Value: " + value);
+                LogWrapper.Log("ipv6= " + value, Log.DEBUG);
                 writeWrapper(Constants.IPV6_SERVICE,Constants.IPV6_CHARACTERISTIC,value);
                 writeDone = true;
         }
@@ -291,29 +292,29 @@ public class ConfigureDevicePresenter implements Presenter{
     private void gatewayConfigRead(){
         switch (readCount){
             case 0:
-                Log.d("DEV-LOG", "ReadWrapper: Channel" );
+                LogWrapper.Log("reading channel", Log.DEBUG);
                 readWrapper(Constants.OT_SETTINGS_SERVICE_GATEWAY,Constants.CHANNEL_CHARACTERISTIC_GATEWAY);
                 break;
             case 1:
-                Log.d("DEV-LOG", "ReadWrapper: NetName");
+                LogWrapper.Log("reading netname", Log.DEBUG);
                 readWrapper(Constants.OT_SETTINGS_SERVICE_GATEWAY,Constants.NET_NAME_CHARACTERISTIC_GATEWAY);
                 break;
             case 2:
-                Log.d("DEV-LOG", "ReadWrapper: PanID");
+                LogWrapper.Log("reading panid", Log.DEBUG);
                 readWrapper(Constants.OT_SETTINGS_SERVICE_GATEWAY,Constants.PAN_ID_CHARACTERISTIC_GATEWAY);
                 break;
             case 3:
-                Log.d("DEV-LOG", "ReadWrapper: XpanID");
+                LogWrapper.Log("reading xpanid", Log.DEBUG);
                 readWrapper(Constants.OT_SETTINGS_SERVICE_GATEWAY,Constants.XPANID_CHARACTERISTIC_GATEWAY);
                 break;
 
             case 4:
-                Log.d("DEV-LOG", "ReadWrapper: Masterkey");
+                LogWrapper.Log("reading masterkey", Log.DEBUG);
                 readWrapper(Constants.OT_SETTINGS_SERVICE_GATEWAY,Constants.MASTER_KEY_CHARACTERISTIC_GATEWAY);
                 break;
 
             case 5:
-                Log.d("DEV-LOG", "ReadWrapper: IPV6");
+                LogWrapper.Log("reading ipv6", Log.DEBUG);
                 readWrapper(Constants.OT_SETTINGS_SERVICE_GATEWAY,Constants.IPV6_CHARACTERISTIC_GATEWAY);
                 readDone = true;
         }

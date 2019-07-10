@@ -6,6 +6,7 @@ import android.net.Network;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.util.Log;
+import br.org.cesar.knot_setup_app.wrapper.LogWrapper;
 
 public class NetworkWrapper {
 
@@ -34,9 +35,9 @@ public class NetworkWrapper {
 
         for (Network network : connectivityManager.getAllNetworks()){
             String connectionType = connectivityManager.getNetworkInfo(network).getTypeName();
-            Log.d("DEV-LOG","network type: " + connectionType);
+            LogWrapper.Log("network type: " + connectionType, Log.DEBUG);
             if(connectionType.equals(WIFI_INTERFACE_IDENTIFIER)){
-                Log.d("DEV-LOG","Wifi found!");
+                LogWrapper.Log("Wifi found!", Log.DEBUG);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     connectivityManager.bindProcessToNetwork(network);
                 }

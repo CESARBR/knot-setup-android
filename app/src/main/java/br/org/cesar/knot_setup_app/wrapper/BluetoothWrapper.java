@@ -27,6 +27,7 @@ import java.util.UUID;
 
 import br.org.cesar.knot_setup_app.domain.callback.DeviceCallback;
 import br.org.cesar.knot_setup_app.domain.callback.ScannerCallback;
+import br.org.cesar.knot_setup_app.wrapper.LogWrapper;
 
 import static android.bluetooth.le.ScanSettings.MATCH_NUM_FEW_ADVERTISEMENT;
 
@@ -50,7 +51,7 @@ public class BluetoothWrapper {
     }
 
     public void setScanUUID(UUID uuid){
-        Log.d("DEV-LOG","UUID: " + uuid.toString());
+        LogWrapper.Log("UUID: " + uuid.toString(), Log.DEBUG);
         this.scanUUID = uuid;
     }
 
@@ -107,10 +108,10 @@ public class BluetoothWrapper {
                 super.onScanResult(callbackType, result);
                 BluetoothDevice device = result.getDevice();
                 if(device.getName() != null) {
-                    Log.d("DEV-LOG", "NAME: " + device.getName());
+                    LogWrapper.Log("NAME: " + device.getName(), Log.DEBUG);
                     if(result.getScanRecord().getServiceUuids() != null) {
                         for (ParcelUuid uuid :result.getScanRecord().getServiceUuids()) {
-                            Log.d("DEV-LOG", "      UUID: " + uuid.getUuid().toString());
+                            LogWrapper.Log("      UUID: " + uuid.getUuid().toString(), Log.DEBUG);
                         }
                     }
                     callback.onScanComplete(result);
@@ -126,7 +127,8 @@ public class BluetoothWrapper {
         };
 
         if (bluetoothAdapter != null) {
-            Log.d("DEV-LOG", "Searching for: " + scanUUID.toString());
+            LogWrapper.Log("Searching for: "
+                    + scanUUID.toString(), Log.DEBUG);
             ScanFilter filter = new ScanFilter.Builder()
                     .setServiceUuid(new ParcelUuid(scanUUID)).build();
             ScanSettings settings = new ScanSettings.Builder()
@@ -162,10 +164,10 @@ public class BluetoothWrapper {
             @Override
             public void onConnectionStateChange(BluetoothGatt gatt, int status, int newState) {
                 super.onConnectionStateChange(gatt, status, newState);
-                Log.d("DEV-LOG","onConnectionStateChange");
+                LogWrapper.Log("onConnectionStateChange", Log.DEBUG);
 
                 if (status == BluetoothGatt.GATT_SUCCESS && newState == BluetoothProfile.STATE_CONNECTED) {
-                    Log.d("DEV-LOG","callback.onConnect");
+                    LogWrapper.Log("callback.onConnect", Log.DEBUG);
                     callback.onConnect();
                 }
 
@@ -192,12 +194,12 @@ public class BluetoothWrapper {
                 super.onCharacteristicWrite(gatt, characteristic, status);
 
                 if (status == BluetoothGatt.GATT_SUCCESS) {
-                    Log.d(TAG, "Write successfully");
+                    LogWrapper.Log("Write successfully", Log.DEBUG);
                     callback.onCharacteristicWriteComplete();
                 }
 
                 else {
-                    Log.d(TAG, "Error during the write operation");
+                    LogWrapper.Log("Error during the write operation", Log.DEBUG);
                     callback.onCharacteristicWriteFail();
                 }
             }
@@ -277,12 +279,12 @@ public class BluetoothWrapper {
      * @param callback device callback
      */
     public void waitForBonding(final br.org.cesar.knot_setup_app.model.BluetoothDevice device, final DeviceCallback callback) {
-        Log.d("DEV-LOG", "Waiting for bonding");
+        LogWrapper.Log("Waiting for bonding", Log.DEBUG);
         if (device.getDevice().getBondState() == BluetoothDevice.BOND_BONDED) {
-            Log.d("DEV-LOG", "BOND-STATE BONDED");
+            LogWrapper.Log("BOND-STATE BONDED", Log.DEBUG);
             connectToDevice(device, callback);
         } else {
-            Log.d("DEV-LOG","Installation use case");
+            LogWrapper.Log("Installation use case", Log.DEBUG);
             //Wait for pin insertion request
             IntentFilter pinFilter = new IntentFilter();
             pinFilter.addAction("android.bluetooth.device.action.PAIRING_REQUEST");
@@ -291,7 +293,7 @@ public class BluetoothWrapper {
                 public void onReceive(Context context, Intent intent) {
                     if (device.getPin() != null) { device.getDevice().setPin(device.getPin().getBytes()); }
                     context.unregisterReceiver(this);
-                    Log.d(TAG, "PIN " + device.getPin() + " inserted on device " + device.getDevice().getName());
+                    LogWrapper.Log("PIN " + device.getPin() + " inserted on device " + device.getDevice().getName(), Log.DEBUG);
                 }
             }, pinFilter);
 
