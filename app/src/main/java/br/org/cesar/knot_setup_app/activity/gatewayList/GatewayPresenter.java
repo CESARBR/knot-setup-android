@@ -11,6 +11,7 @@ import java.util.Map;
 
 import br.org.cesar.knot_setup_app.data.DataManager;
 import br.org.cesar.knot_setup_app.utils.Constants;
+import br.org.cesar.knot_setup_app.wrapper.LogWrapper;
 
 import static br.org.cesar.knot_setup_app.utils.Constants.DNS_SD_SERVICE_TYPE;
 
@@ -32,23 +33,23 @@ public class GatewayPresenter implements GatewayContract.Presenter {
     }
 
     public void getGateway(NsdServiceInfo nsdServiceInfo){
-        Log.d("DEV-LOG","service: " + nsdServiceInfo);
+        LogWrapper.Log("service: " + nsdServiceInfo, Log.DEBUG);
         nsdManager.resolveService(nsdServiceInfo,new NsdManager.ResolveListener() {
             @Override
             public void onResolveFailed(NsdServiceInfo serviceInfo, int errorCode) {
                 // Called when the resolve fails. Use the error code to debug.
-                Log.e("DEV-LOG", "Resolve failed: " + errorCode);
+                LogWrapper.Log("Resolve failed: " + errorCode, Log.DEBUG);
                 getGateway(serviceInfo);
             }
 
             @Override
             public void onServiceResolved(NsdServiceInfo serviceInfo) {
-                Log.e("DEV-LOG", "Resolve Succeeded. " + serviceInfo);
 
+                LogWrapper.Log("Resolve Succeeded. " + serviceInfo, Log.DEBUG);
                 mService.add(serviceInfo);
                 mViewModel.callbackOnGatewaysFound(mService);
                 if (serviceInfo.getServiceName().equals(Constants.DNS_SD_SERVICE_NAME)){
-                    Log.d("DEV-LOG", "Same IP.");
+                    LogWrapper.Log("Same IP.", Log.DEBUG);
                 }
             }
         });
@@ -81,14 +82,14 @@ public class GatewayPresenter implements GatewayContract.Presenter {
             // Called as soon as service discovery begins.
             @Override
             public void onDiscoveryStarted(String regType) {
-                Log.d("DEV-LOG", "Service discovery started");
+                LogWrapper.Log("Service discovery started", Log.DEBUG);
             }
 
             @Override
             public void onServiceFound(NsdServiceInfo service) {
                 // A service was found! Do something with it.
                 if (!service.getServiceType().equals(DNS_SD_SERVICE_TYPE)) {
-                    Log.d("DEV-LOG", "Service: " + service);
+                    LogWrapper.Log("Service: " + service, Log.DEBUG);
                     removeFromListIfSameName(service);
                     if (service.getServiceName().startsWith(Constants.DNS_SD_SERVICE_NAME)) {
                         getGateway(service);
@@ -98,25 +99,27 @@ public class GatewayPresenter implements GatewayContract.Presenter {
 
             @Override
             public void onServiceLost(NsdServiceInfo service) {
-                Log.d("DEV-LOG","onServiceLost");
+                LogWrapper.Log("onServiceLost", Log.DEBUG);
                 removeFromListIfSameName(service);
                 mViewModel.callbackOnGatewaysFound(mService);
             }
 
             @Override
             public void onDiscoveryStopped(String serviceType) {
-                Log.i("DEV-LOG", "Discovery stopped: " + serviceType);
+                LogWrapper.Log("Discovery stopped: "
+                        + serviceType, Log.DEBUG);
             }
 
             @Override
             public void onStartDiscoveryFailed(String serviceType, int errorCode) {
-                Log.e("DEV-LOG", "Discovery failed: Error code:" + errorCode);
+                LogWrapper.Log("Discovery failed: Error code:"
+                        + errorCode, Log.DEBUG);
                 nsdManager.stopServiceDiscovery(this);
             }
-
             @Override
             public void onStopDiscoveryFailed(String serviceType, int errorCode) {
-                Log.e("DEV-LOG", "Discovery failed: Error code:" + errorCode);
+                LogWrapper.Log("Discovery failed: Error code:"
+                        + errorCode, Log.DEBUG);
                 nsdManager.stopServiceDiscovery(this);
             }
 
@@ -139,7 +142,7 @@ public class GatewayPresenter implements GatewayContract.Presenter {
     }
 
     private void checkIfGatewayListIsEmpty(){
-        Log.d("DEV-LOG","isMserviceEmpty: " + mService.isEmpty());
+        LogWrapper.Log("isMserviceEmpty: " + mService.isEmpty(), Log.DEBUG);
         if(mService.isEmpty()){
             mViewModel.setSearchingFeedback(View.INVISIBLE);
         }

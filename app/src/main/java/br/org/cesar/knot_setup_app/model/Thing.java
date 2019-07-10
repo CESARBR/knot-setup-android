@@ -1,6 +1,5 @@
 package br.org.cesar.knot_setup_app.model;
 
-import android.util.Log;
 
 public class Thing {
 

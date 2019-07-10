@@ -1,5 +1,4 @@
 package br.org.cesar.knot_setup_app.data;
-import android.util.Log;
 
 import br.org.cesar.knot_setup_app.data.api.ApiService;
 import br.org.cesar.knot_setup_app.data.api.ImplService;

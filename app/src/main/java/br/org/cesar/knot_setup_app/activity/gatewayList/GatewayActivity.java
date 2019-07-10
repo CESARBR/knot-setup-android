@@ -23,6 +23,7 @@ import br.org.cesar.knot_setup_app.R;
 import br.org.cesar.knot_setup_app.activity.scan.ScanActivity;
 import br.org.cesar.knot_setup_app.activity.splash.SplashActivity;
 import br.org.cesar.knot_setup_app.domain.adapter.GatewayAdapter;
+import br.org.cesar.knot_setup_app.wrapper.LogWrapper;
 
 public class GatewayActivity extends AppCompatActivity implements  GatewayContract.ViewModel{
 
@@ -87,10 +88,10 @@ public class GatewayActivity extends AppCompatActivity implements  GatewayContra
     public void setAdapter() {
         deviceList = new ArrayList<>();
         adapter = new GatewayAdapter(GatewayActivity.this, R.layout.item_gateway, deviceList);
-        Log.d("DEV-LOG","CREATING ADAPTER");
+        LogWrapper.Log("CREATING ADAPTER", Log.DEBUG);
         ListView deviceListView = findViewById(R.id.list);
         deviceListView.setAdapter(adapter);
-        Log.d("DEV-LOG","ADAPTER SET");
+        LogWrapper.Log("ADAPTER SET", Log.DEBUG);
         deviceListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
