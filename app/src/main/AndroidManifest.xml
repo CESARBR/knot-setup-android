@@ -18,8 +18,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/NoActionBar">
-        <activity android:name=".activity.thingList.ThingActivity"></activity>
-        <activity android:name=".activity.splash.SplashActivity"></activity>
+        <activity android:name=".activity.thingList.ThingActivity"
+            android:exported="false"></activity>
+        <activity android:name=".activity.splash.SplashActivity" android:exported="false"></activity>
         <activity android:name=".activity.gatewayList.GatewayActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,9 +28,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.login.LoginActivity"></activity>
-        <activity android:name=".activity.scan.ScanActivity" />
-        <activity android:name=".activity.configureDevice.ConfigureDeviceActivity" />
+        <activity android:name=".activity.login.LoginActivity" android:exported="false"></activity>
+        <activity android:name=".activity.scan.ScanActivity" android:exported="false" />
+        <activity android:name=".activity.configureDevice.ConfigureDeviceActivity"
+            android:exported="false" />
     </application>
 
 </manifest>
