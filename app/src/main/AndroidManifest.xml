@@ -22,7 +22,8 @@
         <activity android:name=".view.ThingActivity"
             android:exported="false"></activity>
         <activity android:name=".view.splash.SplashActivity" android:exported="false"></activity>
-        <activity android:name=".view.GatewayActivity">
+        <activity android:name=".view.GatewayActivity"></activity>
+        <activity android:name=".view.IntroActivity" android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
