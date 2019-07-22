@@ -160,7 +160,7 @@ public class BluetoothWrapper {
      */
     public void connectToDevice(final br.org.cesar.knot_setup_app.model.BluetoothDevice device, final DeviceCallback callback) {
 
-        myGatt = device.getDevice().connectGatt(context, true, new BluetoothGattCallback() {
+        myGatt = device.getDevice().connectGatt(context, false, new BluetoothGattCallback() {
             @Override
             public void onConnectionStateChange(BluetoothGatt gatt, int status, int newState) {
                 super.onConnectionStateChange(gatt, status, newState);
@@ -279,50 +279,8 @@ public class BluetoothWrapper {
      * @param callback device callback
      */
     public void waitForBonding(final br.org.cesar.knot_setup_app.model.BluetoothDevice device, final DeviceCallback callback) {
-        LogWrapper.Log("Waiting for bonding", Log.DEBUG);
-        if (device.getDevice().getBondState() == BluetoothDevice.BOND_BONDED) {
-            LogWrapper.Log("BOND-STATE BONDED", Log.DEBUG);
-            connectToDevice(device, callback);
-        } else {
-            LogWrapper.Log("Installation use case", Log.DEBUG);
-            //Wait for pin insertion request
-            IntentFilter pinFilter = new IntentFilter();
-            pinFilter.addAction("android.bluetooth.device.action.PAIRING_REQUEST");
-            context.registerReceiver(new BroadcastReceiver() {
-                @Override
-                public void onReceive(Context context, Intent intent) {
-                    if (device.getPin() != null) { device.getDevice().setPin(device.getPin().getBytes()); }
-                    context.unregisterReceiver(this);
-                    LogWrapper.Log("PIN " + device.getPin() + " inserted on device " + device.getDevice().getName(), Log.DEBUG);
-                }
-            }, pinFilter);
-
-            // Create bond
-            device.getDevice().createBond();
-
-            //Listen to broadcast when device is bonded and ready to connect
-            IntentFilter filter = new IntentFilter();
-            filter.addAction(BluetoothDevice.ACTION_BOND_STATE_CHANGED);
-            context.registerReceiver(new BroadcastReceiver() {
-                @Override
-                public void onReceive(Context context, Intent intent) {
-                    if (BluetoothDevice.ACTION_BOND_STATE_CHANGED.equals(intent.getAction())) {
-                        final int state = intent.getIntExtra(BluetoothDevice.EXTRA_BOND_STATE, BluetoothDevice.ERROR);
-                        switch(state){
-                            case BluetoothDevice.BOND_BONDING:
-                                break;
-                            case BluetoothDevice.BOND_BONDED:
-                                context.unregisterReceiver(this);
-                                connectToDevice(device, callback);
-                                break;
-
-                            case BluetoothDevice.BOND_NONE:
-                                break;
-                        }
-                    }
-                }
-            }, filter);
-        }
+        //TODO: Add bonding logic.
+        connectToDevice(device, callback);
     }
 
 }
