@@ -4,6 +4,8 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkInfo;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.util.Log;
 import br.org.cesar.knot_setup_app.wrapper.LogWrapper;
@@ -45,6 +47,13 @@ public class NetworkWrapper {
             }
         }
 
+    }
+
+    public static String getCurrentWifiName(){
+        WifiManager wifiManager = (WifiManager) context.getSystemService (Context.WIFI_SERVICE);
+        WifiInfo info = wifiManager.getConnectionInfo();
+
+        return info.getSSID();
     }
 
 }

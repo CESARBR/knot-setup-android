@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.org.cesar.knot_setup_app.R;
+import br.org.cesar.knot_setup_app.activity.configureGatewayWifi.ConfigureGatewayWifiActivity;
 import br.org.cesar.knot_setup_app.domain.adapter.ScanAdapter;
 import br.org.cesar.knot_setup_app.activity.configureDevice.ConfigureDeviceActivity;
 import br.org.cesar.knot_setup_app.model.BluetoothDevice;
@@ -78,7 +79,7 @@ public class ScanActivity extends AppCompatActivity implements  ScanContract.Vie
     @Override
     public void callbackOnGatewayWifiConfiguration(int gatewayID, int operation){
         this.mPresenter.stopScan();
-        Intent intent = new Intent(ScanActivity.this, ConfigureDeviceActivity.class);
+        Intent intent = new Intent(ScanActivity.this, ConfigureGatewayWifiActivity.class);
         intent.putExtra("operation",operation);
         startActivity(intent);
         finish();
