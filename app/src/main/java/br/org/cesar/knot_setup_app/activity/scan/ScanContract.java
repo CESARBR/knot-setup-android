@@ -11,9 +11,8 @@ public interface ScanContract {
         void callbackOnDeviceFound(List<BluetoothDevice> deviceList);
         void callbackOnScanFail();
         void callbackOnBluetoothPermissionRequired();
-        void callbackOnGatewaySelected(int gatewayID, boolean operation);
-        void callbackOnThingSelected(boolean operation);
-
+        void callbackOnGatewayWifiConfiguration(int gatewayID, int operation);
+        void callbackOnThingSelected(int operation);
         }
 
     interface Presenter {

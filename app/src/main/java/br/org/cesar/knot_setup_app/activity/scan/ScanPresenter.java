@@ -16,24 +16,24 @@ public class ScanPresenter implements ScanContract.Presenter {
     private BluetoothWrapper bluetoothWrapper;
     private ScanContract.ViewModel mViewModel;
     private int gatewayID;
-    private boolean operation;
+    private int operation;
     private List<BluetoothDevice> deviceList;
 
 
-    ScanPresenter(ScanContract.ViewModel viewModel, Boolean operation, int gatewayID) {
+    ScanPresenter(ScanContract.ViewModel viewModel, int operation, int gatewayID) {
         this.mViewModel = viewModel;
         this.bluetoothWrapper = KnotSetupApplication.getBluetoothWrapper();
         this.operation = operation;
 
-        if (operation) {
+        if (operation == Constants.CONFIGURE_THING_OPENTHREAD) {
             //this is the UUID if we are searching for a thing
             bluetoothWrapper.setScanUUID(Constants.OT_SETTINGS_SERVICE);
             this.gatewayID = gatewayID;
         }
 
-        else{
+        else if (operation == Constants.CONFIGURE_GATEWAY_WIFI){
             //this is the UUID if we are searching for a gateway
-            bluetoothWrapper.setScanUUID(Constants.OT_SETTINGS_SERVICE_GATEWAY);
+            bluetoothWrapper.setScanUUID(Constants.WIFI_CONFIGURATION_SERVICE_GATEWAY);
         }
 
     }
@@ -80,10 +80,10 @@ public class ScanPresenter implements ScanContract.Presenter {
         KnotSetupApplication.setBluetoothDevice(device);
         Bundle extras;
 
-        if(operation){
-            mViewModel.callbackOnGatewaySelected(gatewayID,operation);
+        if(operation == Constants.CONFIGURE_GATEWAY_WIFI){
+            mViewModel.callbackOnGatewayWifiConfiguration(gatewayID,operation);
         }
-        else{
+        else if (operation == Constants.CONFIGURE_THING_OPENTHREAD){
             mViewModel.callbackOnThingSelected(operation);
         }
     }
