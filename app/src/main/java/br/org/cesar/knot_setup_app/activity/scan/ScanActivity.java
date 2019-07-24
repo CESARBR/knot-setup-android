@@ -30,6 +30,7 @@ public class ScanActivity extends AppCompatActivity implements  ScanContract.Vie
     private ScanContract.Presenter mPresenter;
     private List<BluetoothDevice> deviceList;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,8 +41,7 @@ public class ScanActivity extends AppCompatActivity implements  ScanContract.Vie
         ImageView image = (ImageView) findViewById(R.id.imageView1);
         image.setImageResource(R.drawable.asset_bluetooth_white);
 
-
-        Boolean operation =  getIntent().getBooleanExtra("operation",false);
+        int operation =  getIntent().getIntExtra("operation",Constants.CONFIGURE_THING_OPENTHREAD);
         int gatewayID = getIntent().getIntExtra("gatewayID",0);
 
         mPresenter = new ScanPresenter(this,operation,gatewayID);
@@ -76,17 +76,16 @@ public class ScanActivity extends AppCompatActivity implements  ScanContract.Vie
     }
 
     @Override
-    public void callbackOnGatewaySelected(int gatewayID, boolean operation){
+    public void callbackOnGatewayWifiConfiguration(int gatewayID, int operation){
         this.mPresenter.stopScan();
         Intent intent = new Intent(ScanActivity.this, ConfigureDeviceActivity.class);
-        intent.putExtra("gatewayID",gatewayID);
         intent.putExtra("operation",operation);
         startActivity(intent);
         finish();
     }
 
     @Override
-    public void callbackOnThingSelected(boolean operation) {
+    public void callbackOnThingSelected(int operation) {
         this.mPresenter.stopScan();
         Intent intent = new Intent(ScanActivity.this, ConfigureDeviceActivity.class);
         intent.putExtra("operation",operation);

@@ -11,6 +11,7 @@ import android.widget.Toast;
 import br.org.cesar.knot_setup_app.R;
 import br.org.cesar.knot_setup_app.activity.configureDevice.ConfigureDeviceContract.ViewModel;
 import br.org.cesar.knot_setup_app.activity.configureDevice.ConfigureDeviceContract.Presenter;
+import br.org.cesar.knot_setup_app.utils.Constants;
 
 public class ConfigureDeviceActivity extends AppCompatActivity implements ViewModel {
     private Presenter mPresenter;
@@ -26,7 +27,7 @@ public class ConfigureDeviceActivity extends AppCompatActivity implements ViewMo
         image.setImageResource(R.drawable.knot);
 
         int gatewayID = getIntent().getIntExtra("gatewayID",0);
-        boolean operation = (boolean) getIntent().getBooleanExtra("operation",false);
+        int operation = (int) getIntent().getIntExtra("operation", Constants.CONFIGURE_THING_OPENTHREAD);
         this.mPresenter = new ConfigureDevicePresenter(this,gatewayID,operation,this);
 
     }

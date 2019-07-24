@@ -20,6 +20,11 @@ public class Constants{
     public static final UUID MASTER_KEY_CHARACTERISTIC_GATEWAY = UUID.fromString("a8a9e49c-aa9a-d441-9bec-817bb4900d35");
     public static final UUID IPV6_CHARACTERISTIC_GATEWAY = UUID.fromString("a8a9e49c-aa9a-d441-9bec-817bb4900d36");
 
+    //WIFI CONFIGURATION SERVICE AND CHARACTERISTICS
+    public static final UUID WIFI_CONFIGURATION_SERVICE_GATEWAY = UUID.fromString("a8a9e49c-aa9a-d441-9bec-817bb4900e40");
+    public static final UUID WIFI_SSID_CHARACTERISTIC = UUID.fromString("a8a9e49c-aa9a-d441-9bec-817bb4900d41");
+    public static final UUID WIFI_PASSWORD_CHARACTERISTIC = UUID.fromString("a8a9e49c-aa9a-d441-9bec-817bb4900d42");
+
     public static final int CHANNEL_CHARACTERISTIC_BYTE_SIZE = 1;
     public static final int PANID_CHARACTERISTIC_BYTE_SIZE = 2;
 
@@ -36,5 +41,10 @@ public class Constants{
 
     //REQUEST TIMEOUTS
     public static final int GET_OPENTHREAD_TIMEOUT = 30;
+
+    //SCAN OPERATIONS
+    public static final int CONFIGURE_THING_OPENTHREAD = 0;
+    public static final int CONFIGURE_GATEWAY_WIFI = 1;
+
 
 }

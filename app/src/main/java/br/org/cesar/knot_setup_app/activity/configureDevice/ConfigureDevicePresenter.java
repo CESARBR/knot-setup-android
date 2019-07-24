@@ -24,7 +24,7 @@ import io.reactivex.schedulers.Schedulers;
 public class ConfigureDevicePresenter implements Presenter{
     private ViewModel mViewModel;
     private int gatewayID;
-    private boolean operation;
+    private int operation;
     private BluetoothWrapper bluetoothWrapper;
     private BluetoothDevice device;
     private Context context;
@@ -39,7 +39,7 @@ public class ConfigureDevicePresenter implements Presenter{
 
     private static DataManager dataManager;
 
-    ConfigureDevicePresenter(ViewModel viewModel,int gatewayID, boolean operation,Context context){
+    ConfigureDevicePresenter(ViewModel viewModel,int gatewayID, int operation,Context context){
         this.mViewModel = viewModel;
         this.gatewayID = gatewayID;
         this.operation = operation;
@@ -147,9 +147,10 @@ public class ConfigureDevicePresenter implements Presenter{
             @Override
             public void onServiceDiscoveryComplete(){
                 LogWrapper.Log("Services discovered", Log.DEBUG);
-                if(operation){
+                if(operation == Constants.CONFIGURE_THING_OPENTHREAD){
                     thingConfigWrite();
                 }
+                //Todo: check if the logic of this else makes sense
                 else{
                     gateway = new Gateway();
                     gatewayConfigRead();

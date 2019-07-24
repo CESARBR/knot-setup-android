@@ -23,6 +23,7 @@ import br.org.cesar.knot_setup_app.R;
 import br.org.cesar.knot_setup_app.activity.scan.ScanActivity;
 import br.org.cesar.knot_setup_app.activity.splash.SplashActivity;
 import br.org.cesar.knot_setup_app.domain.adapter.GatewayAdapter;
+import br.org.cesar.knot_setup_app.utils.Constants;
 import br.org.cesar.knot_setup_app.wrapper.LogWrapper;
 
 public class GatewayActivity extends AppCompatActivity implements  GatewayContract.ViewModel{
@@ -56,6 +57,7 @@ public class GatewayActivity extends AppCompatActivity implements  GatewayContra
             public void onClick(View v) {
                 mPresenter.stopScanning();
                 Intent i = new Intent(GatewayActivity.this, ScanActivity.class );
+                i.putExtra("operation", Constants.CONFIGURE_GATEWAY_WIFI);
                 startActivity(i);
             }
         });
