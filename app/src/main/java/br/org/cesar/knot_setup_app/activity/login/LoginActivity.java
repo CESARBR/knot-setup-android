@@ -25,7 +25,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
 
 
             TextView headerTitle = (TextView)findViewById(R.id.list_title);
-            headerTitle.setText("LOGIN");
+            headerTitle.setText(getString(R.string.login_subtitle));
             ImageView image = (ImageView) findViewById(R.id.imageView1);
             image.setImageResource(R.drawable.knot);
 
