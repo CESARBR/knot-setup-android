@@ -24,6 +24,7 @@ public class ConfigureGatewayWifiActivity extends AppCompatActivity implements V
     private EditText wifiEditText;
     private EditText passwEditText;
     private Button sendButton;
+    private static final String headerTitleText = "Wi-Fi Configuration";
 
     private Presenter presenter;
 
@@ -38,7 +39,7 @@ public class ConfigureGatewayWifiActivity extends AppCompatActivity implements V
         passwEditText = findViewById(R.id.password_editText);
         sendButton = findViewById(R.id.buttonSendWifiSettings);
 
-        headerTitle.setText("Provide password");
+        headerTitle.setText(headerTitleText);
         headerImage.setImageResource(R.drawable.knot);
 
         presenter = new ConfigureGatewayWifiPresenter(this);

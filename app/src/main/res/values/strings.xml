@@ -30,5 +30,10 @@
     <string name="login">Login:</string>
     <string name="password">Password:</string>
 
+    <!-- Strings used in activity_configure_gateway_wifi -->
+    <string name="networkName">Network name:</string>
+
+    <!-- Strings of general use -->
+    <string name="buttonEnter">enter</string>
 
 </resources>

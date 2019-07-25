@@ -16,6 +16,8 @@ import br.org.cesar.knot_setup_app.activity.thingList.ThingActivity;
 import br.org.cesar.knot_setup_app.wrapper.NetworkWrapper;
 
 public class LoginActivity extends AppCompatActivity implements LoginContract.ViewModel {
+        private static final String headerTitleText = "User Credentials";
+
         private Presenter mPresenter;
 
         @Override
@@ -25,7 +27,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
 
 
             TextView headerTitle = (TextView)findViewById(R.id.list_title);
-            headerTitle.setText("LOGIN");
+            headerTitle.setText(headerTitleText);
             ImageView image = (ImageView) findViewById(R.id.imageView1);
             image.setImageResource(R.drawable.knot);
 
