@@ -29,6 +29,13 @@
     <!-- Strings used in activity_login -->
     <string name="login">Login:</string>
     <string name="password">Password:</string>
+    <string name="login_subtitle">User Credentials</string>
 
+    <!-- Strings used in activity_configure_gateway_wifi -->
+    <string name="network_name">Network name:</string>
+    <string name="configure_gateway_subtitle">Wi-Fi Configuration</string>
+
+    <!-- Strings of general use -->
+    <string name="all_enter">enter</string>
 
 </resources>
