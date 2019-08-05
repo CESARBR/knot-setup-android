@@ -48,6 +48,7 @@ public class Constants{
 
     //EXTRAS IDS
     public static final String GATEWAY_ID = "GATEWAY_ID";
+    public static final int DEFAULT_GATEWAY_ID = 0;
 
     //USER PREFERENCES KEYS
     public static final String GATEWAY_IP = "gateway_ip";

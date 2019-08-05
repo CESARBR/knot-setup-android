@@ -19,7 +19,9 @@
     <string name="thing_unregistered">Unregistered</string>
     <string name="thing_registered">Registered</string>
 
-    <!--Strings used in configure_gateway_activity -->
+    <!--Strings used by ConfigureDeviceActivity -->
+    <string name="configure_device_header_title">Network Settings</string>
+    <string name="configure_device_tab_name">KNoT gateway id#</string>
     <string name="otsettings">OT&#160;Settings</string>
     <string name="channel">Channel</string>
     <string name="netname">Net&#160;Name</string>
@@ -27,6 +29,10 @@
     <string name="xpanid">Xpanid</string>
     <string name="masterkey">Masterkey</string>
     <string name="IPV6">IPV6</string>
+    <string name="thing_pairing_succeeded">Successfully paired with device!</string>
+    <string name="thing_get_openthread_request_failed">
+        Something is wrong with the gateway,please try again later.</string>
+
 
     <!-- Strings used by LoginActivity -->
     <string name="login_header_title">User Credentials</string>
