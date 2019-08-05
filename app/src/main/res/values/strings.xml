@@ -28,10 +28,12 @@
     <string name="masterkey">Masterkey</string>
     <string name="IPV6">IPV6</string>
 
-    <!-- Strings used in activity_login -->
+    <!-- Strings used by LoginActivity -->
+    <string name="login_header_title">User Credentials</string>
     <string name="login">Login:</string>
     <string name="password">Password:</string>
     <string name="login_subtitle">User Credentials</string>
+    <string name="login_invalid_credentials">Incorrect username or password.</string>
 
     <!-- Strings used in activity_configure_gateway_wifi -->
     <string name="network_name">Network name:</string>

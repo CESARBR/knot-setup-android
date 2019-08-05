@@ -4,11 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/colorWhite"
-    android:layout_height="match_parent">
-
-
-    <include  layout="@layout/activity_header" android:id="@+id/header" />
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite">
 
     <Button
         android:id="@+id/send"
@@ -27,52 +24,48 @@
         android:id="@+id/password_input"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="8dp"
+        android:backgroundTint="@color/colorPrimaryDark"
         android:ems="10"
         android:inputType="textPassword"
         android:textColor="@android:color/background_dark"
-        android:backgroundTint="@color/colorPrimaryDark"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/email" />
+        app:layout_constraintTop_toBottomOf="@+id/password" />
 
     <EditText
         android:id="@+id/email"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="8dp"
+        android:layout_height="44dp"
+        android:backgroundTint="@color/colorPrimaryDark"
         android:ems="10"
         android:inputType="textEmailAddress"
         android:textColor="@android:color/background_dark"
-        android:backgroundTint="@color/colorPrimaryDark"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/header" />
+        app:layout_constraintTop_toBottomOf="@+id/login" />
 
     <TextView
         android:id="@+id/login"
         android:layout_width="wrap_content"
-        android:layout_height="18dp"
-        android:layout_marginTop="8dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:background="@color/transparent"
         android:text="@string/login"
         android:textColor="@color/colorKnotGreen"
-        android:background="@color/transparent"
-        app:layout_constraintStart_toStartOf="@id/email"
-        app:layout_constraintTop_toBottomOf="@id/header" />
+        android:textSize="@dimen/text_size_subtitle"
+        app:layout_constraintStart_toStartOf="@+id/email"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
         android:text="@string/password"
         android:textColor="@color/colorKnotGreen"
+        android:textSize="@dimen/text_size_subtitle"
         android:background="@color/transparent"
-        app:layout_constraintTop_toBottomOf="@id/email"
-        app:layout_constraintStart_toStartOf="@id/email"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/email"
+        app:layout_constraintStart_toStartOf="@+id/email" />
 
 </android.support.constraint.ConstraintLayout>
