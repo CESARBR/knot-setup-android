@@ -12,7 +12,9 @@
     <string name="thing_left_tab_name">Unregistered</string>
     <string name="thing_right_tab_name">Registered</string>
 
-    <!--Strings used in configure_gateway_activity -->
+    <!--Strings used by ConfigureDeviceActivity -->
+    <string name="configure_device_header_title">Network Settings</string>
+    <string name="configure_device_tab_name">KNoT gateway id?</string>
     <string name="otsettings">OT&#160;Settings</string>
     <string name="channel">Channel</string>
     <string name="netname">Net&#160;Name</string>

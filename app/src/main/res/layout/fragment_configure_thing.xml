@@ -5,34 +5,29 @@
     android:layout_height="match_parent"
     android:background="@color/colorWhite"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".activity.configureDevice.ConfigureDeviceActivity">
-
-    <include  layout="@layout/activity_template_list" android:id="@+id/header"/>
-
+    tools:context=".activity.ConfigureDeviceActivity">
 
     <include
-        layout="@layout/ot_settings"
         android:id="@+id/ot_frame"
+        layout="@layout/ot_settings"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="24dp"
-        app:layout_constraintTop_toTopOf="@id/header"
-        app:layout_constraintBottom_toBottomOf="@+id/ip_frame"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/grey_bg"
-        />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/grey_bg" />
 
     <include
-        layout="@layout/ip_settings"
         android:id="@+id/ip_frame"
+        layout="@layout/ip_settings"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@id/ot_frame"
-        app:layout_constraintTop_toBottomOf="@+id/ot_frame"
+        android:layout_marginTop="24dp"
         app:layout_constraintEnd_toEndOf="@id/ot_frame"
-        />
+        app:layout_constraintStart_toStartOf="@id/ot_frame"
+        app:layout_constraintTop_toBottomOf="@+id/ot_frame" />
 
 </android.support.constraint.ConstraintLayout>
