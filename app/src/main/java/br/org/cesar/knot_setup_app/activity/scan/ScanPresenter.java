@@ -31,18 +31,18 @@ public class ScanPresenter implements ScanContract.Presenter {
             this.gatewayID = gatewayID;
         }
 
-        else if (operation == Constants.CONFIGURE_GATEWAY_WIFI){
+        else if (operation == Constants.CONFIGURE_GATEWAY_WIFI) {
             //this is the UUID if we are searching for a gateway
             bluetoothWrapper.setScanUUID(Constants.WIFI_CONFIGURATION_SERVICE_GATEWAY);
         }
 
     }
 
-    public void startScan(){
+    public void startScan() {
         deviceList = new ArrayList<>();
         bluetoothWrapper.stopScan();
         if (bluetoothWrapper.checkBluetoothHardware()) {
-            bluetoothWrapper.scanForDevice(new ScannerCallback(){
+            bluetoothWrapper.scanForDevice(new ScannerCallback() {
                 @Override
                 public void onScanComplete(android.bluetooth.le.ScanResult result) {
                     //Add to adapter list as a connecting option
@@ -67,23 +67,23 @@ public class ScanPresenter implements ScanContract.Presenter {
             });
         }
 
-        else{
+        else {
              mViewModel.callbackOnBluetoothPermissionRequired();
         }
     }
 
-    public void stopScan(){
+    public void stopScan() {
         this.bluetoothWrapper.stopScan();
     }
 
-    public void connectToDevice(BluetoothDevice device){
+    public void connectToDevice(BluetoothDevice device) {
         KnotSetupApplication.setBluetoothDevice(device);
         Bundle extras;
 
-        if(operation == Constants.CONFIGURE_GATEWAY_WIFI){
+        if(operation == Constants.CONFIGURE_GATEWAY_WIFI) {
             mViewModel.callbackOnGatewayWifiConfiguration(gatewayID,operation);
         }
-        else if (operation == Constants.CONFIGURE_THING_OPENTHREAD){
+        else if (operation == Constants.CONFIGURE_THING_OPENTHREAD) {
             mViewModel.callbackOnThingSelected(operation);
         }
     }

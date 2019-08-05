@@ -10,8 +10,9 @@ import br.org.cesar.knot_setup_app.R;
 import br.org.cesar.knot_setup_app.activity.login.LoginActivity;
 import br.org.cesar.knot_setup_app.activity.splash.SplashContract.ViewModel;
 import br.org.cesar.knot_setup_app.activity.splash.SplashContract.Presenter;
-import br.org.cesar.knot_setup_app.activity.thingList.ThingActivity;
+import br.org.cesar.knot_setup_app.utils.Constants;
 import br.org.cesar.knot_setup_app.wrapper.NetworkWrapper;
+import br.org.cesar.knot_setup_app.activity.thingList.ThingActivity;
 
 public class SplashActivity extends AppCompatActivity implements  ViewModel{
 
@@ -36,6 +37,7 @@ public class SplashActivity extends AppCompatActivity implements  ViewModel{
     @Override
     public void doLogin(){
         Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
+        intent.putExtra(Constants.GATEWAY_ID,getIntent().getStringExtra(Constants.GATEWAY_ID));
         startActivity(intent);
         finish();
     }
@@ -43,6 +45,7 @@ public class SplashActivity extends AppCompatActivity implements  ViewModel{
     @Override
     public void doListGateways(){
         Intent intent = new Intent(SplashActivity.this, ThingActivity.class);
+        intent.putExtra("operation", Constants.CONFIGURE_THING_OPENTHREAD);
         startActivity(intent);
         finish();
     }

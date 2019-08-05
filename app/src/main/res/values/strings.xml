@@ -1,17 +1,11 @@
 <resources>
     <string name="app_name">knot-setup-app</string>
 
-    <!-- Strings used in activity_list_gateway -->
-    <string name="list_gateway_title">KNoT</string>
+    <!-- Strings used by ConnectedGatewayActivity -->
+    <string name="gateway_header_title">Gateways</string>
+    <string name="gateway_left_tab_name">Configure Wi-Fi</string>
+    <string name="gateway_right_tab_name">Connected</string>
     <string name="searching_for_gateways">Looking for gateways...</string>
-    <string name="gateway_subtitle">&#160;Gateways</string>
-
-    <!-- Strings used in activity_scan_for_devices -->
-    <string name="scan_label">Chose the KNoT gateway you want to connect with.</string>
-    <string name="scanning">Looking for devices... </string>
-
-    <string name="bluetooth_device">Bluetooth setting THINGs up</string>
-    <string name="loading">Loading... </string>
 
     <!--Strings used in configure_gateway_activity -->
     <string name="otsettings">OT&#160;Settings</string>
