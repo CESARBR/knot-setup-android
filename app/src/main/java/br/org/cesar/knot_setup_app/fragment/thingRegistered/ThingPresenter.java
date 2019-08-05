@@ -1,4 +1,4 @@
-package br.org.cesar.knot_setup_app.activity.thingList;
+package br.org.cesar.knot_setup_app.fragment.thingRegistered;
 
 import android.content.Context;
 import android.util.Log;
@@ -6,29 +6,24 @@ import android.util.Log;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import br.org.cesar.knot_setup_app.activity.thingList.ThingContract.ViewModel;
-import br.org.cesar.knot_setup_app.activity.thingList.ThingContract.Presenter;
 import br.org.cesar.knot_setup_app.data.DataManager;
 import br.org.cesar.knot_setup_app.model.Gateway;
 import br.org.cesar.knot_setup_app.wrapper.LogWrapper;
+import br.org.cesar.knot_setup_app.fragment.thingRegistered.ThingContract.Presenter;
+import br.org.cesar.knot_setup_app.fragment.thingRegistered.ThingContract.ViewModel;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-public class  ThingPresenter implements Presenter{
+public class ThingPresenter implements Presenter {
+
     private ViewModel mViewModel;
-    private int gatewayID;
     private static DataManager dataManager;
-    private static String token,login,ip,request,port;
+    private static String token,ip,request,port;
     private Context context;
 
-    ThingPresenter(ViewModel viewModel, int gatewayID, Context context) {
+    ThingPresenter(ViewModel viewModel, Context context) {
         mViewModel = viewModel;
-        this.gatewayID = gatewayID;
         this.context = context;
-
-        this.login = dataManager.getInstance()
-                .getPersistentPreference()
-                .getSharedPreferenceString(context,"email");
 
         this.token = dataManager.getInstance()
                 .getPersistentPreference()
@@ -44,8 +39,7 @@ public class  ThingPresenter implements Presenter{
         this.request = "http://" + ip + ":" + port +"/api/devices";
     }
 
-
-    public void getDeviceList(){
+    public void onResume() {
         LogWrapper.Log("request= " + this.request, Log.DEBUG);
         dataManager.getInstance().getService().getDevices(this.request,token)
                 .timeout(30, TimeUnit.SECONDS)
@@ -55,16 +49,16 @@ public class  ThingPresenter implements Presenter{
                         this::onErrorHandler);
     }
 
-    private void handleDeviceSuccess(List<Gateway> gat){
+    private void handleDeviceSuccess(List<Gateway> gat) {
         if(!gat.isEmpty()) {
-            this.mViewModel.callbackOnDeviceList(gat);
+            this.mViewModel.onThingsFound(gat);
         }
         else{
             LogWrapper.Log("There are no devices avaiable.", Log.DEBUG);
         }
     }
 
-    private void onErrorHandler(Throwable throwable){
+    private void onErrorHandler(Throwable throwable) {
         LogWrapper.Log("onErrorHandler: " + throwable.getMessage(), Log.DEBUG);
     }
 

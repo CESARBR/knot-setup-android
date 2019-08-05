@@ -12,7 +12,7 @@ import br.org.cesar.knot_setup_app.activity.splash.SplashContract.ViewModel;
 import br.org.cesar.knot_setup_app.activity.splash.SplashContract.Presenter;
 import br.org.cesar.knot_setup_app.utils.Constants;
 import br.org.cesar.knot_setup_app.wrapper.NetworkWrapper;
-import br.org.cesar.knot_setup_app.activity.thingList.ThingActivity;
+import br.org.cesar.knot_setup_app.activity.ThingActivity;
 
 public class SplashActivity extends AppCompatActivity implements  ViewModel{
 

@@ -12,7 +12,7 @@ import android.widget.Toast;
 
 import br.org.cesar.knot_setup_app.R;
 import br.org.cesar.knot_setup_app.activity.login.LoginContract.Presenter;
-import br.org.cesar.knot_setup_app.activity.thingList.ThingActivity;
+import br.org.cesar.knot_setup_app.activity.ThingActivity;
 import br.org.cesar.knot_setup_app.wrapper.NetworkWrapper;
 
 public class LoginActivity extends AppCompatActivity implements LoginContract.ViewModel {
