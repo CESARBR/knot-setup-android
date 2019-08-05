@@ -21,7 +21,8 @@
     <string name="masterkey">Masterkey</string>
     <string name="IPV6">IPV6</string>
 
-    <!-- Strings used in activity_login -->
+    <!-- Strings used by LoginActivity -->
+    <string name="login_header_title">User Credentials</string>
     <string name="login">Login:</string>
     <string name="password">Password:</string>
 

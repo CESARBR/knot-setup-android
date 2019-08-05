@@ -7,7 +7,7 @@ import android.widget.Toast;
 
 import br.org.cesar.knot_setup_app.KnotSetupApplication;
 import br.org.cesar.knot_setup_app.R;
-import br.org.cesar.knot_setup_app.activity.login.LoginActivity;
+import br.org.cesar.knot_setup_app.activity.LoginActivity;
 import br.org.cesar.knot_setup_app.activity.splash.SplashContract.ViewModel;
 import br.org.cesar.knot_setup_app.activity.splash.SplashContract.Presenter;
 import br.org.cesar.knot_setup_app.utils.Constants;
