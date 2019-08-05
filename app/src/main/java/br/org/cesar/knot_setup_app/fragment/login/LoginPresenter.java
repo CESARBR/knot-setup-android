@@ -1,21 +1,21 @@
-package br.org.cesar.knot_setup_app.activity.login;
-
+package br.org.cesar.knot_setup_app.fragment.login;
 
 import android.content.Context;
-import android.database.Cursor;
 import android.util.Log;
 
 import java.util.concurrent.TimeUnit;
 
-import br.org.cesar.knot_setup_app.activity.login.LoginContract.ViewModel;
+import br.org.cesar.knot_setup_app.fragment.login.LoginContract.Presenter;
+import br.org.cesar.knot_setup_app.fragment.login.LoginContract.ViewModel;
 import br.org.cesar.knot_setup_app.data.DataManager;
-import br.org.cesar.knot_setup_app.model.Openthread;
 import br.org.cesar.knot_setup_app.model.User;
+import br.org.cesar.knot_setup_app.utils.Constants;
 import br.org.cesar.knot_setup_app.wrapper.LogWrapper;
+import br.org.cesar.knot_setup_app.wrapper.NetworkWrapper;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-public class LoginPresenter implements LoginContract.Presenter{
+public class LoginPresenter implements Presenter{
 
     private ViewModel mViewModel;
     private static DataManager dataManager;
@@ -32,26 +32,34 @@ public class LoginPresenter implements LoginContract.Presenter{
         this.ip = dataManager.getInstance()
                 .getPreference().getSharedPreferenceString(context,"ip");
 
-        this.port = dataManager.getInstance()
-                    .getPreference().getSharedPreferenceString(context,"port");
+        this.port =
+                dataManager.getInstance().getPreference().getSharedPreferenceString(context, "port");
 
         this.request = "http://" + ip +":" + port +"/api/auth";
 
-        fillEmail();
-
-
     }
 
     @Override
-    public void fillEmail(){
+    public void onFocus() {
+        if(NetworkWrapper.isConnected(context)) {
+            searchEmail();
+        }
+    }
+
+    @Override
+    public void onSendClicked(String email, String pwd) {
+        setEmail(email);
+        doLogin(pwd);
+    }
+
+    private void searchEmail() {
         String email;
         email = dataManager.getInstance().getPersistentPreference()
-                .getSharedPreferenceString(context,"email");
-        mViewModel.fillEmailText(email);
+                .getSharedPreferenceString(context, "email");
+        mViewModel.fillEmail(email);
     }
 
-    @Override
-    public void doLogin(String password){
+    private void doLogin(String password){
         LogWrapper.Log("email: " + email + " password: " + password + " request: " + request, Log.DEBUG);
         dataManager.getInstance().getService().login(this.request,email,password)
         .timeout(30, TimeUnit.SECONDS)
@@ -63,18 +71,18 @@ public class LoginPresenter implements LoginContract.Presenter{
 
     private void loginSucceeded(User user) {
         dataManager.getInstance().getPersistentPreference()
-                .setSharedPreferenceString(context,"email",email);
+                .setSharedPreferenceString(context, "email",email);
 
         dataManager.getInstance().getPersistentPreference()
                 .setSharedPreferenceString(context,"token","Bearer " + user.getToken());
 
-        mViewModel.callbackOnLogin();
+        mViewModel.onLogin();
     }
 
     private void onErrorHandler(Throwable throwable){
         LogWrapper.Log("onErrorHandler: " + throwable.getMessage(), Log.DEBUG);
         if(throwable.getMessage().contains("401")){
-            mViewModel.invalidCredentials();
+            mViewModel.onInvalidCredentials();
         }
     }
 }
