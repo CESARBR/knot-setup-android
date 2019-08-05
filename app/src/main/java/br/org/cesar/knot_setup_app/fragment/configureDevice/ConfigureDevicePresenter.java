@@ -1,20 +1,21 @@
-package br.org.cesar.knot_setup_app.activity.configureDevice;
+package br.org.cesar.knot_setup_app.fragment.configureDevice;
+
 import android.content.Context;
 import android.util.Log;
 
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
-import br.org.cesar.knot_setup_app.activity.configureDevice.ConfigureDeviceContract.Presenter;
-import br.org.cesar.knot_setup_app.activity.configureDevice.ConfigureDeviceContract.ViewModel;
+import br.org.cesar.knot_setup_app.KnotSetupApplication;
 import br.org.cesar.knot_setup_app.data.DataManager;
 import br.org.cesar.knot_setup_app.domain.callback.DeviceCallback;
-import br.org.cesar.knot_setup_app.KnotSetupApplication;
+import br.org.cesar.knot_setup_app.fragment.configureDevice.ConfigureDeviceContract.Presenter;
+import br.org.cesar.knot_setup_app.fragment.configureDevice.ConfigureDeviceContract.ViewModel;
 import br.org.cesar.knot_setup_app.model.BluetoothDevice;
 import br.org.cesar.knot_setup_app.model.Gateway;
 import br.org.cesar.knot_setup_app.model.Openthread;
-import br.org.cesar.knot_setup_app.model.Thing;
 import br.org.cesar.knot_setup_app.wrapper.BluetoothWrapper;
+import br.org.cesar.knot_setup_app.model.Thing;
 import br.org.cesar.knot_setup_app.utils.Constants;
 import br.org.cesar.knot_setup_app.wrapper.LogWrapper;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -47,6 +48,10 @@ public class ConfigureDevicePresenter implements Presenter{
         this.device = KnotSetupApplication.getBluetoothDevice();
         this.context = context;
         LogWrapper.Log("getOpenthreadConfgig starting", Log.DEBUG);
+    }
+
+    @Override
+    public void onFocus() {
         getOpenthreadConfig();
     }
 
@@ -119,6 +124,7 @@ public class ConfigureDevicePresenter implements Presenter{
 
     private void onErrorHandler(Throwable throwable){
         LogWrapper.Log("onErrorHandler: " + throwable.getMessage(), Log.DEBUG);
+        mViewModel.onErrorHandler(throwable);
     }
 
     private void callbackFlux(){
@@ -127,7 +133,7 @@ public class ConfigureDevicePresenter implements Presenter{
         bluetoothWrapper.waitForBonding(device, new DeviceCallback() {
             @Override
             public void onConnect() {
-                mViewModel.callbackOnConnected();
+                mViewModel.onConnected();
                 LogWrapper.Log("OnConnect", Log.DEBUG);
                 bluetoothWrapper.discoverServices();
             }
@@ -141,7 +147,7 @@ public class ConfigureDevicePresenter implements Presenter{
             public void onDisconnect(){
                 LogWrapper.Log("Disconnected", Log.DEBUG);
                 bluetoothWrapper.closeGatt();
-                mViewModel.callbackOnDisconnected();
+                mViewModel.onDisconnected();
             }
 
             @Override
@@ -163,9 +169,9 @@ public class ConfigureDevicePresenter implements Presenter{
             }
 
             @Override
-            public void onCharacteristicWriteComplete(){
+            public void onCharacteristicWriteComplete() {
                 LogWrapper.Log("Characteristic writen", Log.DEBUG);
-                mViewModel.callbackOnOperation(writeCount);
+                mViewModel.onWriteSucceeded(writeCount);
 
                 if(writeDone){
                     bluetoothWrapper.closeConn();
@@ -179,7 +185,7 @@ public class ConfigureDevicePresenter implements Presenter{
             @Override
             public void onCharacteristicWriteFail(){
                 LogWrapper.Log("Characteristic write failed", Log.DEBUG);
-                mViewModel.callbackOnWriteFailed(writeCount);
+                mViewModel.onWriteFailed(writeCount);
             }
 
             @Override
@@ -201,7 +207,7 @@ public class ConfigureDevicePresenter implements Presenter{
                 else {valueRead = new String(value);}
 
                 LogWrapper.Log("Characteristic read: " + valueRead, Log.DEBUG);
-                mViewModel.callbackOnOperation(readCount);
+                mViewModel.onWriteSucceeded(readCount);
 
                 if(readDone){
                     bluetoothWrapper.closeConn();
@@ -280,7 +286,7 @@ public class ConfigureDevicePresenter implements Presenter{
                 writeWrapper(Constants.IPV6_SERVICE,Constants.IPV6_CHARACTERISTIC,value);
                 writeDone = true;
         }
-        
+
     }
 
     private String getValue(String characteristic){
