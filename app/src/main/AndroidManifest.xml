@@ -19,20 +19,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/NoActionBar">
-        <activity android:name=".activity.ThingActivity"
+        <activity android:name=".view.ThingActivity"
             android:exported="false"></activity>
-        <activity android:name=".activity.splash.SplashActivity" android:exported="false"></activity>
-        <activity android:name=".activity.GatewayActivity">
+        <activity android:name=".view.splash.SplashActivity" android:exported="false"></activity>
+        <activity android:name=".view.GatewayActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.LoginActivity" android:exported="false"></activity>
-        <activity android:name=".activity.ConfigureDeviceActivity"
+        <activity android:name=".view.LoginActivity" android:exported="false"></activity>
+        <activity android:name=".view.ConfigureDeviceActivity"
             android:exported="false" />
-        <activity android:name=".activity.ConfigureGatewayWifiActivity"
+        <activity android:name=".view.ConfigureGatewayWifiActivity"
             android:exported="false"></activity>
     </application>
 
