@@ -5,75 +5,70 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorWhite"
-    tools:context=".activity.configureGatewayWifi.ConfigureGatewayWifiActivity">
+    tools:context=".activity.ConfigureGatewayWifiActivity">
 
-    <include  layout="@layout/activity_header" android:id="@+id/header" />
 
     <TextView
         android:id="@+id/wifi_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/networkName"
-        android:fontFamily="sans-serif-condensed"
+        android:layout_marginTop="32dp"
         android:background="@color/transparent"
+        android:fontFamily="sans-serif-condensed"
+        android:text="@string/networkName"
+        android:textSize="@dimen/textSizeSubTittle"
         android:textColor="@color/colorKnotGreen"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/header"
-        />
+        app:layout_constraintStart_toStartOf="@+id/wifi_editText"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/wifi_editText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:backgroundTint="@android:color/background_dark"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Name"
         android:textColor="@color/colorKnotGreen"
-        android:backgroundTint="@android:color/background_dark"
-        app:layout_constraintStart_toEndOf="@+id/wifi_textView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/wifi_textView" />
 
     <TextView
         android:id="@+id/password_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/password"
-        android:fontFamily="sans-serif-condensed"
+        android:layout_marginTop="32dp"
         android:background="@color/transparent"
+        android:fontFamily="sans-serif-condensed"
+        android:text="@string/password"
         android:textColor="@color/colorKnotGreen"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="@dimen/textSizeSubTittle"
+        app:layout_constraintStart_toStartOf="@+id/password_editText"
         app:layout_constraintTop_toBottomOf="@+id/wifi_editText" />
 
     <EditText
         android:id="@+id/password_editText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:backgroundTint="@android:color/background_dark"
         android:ems="10"
         android:inputType="textPassword"
         android:textColor="@color/colorKnotGreen"
-        android:backgroundTint="@android:color/background_dark"
-        app:layout_constraintStart_toEndOf="@+id/password_textView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/password_textView" />
 
     <Button
         android:id="@+id/buttonSendWifiSettings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="enter"
+        android:layout_marginTop="32dp"
         android:background="@color/colorKnotGreen"
-        app:layout_constraintTop_toBottomOf="@+id/password_editText"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:layout_editor_absoluteX="141dp" />
+        android:text="enter"
+        app:layout_constraintEnd_toEndOf="@+id/password_editText"
+        app:layout_constraintStart_toStartOf="@+id/password_editText"
+        app:layout_constraintTop_toBottomOf="@+id/password_editText" />
 
 
 </android.support.constraint.ConstraintLayout>

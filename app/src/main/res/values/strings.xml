@@ -28,7 +28,9 @@
     <string name="login">Login:</string>
     <string name="password">Password:</string>
 
-    <!-- Strings used in activity_configure_gateway_wifi -->
+    <!-- Strings used by ConfigureGatewayWifiActivity -->
+    <string name="configure_gateway_wifi_header_title">Wi-Fi Configuration</string>
+    <string name="configure_gateway_wifi_tab_name">KNoT Gateway #?</string>
     <string name="networkName">Network name:</string>
 
     <!-- Strings of general use -->

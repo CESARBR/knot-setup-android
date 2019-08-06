@@ -32,7 +32,7 @@
         <activity android:name=".activity.LoginActivity" android:exported="false"></activity>
         <activity android:name=".activity.ConfigureDeviceActivity"
             android:exported="false" />
-        <activity android:name=".activity.configureGatewayWifi.ConfigureGatewayWifiActivity"
+        <activity android:name=".activity.ConfigureGatewayWifiActivity"
             android:exported="false"></activity>
     </application>
 
