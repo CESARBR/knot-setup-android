@@ -41,12 +41,15 @@
     <string name="login_subtitle">User Credentials</string>
     <string name="login_invalid_credentials">Incorrect username or password.</string>
 
-    <!-- Strings used in activity_configure_gateway_wifi -->
+    <!-- Strings used by ConfigureGatewayWifiActivity -->
+    <string name="configure_gateway_wifi_header_title">Wi-Fi Configuration</string>
+    <string name="configure_gateway_wifi_tab_name">KNoT Gateway #?</string>
     <string name="network_name">Network name:</string>
     <string name="configure_gateway_subtitle">Wi-Fi Configuration</string>
 
     <!-- Strings of general use -->
     <string name="all_enter">enter</string>
     <string name="all_scan_failed">Scanning has failed.</string>
+    <string name="failed_write">Failure when writing a characteristic.</string>
 
 </resources>

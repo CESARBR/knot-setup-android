@@ -22,7 +22,7 @@ import java.util.UUID;
 
 import br.org.cesar.knot_setup_app.R;
 import br.org.cesar.knot_setup_app.activity.ConfigureDeviceActivity;
-import br.org.cesar.knot_setup_app.activity.configureGatewayWifi.ConfigureGatewayWifiActivity;
+import br.org.cesar.knot_setup_app.activity.ConfigureGatewayWifiActivity;
 import br.org.cesar.knot_setup_app.domain.adapter.ScanAdapter;
 import br.org.cesar.knot_setup_app.fragment.scan.ScanContract.ViewModel;
 import br.org.cesar.knot_setup_app.fragment.scan.ScanContract.Presenter;

@@ -1,16 +1,15 @@
-package br.org.cesar.knot_setup_app.activity.configureGatewayWifi;
+package br.org.cesar.knot_setup_app.fragment.configureGatewayWifi;
 
 import br.org.cesar.knot_setup_app.KnotSetupApplication;
-import br.org.cesar.knot_setup_app.activity.configureGatewayWifi.ConfigureGatewayWifiContract.ViewModel;
-import br.org.cesar.knot_setup_app.activity.configureGatewayWifi.ConfigureGatewayWifiContract.Presenter;
 import br.org.cesar.knot_setup_app.domain.callback.DeviceCallback;
+import br.org.cesar.knot_setup_app.fragment.configureGatewayWifi.ConfigureGatewayWifiContract.ViewModel;
+import br.org.cesar.knot_setup_app.fragment.configureGatewayWifi.ConfigureGatewayWifiContract.Presenter;
 import br.org.cesar.knot_setup_app.model.BluetoothDevice;
 import br.org.cesar.knot_setup_app.utils.Constants;
 import br.org.cesar.knot_setup_app.wrapper.BluetoothWrapper;
 import br.org.cesar.knot_setup_app.wrapper.NetworkWrapper;
 
-public class ConfigureGatewayWifiPresenter  implements Presenter {
-
+public class ConfigureGatewayWifiPresenter  implements Presenter{
     private ViewModel viewModel;
     private BluetoothWrapper bluetoothWrapper;
     private BluetoothDevice gateway;
@@ -23,13 +22,17 @@ public class ConfigureGatewayWifiPresenter  implements Presenter {
     }
 
     @Override
-    public void setWifiSSID(){
+    public void onFocus() {
+        setWifiSSID();
+    }
+
+    private void setWifiSSID() {
         String wifiSSID = NetworkWrapper.getCurrentWifiName();
-        viewModel.callbackOnSetWifiSSID(wifiSSID);
+        viewModel.setWifiSSID(wifiSSID);
     }
 
     @Override
-    public void writeGatewayWifiSettings(String SSID, String pwd){
+    public void onSetWifiClicked(String SSID, String pwd){
         bluetoothWrapper.waitForBonding(this.gateway, new DeviceCallback() {
             @Override
             public void onConnect() {
@@ -40,7 +43,7 @@ public class ConfigureGatewayWifiPresenter  implements Presenter {
             @Override
             public void onDisconnect() {
                 bluetoothWrapper.closeGatt();
-                viewModel.callbackOnDisconnected();
+                viewModel.onDisconnected();
                 //mViewModel.callbackOnDisconnected();
 
             }
@@ -67,7 +70,7 @@ public class ConfigureGatewayWifiPresenter  implements Presenter {
             @Override
             public void onCharacteristicWriteFail() {
                 bluetoothWrapper.closeConn();
-                viewModel.callbackOnWriteFailed();
+                viewModel.onWriteFailed();
             }
 
             @Override
