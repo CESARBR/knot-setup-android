@@ -38,5 +38,6 @@
 
     <!-- Strings of general use -->
     <string name="all_enter">enter</string>
+    <string name="all_scan_failed">Scanning has failed.</string>
 
 </resources>
