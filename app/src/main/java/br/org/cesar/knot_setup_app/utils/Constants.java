@@ -46,5 +46,13 @@ public class Constants{
     public static final int CONFIGURE_THING_OPENTHREAD = 0;
     public static final int CONFIGURE_GATEWAY_WIFI = 1;
 
+    //EXTRAS IDS
+    public static final String GATEWAY_ID = "GATEWAY_ID";
 
+    //USER PREFERENCES KEYS
+    public static final String GATEWAY_IP = "gateway_ip";
+    public static final String GATEWAY_PORT = "gateway_port";
+
+    //KEYS FOR BUNDLES
+    public static final String OPERATION = "operation";
 }

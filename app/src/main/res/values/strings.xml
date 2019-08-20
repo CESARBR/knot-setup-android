@@ -1,8 +1,9 @@
 <resources>
     <string name="app_name">knot-setup-app</string>
 
-    <!-- Strings used in activity_list_gateway -->
-    <string name="list_gateway_title">KNoT</string>
+    <!-- Strings used by ConnectedGatewayActivity -->
+    <string name="gateway_configure_WiFi">Configure Wi-Fi</string>
+    <string name="gateway_connected">Connected</string>
     <string name="searching_for_gateways">Looking for gateways...</string>
     <string name="gateway_header_title">Gateways</string>
 
