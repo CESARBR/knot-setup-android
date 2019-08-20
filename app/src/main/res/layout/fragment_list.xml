@@ -1,30 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorWhite"
-    tools:context=".activity.gatewayList.GatewayActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/colorWhite">
 
-    <include  layout="@layout/activity_template_list" android:id="@+id/id" />
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/add_gateway"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="24dp"
-        android:clickable="true"
-        android:tint="@color/colorWhite"
-        app:backgroundTint="@color/colorKnotGreen"
-        app:elevation="5dp"
-        app:fabSize="normal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/gateway_white"
-        tools:ignore="VectorDrawableCompat" />
-
+    <ListView
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="15dp"
+        android:paddingHorizontal="24dp"
+        android:dividerHeight="15dp"
+        android:clipToPadding="false"
+        />
 
     <TextView
         android:id="@+id/searching_for_gateway_text"
@@ -34,9 +23,9 @@
         android:textColor="@color/colorKnotGreen"
         android:fontFamily="sans-serif-condensed"
         android:textSize="24sp"
-        android:layout_marginTop="130dp"
         android:background="@color/transparent"
-        app:layout_constraintTop_toTopOf="@+id/id"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         />
@@ -48,8 +37,11 @@
         android:layout_height="74dp"
         android:layout_marginTop="40dp"
         android:background="@color/transparent"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="@id/searching_for_gateway_text"
         app:layout_constraintStart_toStartOf="@id/searching_for_gateway_text"
-        app:layout_constraintTop_toBottomOf="@id/searching_for_gateway_text" />
+        app:layout_constraintTop_toBottomOf="@id/searching_for_gateway_text"
+        />
+
 
 </android.support.constraint.ConstraintLayout>

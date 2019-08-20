@@ -22,7 +22,7 @@
         <activity android:name=".activity.thingList.ThingActivity"
             android:exported="false"></activity>
         <activity android:name=".activity.splash.SplashActivity" android:exported="false"></activity>
-        <activity android:name=".activity.gatewayList.GatewayActivity">
+        <activity android:name=".activity.GatewayActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

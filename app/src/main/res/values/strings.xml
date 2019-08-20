@@ -4,7 +4,7 @@
     <!-- Strings used in activity_list_gateway -->
     <string name="list_gateway_title">KNoT</string>
     <string name="searching_for_gateways">Looking for gateways...</string>
-    <string name="gateway_subtitle">&#160;Gateways</string>
+    <string name="gateway_header_title">Gateways</string>
 
     <!-- Strings used in activity_scan_for_devices -->
     <string name="scan_label">Chose the KNoT gateway you want to connect with.</string>
