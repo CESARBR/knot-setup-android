@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import br.org.cesar.knot_setup_app.R;
 import br.org.cesar.knot_setup_app.model.Tab;
+import br.org.cesar.knot_setup_app.fragment.gatewayConnected.GatewayConnectedFragment;
 
 public class GatewayActivity extends BaseActivity {
 
@@ -17,13 +18,13 @@ public class GatewayActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         tabs = new ArrayList<>();
 
-        Tab leftTab, rightTab;
-        leftTab = new Tab("left-tab", new Fragment());
-        rightTab = new Tab("right-tab",
-                new Fragment());
+        Tab configureWiFiTab, gatewayConnectedTab;
+        configureWiFiTab = new Tab(getString(R.string.gateway_configure_WiFi), new Fragment());
+        gatewayConnectedTab = new Tab(getString(R.string.gateway_connected),
+                new GatewayConnectedFragment());
 
-        tabs.add(leftTab);
-        tabs.add(rightTab);
+        tabs.add(configureWiFiTab);
+        tabs.add(gatewayConnectedTab);
 
         setupHeader(getString(R.string.gateway_header_title), tabs);
     }
