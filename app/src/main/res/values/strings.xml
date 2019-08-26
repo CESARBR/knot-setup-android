@@ -14,6 +14,11 @@
     <string name="bluetooth_device">Bluetooth setting THINGs up</string>
     <string name="loading">Loading... </string>
 
+    <!-- Strings used by ThingActivity -->
+    <string name="thing_header_title">THING\'s</string>
+    <string name="thing_unregistered">Unregistered</string>
+    <string name="thing_registered">Registered</string>
+
     <!--Strings used in configure_gateway_activity -->
     <string name="otsettings">OT&#160;Settings</string>
     <string name="channel">Channel</string>
@@ -22,10 +27,6 @@
     <string name="xpanid">Xpanid</string>
     <string name="masterkey">Masterkey</string>
     <string name="IPV6">IPV6</string>
-
-    <!-- Strings used in configure devices -->
-    <string name="thingSetup">KNoT</string>
-    <string name="thingLabel">&#160;Things</string>
 
     <!-- Strings used in activity_login -->
     <string name="login">Login:</string>
