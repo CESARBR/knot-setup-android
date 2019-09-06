@@ -20,19 +20,27 @@
         android:supportsRtl="true"
         android:theme="@style/NoActionBar">
         <activity android:name=".view.ThingActivity"
+            android:screenOrientation="portrait"
             android:exported="false"></activity>
-        <activity android:name=".view.splash.SplashActivity" android:exported="false"></activity>
-        <activity android:name=".view.GatewayActivity">
+        <activity android:name=".view.splash.SplashActivity"
+            android:screenOrientation="portrait"
+            android:exported="false"></activity>
+        <activity android:name=".view.GatewayActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.LoginActivity" android:exported="false"></activity>
+        <activity android:name=".view.LoginActivity"
+            android:screenOrientation="portrait"
+            android:exported="false"></activity>
         <activity android:name=".view.ConfigureDeviceActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity android:name=".view.ConfigureGatewayWifiActivity"
+            android:screenOrientation="portrait"
             android:exported="false"></activity>
     </application>
 
