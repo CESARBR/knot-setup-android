@@ -26,6 +26,9 @@
             android:screenOrientation="portrait"
             android:exported="false"></activity>
         <activity android:name=".view.GatewayActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".view.IntroActivity"
+            android:theme="@style/SplashTheme"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
