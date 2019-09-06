@@ -119,14 +119,14 @@ public class ScanFragment extends Fragment implements ViewModel {
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
+    public void onStart() {
+        super.onStart();
         presenter.onFocus();
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
+    public void onStop() {
+        super.onStop();
         LogWrapper.Log("ScanFragment onFocusLost",Log.DEBUG);
         presenter.onFocusLost();
     }
