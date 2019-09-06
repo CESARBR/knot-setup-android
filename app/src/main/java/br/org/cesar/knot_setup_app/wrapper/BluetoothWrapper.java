@@ -98,34 +98,10 @@ public class BluetoothWrapper {
 
     /**
      * Start scanning for new bluetooth devices
-     * @param callback callback to the user
+     * @param scanCallback callback to the user
      */
-    public void scanForDevice(final ScannerCallback callback) {
+    public void scanForDevice(final ScanCallback scanCallback) {
         //Start scanning to get a response
-        scanCallback = new ScanCallback() {
-            @Override
-            public void onScanResult(int callbackType, ScanResult result) {
-                super.onScanResult(callbackType, result);
-                BluetoothDevice device = result.getDevice();
-                if(device.getName() != null) {
-                    LogWrapper.Log("NAME: " + device.getName(), Log.DEBUG);
-                    if(result.getScanRecord().getServiceUuids() != null) {
-                        for (ParcelUuid uuid :result.getScanRecord().getServiceUuids()) {
-                            LogWrapper.Log("      UUID: " + uuid.getUuid().toString(), Log.DEBUG);
-                        }
-                    }
-                    callback.onScanComplete(result);
-                }
-            }
-
-            @Override
-            public void onScanFailed(int errorCode) {
-                super.onScanFailed(errorCode);
-                callback.onScanFail();
-            }
-
-        };
-
         if (bluetoothAdapter != null) {
             LogWrapper.Log("Searching for: "
                     + scanUUID.toString(), Log.DEBUG);
@@ -138,10 +114,8 @@ public class BluetoothWrapper {
         }
     }
 
-    public void stopScan(){
-        if(bluetoothAdapter != null  && bluetoothAdapter.isEnabled()
-                && bluetoothAdapter.getScanMode() == bluetoothAdapter.SCAN_MODE_CONNECTABLE_DISCOVERABLE
-                && scanCallback != null) {
+    public void stopScan(ScanCallback scanCallback){
+        if(bluetoothAdapter != null  && bluetoothAdapter.isEnabled() && scanCallback != null) {
             bluetoothAdapter.getBluetoothLeScanner().stopScan(scanCallback);
         }
     }

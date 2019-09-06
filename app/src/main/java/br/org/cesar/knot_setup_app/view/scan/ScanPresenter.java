@@ -5,6 +5,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.bluetooth.le.ScanCallback;
+import android.bluetooth.le.ScanResult;
 import android.util.Log;
 import android.view.View;
 
@@ -30,11 +32,53 @@ public class ScanPresenter implements  Presenter {
     private UUID service;
     private BroadcastReceiver bluetoothBroadcastReceiver;
     private Context context;
+    private ScannerCallback scannerCallback;
+    private ScanCallback scanCallback;
 
     ScanPresenter(ViewModel viewModel, UUID service, Context context) {
         this.viewModel = viewModel;
         this.bluetoothWrapper = KnotSetupApplication.getBluetoothWrapper();
         this.service = service;
+
+        scannerCallback = new ScannerCallback() {
+            @Override
+            public void onScanComplete(android.bluetooth.le.ScanResult result) {
+                //Add to adapter list as a connecting option
+                //Check if current device was already inserted on list
+                String resMAC = result.getDevice().getAddress();
+                for (BluetoothDevice device : deviceList) {
+                    if (device.getDevice().getAddress().equals(resMAC)) {
+                        deviceList.remove(device);
+                        break;
+                    }
+                }
+                deviceList.add(new BluetoothDevice(result.getDevice(),result.getRssi()));
+                Collections.sort(deviceList);
+                viewModel.onDeviceFound(deviceList);
+            }
+
+            @Override
+            public void onScanFail() {
+                viewModel.onScanFail();
+            }
+        };
+
+        scanCallback  = new ScanCallback() {
+            @Override
+            public void onScanResult(int callbackType, ScanResult result) {
+                super.onScanResult(callbackType, result);
+                android.bluetooth.BluetoothDevice device = result.getDevice();
+                if(device.getName() != null) {
+                    scannerCallback.onScanComplete(result);
+                }
+            }
+            @Override
+            public void onScanFailed(int errorCode) {
+                super.onScanFailed(errorCode);
+                scannerCallback.onScanFail();
+            }
+        };
+
         setBluetoothBroadcastReceiver();
         this.context = context;
     }
@@ -64,30 +108,8 @@ public class ScanPresenter implements  Presenter {
 
     private void startScan() {
         deviceList = new ArrayList<>();
-        bluetoothWrapper.stopScan();
         if (bluetoothWrapper.checkBluetoothHardware()) {
-            bluetoothWrapper.scanForDevice(new ScannerCallback() {
-                @Override
-                public void onScanComplete(android.bluetooth.le.ScanResult result) {
-                    //Add to adapter list as a connecting option
-                    //Check if current device was already inserted on list
-                    for (BluetoothDevice device : deviceList) {
-                        if (device.getDevice().getAddress().equals(result.getDevice()
-                                .getAddress())) {
-                            deviceList.remove(device);
-                            break;
-                        }
-                    }
-                    deviceList.add(new BluetoothDevice(result.getDevice(), result.getRssi()));
-                    Collections.sort(deviceList);
-                    viewModel.onDeviceFound(deviceList);
-                }
-
-                @Override
-                public void onScanFail() {
-                    viewModel.onScanFail();
-                }
-            });
+            bluetoothWrapper.scanForDevice(scanCallback);
         }
 
         else {
@@ -96,7 +118,7 @@ public class ScanPresenter implements  Presenter {
     }
 
     private void stopScan() {
-        this.bluetoothWrapper.stopScan();
+        this.bluetoothWrapper.stopScan(scanCallback);
     }
 
     public void onDeviceSelected(BluetoothDevice device) {
