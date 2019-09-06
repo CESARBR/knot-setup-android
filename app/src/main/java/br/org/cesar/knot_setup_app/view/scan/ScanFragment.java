@@ -88,13 +88,13 @@ public class ScanFragment extends Fragment implements ViewModel {
 
     @Override
     public void onGatewayWifiConfiguration() {
-        Intent intent = new Intent(getActivity(), ConfigureGatewayWifiActivity.class);
+        Intent intent = new Intent(context, ConfigureGatewayWifiActivity.class);
         startActivity(intent);
     }
 
     @Override
     public void onThingSelected() {
-        Intent intent = new Intent(getActivity(), ConfigureDeviceActivity.class);
+        Intent intent = new Intent(context, ConfigureDeviceActivity.class);
         startActivity(intent);
     }
 
@@ -126,7 +126,7 @@ public class ScanFragment extends Fragment implements ViewModel {
         handler.post(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(getActivity(), getString(R.string.all_scan_failed), Toast.LENGTH_LONG).show();
+                Toast.makeText(context, getString(R.string.all_scan_failed), Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -136,9 +136,11 @@ public class ScanFragment extends Fragment implements ViewModel {
         LogWrapper.Log("callbackOnBluetoothPermissionRequired", Log.DEBUG);
         Intent intent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
         this.startActivity(intent);
-        ActivityCompat.requestPermissions(getActivity(),
-                new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                Constants.BLUETOOTH_PERMISSION_ID);
+        if(getActivity() != null){
+            ActivityCompat.requestPermissions(getActivity(),
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    Constants.BLUETOOTH_PERMISSION_ID);
+        }
     }
 
     @Override
