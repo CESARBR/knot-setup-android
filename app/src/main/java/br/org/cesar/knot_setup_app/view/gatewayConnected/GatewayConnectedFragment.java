@@ -82,8 +82,8 @@ public class GatewayConnectedFragment extends Fragment implements ViewModel {
 
     @Override
     public void setSearchingFeedback(int visibilty) {
-        TextView lookingForGateway = mView.findViewById(R.id.searching_for_gateway_text);
-        ProgressBar progressBar = mView.findViewById(R.id.searching_gateway_spinner);
+        TextView lookingForGateway = mView.findViewById(R.id.feedback_message);
+        ProgressBar progressBar = mView.findViewById(R.id.feedback_spinner);
         handler.post(new Runnable() {
             @Override
             public void run() {
