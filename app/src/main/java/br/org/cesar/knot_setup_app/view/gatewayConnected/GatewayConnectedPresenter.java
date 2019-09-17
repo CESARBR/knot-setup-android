@@ -49,6 +49,7 @@ public class GatewayConnectedPresenter implements Presenter {
 
                 LogWrapper.Log("Resolve Succeeded. " + serviceInfo, Log.DEBUG);
                 service.add(serviceInfo);
+                feedbackOfGatewayListState();
                 viewModel.onGatewaysFound(service);
                 if (serviceInfo.getServiceName().equals(Constants.DNS_SD_SERVICE_NAME)) {
                     LogWrapper.Log("Same IP.", Log.DEBUG);
@@ -85,6 +86,7 @@ public class GatewayConnectedPresenter implements Presenter {
     @Override
     public void onFocus() {
 
+        feedbackOfGatewayListState();
         // Instantiate a new DiscoveryListener
         if(discoveryListener == null) {
 
