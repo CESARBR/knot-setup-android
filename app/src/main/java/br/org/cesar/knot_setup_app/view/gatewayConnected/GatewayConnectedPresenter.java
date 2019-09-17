@@ -153,9 +153,9 @@ public class GatewayConnectedPresenter implements Presenter {
     private void feedbackOfGatewayListState() {
         LogWrapper.Log("isMserviceEmpty: " + service.isEmpty(), Log.DEBUG);
         if(service.isEmpty()) {
-            viewModel.setSearchingFeedback(View.INVISIBLE);
-        } else {
             viewModel.setSearchingFeedback(View.VISIBLE);
+        } else {
+            viewModel.setSearchingFeedback(View.INVISIBLE);
         }
 
     }
