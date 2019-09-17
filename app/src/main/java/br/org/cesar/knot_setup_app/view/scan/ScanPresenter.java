@@ -1,5 +1,13 @@
 package br.org.cesar.knot_setup_app.view.scan;
 
+import android.bluetooth.BluetoothAdapter;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.util.Log;
+import android.view.View;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -12,6 +20,7 @@ import br.org.cesar.knot_setup_app.view.scan.ScanContract.ViewModel;
 import br.org.cesar.knot_setup_app.model.BluetoothDevice;
 import br.org.cesar.knot_setup_app.utils.Constants;
 import br.org.cesar.knot_setup_app.wrapper.BluetoothWrapper;
+import br.org.cesar.knot_setup_app.wrapper.LogWrapper;
 
 public class ScanPresenter implements  Presenter {
 
@@ -19,15 +28,21 @@ public class ScanPresenter implements  Presenter {
     private BluetoothWrapper bluetoothWrapper;
     private List<BluetoothDevice> deviceList;
     private UUID service;
+    private BroadcastReceiver bluetoothBroadcastReceiver;
+    private Context context;
 
-    ScanPresenter(ViewModel viewModel, UUID service) {
+    ScanPresenter(ViewModel viewModel, UUID service, Context context) {
         this.viewModel = viewModel;
         this.bluetoothWrapper = KnotSetupApplication.getBluetoothWrapper();
         this.service = service;
+        setBluetoothBroadcastReceiver();
+        this.context = context;
     }
 
     @Override
     public void onFocus() {
+        IntentFilter filter = new IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED);
+        context.registerReceiver(bluetoothBroadcastReceiver, filter);
         //sets the UUID to be used by the bluetoothWrapper
         setUUID();
         //starts bluetooth scan
@@ -40,6 +55,7 @@ public class ScanPresenter implements  Presenter {
         stopScan();
         //clears the list with the found devices
         clearBluetoothDeviceList();
+        context.unregisterReceiver(bluetoothBroadcastReceiver);
     }
 
     private void setUUID() {
@@ -91,6 +107,37 @@ public class ScanPresenter implements  Presenter {
         } else if (service == Constants.OT_SETTINGS_SERVICE) {
             viewModel.onThingSelected();
         }
+    }
+
+    public void setBluetoothBroadcastReceiver() {
+        bluetoothBroadcastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                final String action = intent.getAction();
+                if (action.equals(BluetoothAdapter.ACTION_STATE_CHANGED)) {
+                    final int state = intent.getIntExtra(BluetoothAdapter.EXTRA_STATE, BluetoothAdapter.ERROR);
+                    switch(state) {
+                        case BluetoothAdapter.STATE_OFF:
+                            LogWrapper.Log("Bluetooth off", Log.DEBUG);
+                            viewModel.setBluetoothFeedback(View.VISIBLE);
+                            break;
+                        case BluetoothAdapter.STATE_TURNING_OFF:
+                            LogWrapper.Log("Bluetooth turning off", Log.DEBUG);
+                            clearBluetoothDeviceList();
+                            break;
+                        case BluetoothAdapter.STATE_ON:
+                            LogWrapper.Log("Bluetooth on", Log.DEBUG);
+                            startScan();
+                            break;
+                        case BluetoothAdapter.STATE_TURNING_ON:
+                            LogWrapper.Log("Bluetooth turning on", Log.DEBUG);
+                            viewModel.setBluetoothFeedback(View.INVISIBLE);
+                            break;
+                    }
+                }
+            }
+        };
+
     }
 
     private void clearBluetoothDeviceList() {

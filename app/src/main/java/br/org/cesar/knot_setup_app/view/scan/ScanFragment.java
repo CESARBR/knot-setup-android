@@ -2,10 +2,13 @@ package br.org.cesar.knot_setup_app.view.scan;
 
 import android.Manifest;
 import android.bluetooth.BluetoothAdapter;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -14,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -33,12 +37,21 @@ import br.org.cesar.knot_setup_app.wrapper.LogWrapper;
 public class ScanFragment extends Fragment implements ViewModel {
 
     private ListView deviceListView;
+    private TextView feedbackMessage;
 
     private ScanAdapter adapter;
     private Presenter presenter;
     private List<BluetoothDevice> deviceList;
     private UUID service;
     private Handler handler;
+    private Context context;
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        context = getContext().getApplicationContext();
+        presenter = new ScanPresenter(this, service, context);
+    }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_list, container,false);
@@ -46,8 +59,7 @@ public class ScanFragment extends Fragment implements ViewModel {
         deviceList = new ArrayList<>();
         adapter = new ScanAdapter(getActivity(), R.layout.item_device, deviceList);
         deviceListView = view.findViewById(R.id.list);
-
-        presenter = new ScanPresenter(this, service);
+        feedbackMessage = view.findViewById(R.id.feedback_message);
         handler = new Handler(Looper.getMainLooper());
 
         setupAdapter();
@@ -84,6 +96,17 @@ public class ScanFragment extends Fragment implements ViewModel {
     public void onThingSelected() {
         Intent intent = new Intent(getActivity(), ConfigureDeviceActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    public void setBluetoothFeedback(int visibility) {
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                feedbackMessage.setText(getString(R.string.scan_turn_bt_on));
+                feedbackMessage.setVisibility(visibility);
+            }
+        });
     }
 
     @Override

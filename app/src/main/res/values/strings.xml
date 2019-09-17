@@ -10,7 +10,7 @@
     <!-- Strings used in activity_scan_for_devices -->
     <string name="scan_label">Chose the KNoT gateway you want to connect with.</string>
     <string name="scanning">Looking for devices... </string>
-
+    <string name="scan_turn_bt_on">Please turn the bluetooth on.</string>
     <string name="bluetooth_device">Bluetooth setting THINGs up</string>
     <string name="loading">Loading... </string>
 
