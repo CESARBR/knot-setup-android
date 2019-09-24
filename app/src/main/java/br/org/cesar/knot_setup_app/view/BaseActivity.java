@@ -44,4 +44,11 @@ public abstract class BaseActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
     }
 
+    public void setTabBackground(int color) {
+        tabLayout.setBackgroundColor(color);
+    }
+
+    public void setTabIndicator(int color){
+        tabLayout.setSelectedTabIndicatorColor(color);
+    }
 }
