@@ -30,10 +30,10 @@ public class LoginPresenter implements Presenter{
         this.context = context;
 
         this.ip = dataManager.getInstance()
-                .getPreference().getSharedPreferenceString(context,"ip");
+                .getPreference().getSharedPreferenceString(context, Constants.GATEWAY_IP);
 
         this.port =
-                dataManager.getInstance().getPreference().getSharedPreferenceString(context, "port");
+                dataManager.getInstance().getPreference().getSharedPreferenceString(context, Constants.GATEWAY_PORT);
 
         this.request = "http://" + ip +":" + port +"/api/auth";
 
