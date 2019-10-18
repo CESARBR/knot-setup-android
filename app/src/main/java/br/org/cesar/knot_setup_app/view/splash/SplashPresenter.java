@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import br.org.cesar.knot_setup_app.utils.Constants;
 import br.org.cesar.knot_setup_app.view.splash.SplashContract.ViewModel;
 import br.org.cesar.knot_setup_app.view.splash.SplashContract.Presenter;
 import br.org.cesar.knot_setup_app.data.DataManager;
@@ -33,15 +34,15 @@ public class SplashPresenter implements Presenter{
 
         this.token = dataManager.getInstance()
                 .getPersistentPreference()
-                .getSharedPreferenceString(context,"token");
+                .getSharedPreferenceString(context, Constants.GATEWAY_TOKEN);
 
         this.ip = dataManager.getInstance()
                 .getPreference()
-                .getSharedPreferenceString(context,"ip");
+                .getSharedPreferenceString(context, Constants.GATEWAY_IP);
 
         this.port = dataManager.getInstance()
                 .getPreference()
-                .getSharedPreferenceString(context,"port");
+                .getSharedPreferenceString(context, Constants.GATEWAY_PORT);
 
         this.request = "http://" + ip +":" + port +  "/api/state";
     }

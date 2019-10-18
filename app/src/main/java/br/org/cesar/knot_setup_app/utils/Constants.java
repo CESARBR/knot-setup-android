@@ -53,6 +53,7 @@ public class Constants{
     //USER PREFERENCES KEYS
     public static final String GATEWAY_IP = "gateway_ip";
     public static final String GATEWAY_PORT = "gateway_port";
+    public static final String GATEWAY_TOKEN = "gateway_token";
 
     //KEYS FOR BUNDLES
     public static final String OPERATION = "operation";

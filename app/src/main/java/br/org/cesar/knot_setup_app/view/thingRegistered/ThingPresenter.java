@@ -28,14 +28,14 @@ public class  ThingPresenter implements Presenter{
 
         this.token = dataManager.getInstance()
                 .getPersistentPreference()
-                .getSharedPreferenceString(context,"token");
+                .getSharedPreferenceString(context, Constants.GATEWAY_TOKEN);
 
         this.ip = dataManager.getInstance()
                 .getPreference()
-                .getSharedPreferenceString(context,"ip");
+                .getSharedPreferenceString(context, Constants.GATEWAY_IP);
 
         this.port = dataManager.getInstance()
-                .getPreference().getSharedPreferenceString(context,"port");
+                .getPreference().getSharedPreferenceString(context, Constants.GATEWAY_PORT);
 
         this.request = "http://" + ip + ":" + port +"/api/devices";
     }
