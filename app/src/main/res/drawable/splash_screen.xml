@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
      <item
-         android:drawable="@color/colorWhite"/>
-     <item>
-         <bitmap
-             android:gravity="center"
-             android:src="@drawable/knot_logo"/>
-     </item>
+         android:drawable="@drawable/dark_green_to_light_green_gradient"/>
+
+     <item
+         android:gravity="center"
+         android:drawable="@drawable/white_knot_logo"
+         android:width="@dimen/intro_logo_width"
+         android:height="@dimen/intro_logo_height"/>
 </layer-list>
