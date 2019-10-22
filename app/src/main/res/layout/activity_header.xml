@@ -51,7 +51,11 @@
             android:id="@+id/tabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/list_title" />
+            app:layout_constraintTop_toBottomOf="@+id/list_title"
+            app:tabBackground="@color/colorWhite"
+            app:tabIndicatorColor="@color/colorKnotGreen"
+            app:tabTextColor="@color/colorGrey"
+            app:tabSelectedTextColor="@color/colorKnotGreen"/>
 
     </android.support.constraint.ConstraintLayout>
 
