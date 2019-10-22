@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="text_size_subtitle">16sp</dimen>
+    <dimen name="intro_logo_height">250dp</dimen>
+    <dimen name="intro_logo_width">250dp</dimen>
 </resources>
