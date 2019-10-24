@@ -11,6 +11,9 @@ public class Constants{
     public static final UUID MASTER_KEY_CHARACTERISTIC = UUID.fromString("a8a9e49c-aa9a-d441-9bec-817bb4900d35");
     public static final UUID IPV6_SERVICE = UUID.fromString("49601183-5db4-498b-b35a-e6ddbe1c1470");
     public static final UUID IPV6_CHARACTERISTIC = UUID.fromString("49601183-5db4-498b-b35a-e6ddbe1c1471");
+    public static final UUID RESET_SERVICE = UUID.fromString("81418ff3-7cc8-939a-644a-7405fb2bba70");
+    public static final UUID RESET_CHARACTERISTIC = UUID.fromString("81418ff3-7cc8-939a-644a-7405fb2bba71");
+    public static final String RESET_VALUE = "1";
 
     public static final UUID OT_SETTINGS_SERVICE_GATEWAY = UUID.fromString("a8a9e49c-aa9a-d441-9bec-817bb4900e30");
     public static final UUID CHANNEL_CHARACTERISTIC_GATEWAY = UUID.fromString("a8a9e49c-aa9a-d441-9bec-817bb4900d31");

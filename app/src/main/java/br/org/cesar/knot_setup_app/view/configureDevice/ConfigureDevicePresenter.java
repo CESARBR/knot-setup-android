@@ -284,6 +284,11 @@ public class ConfigureDevicePresenter implements Presenter{
                 value = getValue("ipv6");
                 LogWrapper.Log("ipv6= " + value, Log.DEBUG);
                 writeWrapper(Constants.IPV6_SERVICE,Constants.IPV6_CHARACTERISTIC,value);
+                break;
+            case 6:
+                valueBytes = stringToByteArrLittleEndian(Constants.RESET_VALUE, Constants.CHANNEL_CHARACTERISTIC_BYTE_SIZE);
+                LogWrapper.Log("restart= " + valueBytes, Log.DEBUG);
+                writeWrapper(Constants.RESET_SERVICE, Constants.RESET_CHARACTERISTIC, valueBytes);
                 writeDone = true;
         }
 
