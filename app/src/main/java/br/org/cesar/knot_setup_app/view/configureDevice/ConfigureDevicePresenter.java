@@ -59,14 +59,14 @@ public class ConfigureDevicePresenter implements Presenter{
         String bearer,ip,port,request;
         bearer = dataManager.getInstance()
                 .getPersistentPreference()
-                .getSharedPreferenceString(context,"token");
+                .getSharedPreferenceString(context, Constants.GATEWAY_TOKEN);
 
         ip = dataManager.getInstance()
                 .getPreference()
-                .getSharedPreferenceString(context,"ip");
+                .getSharedPreferenceString(context, Constants.GATEWAY_IP);
 
         port = dataManager.getInstance()
-                .getPreference().getSharedPreferenceString(context,"port");
+                .getPreference().getSharedPreferenceString(context, Constants.GATEWAY_PORT);
 
         request = "http://" + ip + ":" + port +"/api/radio/openthread";
         LogWrapper.Log("bearer= " + bearer, Log.DEBUG);

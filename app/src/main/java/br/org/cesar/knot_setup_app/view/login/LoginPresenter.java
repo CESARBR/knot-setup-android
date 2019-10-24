@@ -74,7 +74,7 @@ public class LoginPresenter implements Presenter{
                 .setSharedPreferenceString(context, "email",email);
 
         dataManager.getInstance().getPersistentPreference()
-                .setSharedPreferenceString(context,"token","Bearer " + user.getToken());
+                .setSharedPreferenceString(context, Constants.GATEWAY_TOKEN,"Bearer " + user.getToken());
 
         mViewModel.onLogin();
     }
