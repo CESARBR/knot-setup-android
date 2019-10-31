@@ -24,8 +24,9 @@ public class ConfigureGatewayWifiActivity extends BaseActivity {
         setupHeader(getString(R.string.configure_gateway_wifi_header_title), tabs);
 
         int backgroundColor = getResources().getColor(R.color.colorKnotGreen);
+        int tabSelectedTextColor = getResources().getColor(R.color.colorWhite);
         setTabBackground(backgroundColor);
-        setTabIndicator(backgroundColor);
+        setTabTextColor(backgroundColor, tabSelectedTextColor);
     }
 
 }

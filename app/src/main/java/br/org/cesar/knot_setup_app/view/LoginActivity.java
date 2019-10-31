@@ -27,8 +27,9 @@ public class LoginActivity extends BaseActivity {
             setupHeader(getString(R.string.login_header_title),tabs);
 
             int backgroundColor = getResources().getColor(R.color.colorKnotGreen);
+            int tabSelectedTextColor = getResources().getColor(R.color.colorWhite);
             setTabBackground(backgroundColor);
-            setTabIndicator(backgroundColor);
+            setTabTextColor(backgroundColor, tabSelectedTextColor);
     }
 
 }

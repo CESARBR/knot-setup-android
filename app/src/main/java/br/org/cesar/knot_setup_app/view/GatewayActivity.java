@@ -35,6 +35,11 @@ public class GatewayActivity extends BaseActivity {
         tabs.add(configureWiFiTab);
         tabs.add(gatewayConnectedTab);
 
+        int backgroundColor = getResources().getColor(R.color.colorWhite);
+        int tabIndicatorColor = getResources().getColor(R.color.colorKnotGreen);
+        setTabBackground(backgroundColor);
+        setTabIndicator(tabIndicatorColor);
+
         setupHeader(getString(R.string.gateway_header_title), tabs);
     }
 
