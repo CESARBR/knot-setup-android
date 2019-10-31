@@ -42,6 +42,9 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         viewPager.setAdapter(pageAdapter);
         tabLayout.setupWithViewPager(viewPager);
+
+        int farthestTabToTheRight = tabs.size() - 1;
+        tabLayout.getTabAt(farthestTabToTheRight).select();
     }
 
     public void setTabBackground(int color) {
