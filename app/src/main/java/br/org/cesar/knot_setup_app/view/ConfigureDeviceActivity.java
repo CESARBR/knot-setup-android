@@ -21,6 +21,9 @@ public class ConfigureDeviceActivity extends BaseActivity {
         tabs.add(tab);
 
         setupHeader(getString(R.string.configure_device_header_title), tabs);
+
+        int textColor = getResources().getColor(R.color.colorWhite);
+        setTextColor(textColor);
     }
 
 }
