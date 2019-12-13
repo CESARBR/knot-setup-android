@@ -48,6 +48,10 @@ public abstract class BaseActivity extends AppCompatActivity {
         tabLayout.setBackgroundColor(color);
     }
 
+    public void setTextColor(int color) {
+        tabLayout.setTabTextColors(color, color);
+    }
+
     public void setTabIndicator(int color){
         tabLayout.setSelectedTabIndicatorColor(color);
     }

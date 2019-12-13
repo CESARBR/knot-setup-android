@@ -36,6 +36,9 @@ public class GatewayActivity extends BaseActivity {
         tabs.add(gatewayConnectedTab);
 
         setupHeader(getString(R.string.gateway_header_title), tabs);
+
+        int backgroundColor = getResources().getColor(R.color.colorWhite);
+        setTabBackground(backgroundColor);
     }
 
 }

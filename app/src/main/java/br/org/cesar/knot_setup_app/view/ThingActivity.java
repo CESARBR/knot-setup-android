@@ -33,6 +33,9 @@ public class ThingActivity extends BaseActivity {
         tabs.add(thingRegisteredTab);
 
         setupHeader(getString(R.string.thing_header_title), tabs);
+
+        int backgroundColor = getResources().getColor(R.color.colorWhite);
+        setTabBackground(backgroundColor);
     }
 
 }
