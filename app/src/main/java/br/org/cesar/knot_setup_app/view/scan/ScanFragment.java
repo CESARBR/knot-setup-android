@@ -34,6 +34,9 @@ import br.org.cesar.knot_setup_app.model.BluetoothDevice;
 import br.org.cesar.knot_setup_app.utils.Constants;
 import br.org.cesar.knot_setup_app.wrapper.LogWrapper;
 
+import static br.org.cesar.knot_setup_app.utils.Constants.GATEWAY_NAME;
+import static br.org.cesar.knot_setup_app.utils.Constants.THING_NAME;
+
 public class ScanFragment extends Fragment implements ViewModel {
 
     private ListView deviceListView;
@@ -87,14 +90,16 @@ public class ScanFragment extends Fragment implements ViewModel {
     }
 
     @Override
-    public void onGatewayWifiConfiguration() {
+    public void onGatewayWifiConfiguration(String gatewayName) {
         Intent intent = new Intent(context, ConfigureGatewayWifiActivity.class);
+        intent.putExtra(GATEWAY_NAME, gatewayName);
         startActivity(intent);
     }
 
     @Override
-    public void onThingSelected() {
+    public void onThingSelected(String thingName) {
         Intent intent = new Intent(context, ConfigureDeviceActivity.class);
+        intent.putExtra(THING_NAME, thingName);
         startActivity(intent);
     }
 

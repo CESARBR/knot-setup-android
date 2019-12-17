@@ -8,6 +8,8 @@ import br.org.cesar.knot_setup_app.R;
 import br.org.cesar.knot_setup_app.view.configureDevice.ConfigureDeviceFragment;
 import br.org.cesar.knot_setup_app.model.Tab;
 
+import static br.org.cesar.knot_setup_app.utils.Constants.THING_NAME;
+
 public class ConfigureDeviceActivity extends BaseActivity {
 
     private ArrayList<Tab> tabs;
@@ -17,7 +19,8 @@ public class ConfigureDeviceActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         tabs = new ArrayList<>();
-        Tab tab = new Tab(getString(R.string.configure_device_tab_name), new ConfigureDeviceFragment());
+        String thingName = getIntent().getStringExtra(THING_NAME);
+        Tab tab = new Tab(thingName, new ConfigureDeviceFragment());
         tabs.add(tab);
 
         setupHeader(getString(R.string.configure_device_header_title), tabs);
