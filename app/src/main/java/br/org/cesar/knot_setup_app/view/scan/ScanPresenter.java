@@ -125,9 +125,9 @@ public class ScanPresenter implements  Presenter {
         KnotSetupApplication.setBluetoothDevice(device);
 
         if(service == Constants.WIFI_CONFIGURATION_SERVICE_GATEWAY) {
-            viewModel.onGatewayWifiConfiguration();
+            viewModel.onGatewayWifiConfiguration(device.getDevice().getName());
         } else if (service == Constants.OT_SETTINGS_SERVICE) {
-            viewModel.onThingSelected();
+            viewModel.onThingSelected(device.getDevice().getName());
         }
     }
 

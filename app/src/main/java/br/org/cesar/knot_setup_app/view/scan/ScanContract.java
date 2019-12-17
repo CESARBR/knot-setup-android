@@ -12,8 +12,8 @@ public interface ScanContract {
         void onDeviceFound(List<BluetoothDevice> deviceList);
         void onScanFail();
         void onBluetoothPermissionRequired();
-        void onGatewayWifiConfiguration();
-        void onThingSelected();
+        void onGatewayWifiConfiguration(String gatewayName);
+        void onThingSelected(String thingName);
         void setBluetoothFeedback(int visibility);
     }
 

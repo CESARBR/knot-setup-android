@@ -60,4 +60,7 @@ public class Constants{
 
     //KEYS FOR BUNDLES
     public static final String OPERATION = "operation";
+    public static final String GATEWAY_NAME = "gateway_name";
+    public static final String THING_NAME = "thing_name";
+
 }
